@@ -1788,10 +1788,10 @@ body::before {
       <h2>Let's build something <em>impactful</em> together.</h2>
       <p>I welcome your feedback and inquiries. Whether you have questions or would like to share ideas, please feel free to reach out — I look forward to our communication.</p>
       <div class="contact-btns">
-        <button class="contact-btn" type="button" id="copyEmailBtn" data-email="ghoshsudeep27@gmail.com">
+        <a class="contact-btn" href="javascript:void(0)" onclick="copyEmail(this)" data-email="ghoshsudeep27@gmail.com">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           <span class="contact-btn__label">Email</span>
-        </button>
+        </a>
         <a class="contact-btn contact-btn--gold" href="https://www.linkedin.com/in/sudeep-ghosh" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           LinkedIn
@@ -2516,59 +2516,38 @@ body::before {
 })();
 
 // ===== Copy Email to Clipboard =====
-(function() {
-  var btn = document.getElementById('copyEmailBtn');
-  if (!btn) return;
-  var label = btn.querySelector('.contact-btn__label');
-  var originalHTML = label.innerHTML;
-  var email = btn.dataset.email;
-  var isShowing = false;
-
-  btn.addEventListener('click', function() {
-    if (isShowing) return;
-    isShowing = true;
-
-    // Show feedback immediately
-    label.innerHTML = 'Copied!';
-    label.style.color = '#ffffff';
-    label.style.fontWeight = '700';
-    btn.style.backgroundColor = '#2ecc71';
-    btn.style.color = '#ffffff';
-
-    // Attempt clipboard copy in background
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(email).catch(function() { fallbackCopy(); });
-      } else {
-        fallbackCopy();
-      }
-    } catch(e) {
-      fallbackCopy();
-    }
-
-    function fallbackCopy() {
-      var ta = document.createElement('textarea');
-      ta.value = email;
-      ta.style.position = 'fixed';
-      ta.style.top = '-9999px';
-      document.body.appendChild(ta);
-      ta.focus();
-      ta.select();
-      try { document.execCommand('copy'); } catch(e) {}
-      document.body.removeChild(ta);
-    }
-
-    // Revert after 2.5 seconds
-    setTimeout(function() {
-      label.innerHTML = originalHTML;
-      label.style.color = '';
-      label.style.fontWeight = '';
-      btn.style.backgroundColor = '';
-      btn.style.color = '';
-      isShowing = false;
-    }, 2500);
-  });
-})();
+function copyEmail(el) {
+  var label = el.querySelector('.contact-btn__label');
+  var email = el.getAttribute('data-email');
+  var origText = label.textContent;
+  
+  // Show feedback
+  label.textContent = 'Copied!';
+  label.style.color = '#ffffff';
+  label.style.fontWeight = '700';
+  el.style.backgroundColor = '#2ecc71';
+  el.style.color = '#ffffff';
+  
+  // Copy to clipboard
+  var ta = document.createElement('textarea');
+  ta.value = email;
+  ta.style.position = 'fixed';
+  ta.style.top = '-9999px';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+  
+  // Revert after 2.5 seconds
+  setTimeout(function() {
+    label.textContent = origText;
+    label.style.color = '';
+    label.style.fontWeight = '';
+    el.style.backgroundColor = '';
+    el.style.color = '';
+  }, 2500);
+}
 
 </script>
 
