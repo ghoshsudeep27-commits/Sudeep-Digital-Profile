@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Main page (the full profile) -->
+  <url>
+    <loc>https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Overview / Hero -->
+  <url>
+    <loc>https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/#s1</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Mission & Approach -->
+  <url>
+    <loc>https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/#s2</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Training Sessions Offered -->
+  <url>
+    <loc>https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/#s3</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Training Photo Gallery -->
+  <url>
+    <loc>https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/#s4</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Press & Media Coverage -->
+  <url>
+    <loc>https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/#s5</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Testimonials -->
+  <url>
+    <loc>https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/#s6</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Professional Experience -->
+  <url>
+    <loc>https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/#s7</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Credentials & Qualifications -->
+  <url>
+    <loc>https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/#s8</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- On-the-Job Training -->
+  <url>
+    <loc>https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/#s9</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Off-the-Job Training -->
+  <url>
+    <loc>https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/#s10</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Let's Connect / Contact -->
+  <url>
+    <loc>https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/#s11</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+</urlset>
