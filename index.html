@@ -761,7 +761,8 @@ body::before {
   color: var(--bg); background: var(--accent); text-decoration: none;
   padding: 13px 24px; border-radius: 100px; letter-spacing: 0.5px;
   box-shadow: 0 0 24px rgba(56,200,200,0.4), 0 4px 14px rgba(0,0,0,0.3);
-  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+  border: none; cursor: pointer; font: inherit;
 }
 .contact-btn:hover { transform: translateY(-2px); box-shadow: 0 0 34px rgba(56,200,200,0.6), 0 6px 18px rgba(0,0,0,0.35); }
 .contact-btn svg { width: 16px; height: 16px; }
@@ -1152,25 +1153,19 @@ body::before {
       <div class="hero__decor" aria-hidden="true">
         <div class="ai-badge">
           <svg viewBox="0 0 240 240" class="ai-badge__svg">
-            <!-- Outer rotating ring (clockwise) -->
             <g class="spin-cw">
               <circle class="ring" cx="120" cy="120" r="112"/>
               <circle class="dash-ring" cx="120" cy="120" r="112" pathLength="100"/>
             </g>
-            <!-- Middle rotating ring (counter-clockwise) -->
             <g class="spin-ccw">
               <circle class="ring ring-2" cx="120" cy="120" r="88"/>
               <circle class="orbit" cx="120" cy="32" r="4"/>
               <circle class="orbit orbit-2" cx="208" cy="120" r="3"/>
             </g>
-            <!-- Inner static ring -->
             <circle class="ring ring-3" cx="120" cy="120" r="64"/>
-            <!-- Glowing core circle -->
             <circle class="core" cx="120" cy="120" r="8"/>
-            <!-- Pulse rings -->
             <circle class="pulse-ring" cx="120" cy="120" r="8"/>
             <circle class="pulse-ring pulse-ring--2" cx="120" cy="120" r="8"/>
-            <!-- Tick marks -->
             <line class="tick" x1="120" y1="6" x2="120" y2="20"/>
             <line class="tick" x1="120" y1="220" x2="120" y2="234"/>
             <line class="tick" x1="6" y1="120" x2="20" y2="120"/>
@@ -1790,10 +1785,10 @@ body::before {
       <h2>Let's build something <em>impactful</em> together.</h2>
       <p>I welcome your feedback and inquiries. Whether you have questions or would like to share ideas, please feel free to reach out — I look forward to our communication.</p>
       <div class="contact-btns">
-        <a class="contact-btn" href="mailto:ghoshsudeep27@gmail.com">
+        <button class="contact-btn" type="button" id="copyEmailBtn" data-email="ghoshsudeep27@gmail.com">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Email
-        </a>
+          <span class="contact-btn__label">Email</span>
+        </button>
         <a class="contact-btn contact-btn--gold" href="https://www.linkedin.com/in/sudeep-ghosh" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           LinkedIn
@@ -1807,7 +1802,7 @@ body::before {
           Save Contact
         </a>
       </div>
-      <p class="contact-hint">Email · LinkedIn · WhatsApp &nbsp;·&nbsp; +91 76987 09916</p>
+      <p class="contact-hint"><a href="mailto:ghoshsudeep27@gmail.com" style="color: inherit; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 2px;">ghoshsudeep27@gmail.com</a> · <a href="https://www.linkedin.com/in/sudeep-ghosh" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline; text-decoration-color: var(--accent-2); text-underline-offset: 2px;">LinkedIn</a> · <a href="https://wa.me/917698709916" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline; text-decoration-color: var(--accent-3); text-underline-offset: 2px;">WhatsApp</a> &nbsp;·&nbsp; +91 76987 09916</p>
 
       <!-- Contact Form -->
       <div class="contact-form">
@@ -2516,6 +2511,58 @@ body::before {
     btn.textContent = btnText;
   });
 })();
+
+// ===== Copy Email to Clipboard =====
+(function() {
+  var btn = document.getElementById('copyEmailBtn');
+  if (!btn) return;
+  var label = btn.querySelector('.contact-btn__label');
+  var originalHTML = label.innerHTML;
+  var email = btn.dataset.email;
+  var originalBg = btn.style.backgroundColor;
+  var originalColor = btn.style.color;
+
+  btn.addEventListener('click', function() {
+    function doCopy() {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(showCopied, function() { fallbackCopy(); });
+      } else {
+        fallbackCopy();
+      }
+    }
+
+    function fallbackCopy() {
+      var ta = document.createElement('textarea');
+      ta.value = email;
+      ta.style.position = 'fixed';
+      ta.style.top = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand('copy'); } catch(e) {}
+      document.body.removeChild(ta);
+      showCopied();
+    }
+
+    function showCopied() {
+      label.innerHTML = 'Copied!';
+      label.style.color = '#ffffff';
+      label.style.fontWeight = '700';
+      btn.style.backgroundColor = '#2ecc71';
+      btn.style.color = '#ffffff';
+      setTimeout(function() {
+        label.innerHTML = originalHTML;
+        label.style.color = '';
+        label.style.fontWeight = '';
+        btn.style.backgroundColor = originalBg;
+        btn.style.color = originalColor;
+      }, 2500);
+    }
+
+    doCopy();
+  });
+})();
+
 </script>
 
 </body>
