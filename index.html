@@ -2519,16 +2519,28 @@ body::before {
   var label = btn.querySelector('.contact-btn__label');
   var originalHTML = label.innerHTML;
   var email = btn.dataset.email;
-  var originalBg = btn.style.backgroundColor;
-  var originalColor = btn.style.color;
+  var isShowing = false;
 
   btn.addEventListener('click', function() {
-    function doCopy() {
+    if (isShowing) return;
+    isShowing = true;
+
+    // Show feedback immediately
+    label.innerHTML = 'Copied!';
+    label.style.color = '#ffffff';
+    label.style.fontWeight = '700';
+    btn.style.backgroundColor = '#2ecc71';
+    btn.style.color = '#ffffff';
+
+    // Attempt clipboard copy in background
+    try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(email).then(showCopied, function() { fallbackCopy(); });
+        navigator.clipboard.writeText(email).catch(function() { fallbackCopy(); });
       } else {
         fallbackCopy();
       }
+    } catch(e) {
+      fallbackCopy();
     }
 
     function fallbackCopy() {
@@ -2541,25 +2553,17 @@ body::before {
       ta.select();
       try { document.execCommand('copy'); } catch(e) {}
       document.body.removeChild(ta);
-      showCopied();
     }
 
-    function showCopied() {
-      label.innerHTML = 'Copied!';
-      label.style.color = '#ffffff';
-      label.style.fontWeight = '700';
-      btn.style.backgroundColor = '#2ecc71';
-      btn.style.color = '#ffffff';
-      setTimeout(function() {
-        label.innerHTML = originalHTML;
-        label.style.color = '';
-        label.style.fontWeight = '';
-        btn.style.backgroundColor = originalBg;
-        btn.style.color = originalColor;
-      }, 2500);
-    }
-
-    doCopy();
+    // Revert after 2.5 seconds
+    setTimeout(function() {
+      label.innerHTML = originalHTML;
+      label.style.color = '';
+      label.style.fontWeight = '';
+      btn.style.backgroundColor = '';
+      btn.style.color = '';
+      isShowing = false;
+    }, 2500);
   });
 })();
 
