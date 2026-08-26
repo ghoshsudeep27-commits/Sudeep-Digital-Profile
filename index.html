@@ -2429,6 +2429,8 @@ body::before {
       }
     }
     
+    // Reverse so newest (highest-numbered) images appear first
+    images.reverse();
     images.forEach((src, idx) => {
       const slide = document.createElement('div');
       slide.className = 'carousel__slide';
