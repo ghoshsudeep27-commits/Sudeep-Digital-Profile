@@ -2830,6 +2830,10 @@ body::before {
         success.textContent = 'Thank you! Your message has been sent. I\'ll get back to you soon.';
         form.reset();
         setTimeout(() => success.classList.remove('show'), 6000);
+      } else if (res.status === 422) {
+        // Formspree CAPTCHA redirect — fall back to standard form submit
+        form.removeEventListener('submit', arguments.callee);
+        form.submit();
       } else {
         const errData = await res.json().catch(() => ({}));
         success.classList.add('show');
@@ -2839,9 +2843,8 @@ body::before {
         setTimeout(() => success.classList.remove('show'), 6000);
       }
     } catch (err) {
-      success.classList.add('show');
-      success.textContent = 'Network error — please check your connection and try again.';
-      setTimeout(() => success.classList.remove('show'), 6000);
+      // Network error — fall back to standard form submit
+      form.submit();
     }
 
     btn.disabled = false;
