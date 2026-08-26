@@ -1917,6 +1917,7 @@ body::before {
         <form id="contactForm" action="https://formspree.io/f/mljrazbd" method="POST">
           <input type="hidden" name="_subject" value="New inquiry from your Digital Profile">
           <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/?_success=1">
           <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
           <div class="form-row">
             <div class="form-field">
@@ -2805,51 +2806,23 @@ body::before {
   });
 })();
 
-// ===== Contact Form (Formspree AJAX) =====
+// ===== Contact Form (Standard HTML Submit) =====
+// Formspree handles CAPTCHA and redirects back after submission.
+// No AJAX — the form submits natively, Formspree shows CAPTCHA if needed,
+// then redirects back to this page with a _success query parameter.
 (function() {
-  const form = document.getElementById('contactForm');
-  const success = document.getElementById('formSuccess');
-  const btn = form.querySelector('button[type="submit"]');
-  const btnText = btn.textContent;
-
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    btn.disabled = true;
-    btn.textContent = 'Sending...';
-
-    try {
-      const data = new FormData(form);
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (res.ok) {
-        success.classList.add('show');
-        success.textContent = 'Thank you! Your message has been sent. I\'ll get back to you soon.';
-        form.reset();
-        setTimeout(() => success.classList.remove('show'), 6000);
-      } else if (res.status === 422) {
-        // Formspree CAPTCHA redirect — fall back to standard form submit
-        form.removeEventListener('submit', arguments.callee);
-        form.submit();
-      } else {
-        const errData = await res.json().catch(() => ({}));
-        success.classList.add('show');
-        success.textContent = errData.errors
-          ? errData.errors.map(er => er.message).join(', ')
-          : 'Something went wrong. Please try again or email me directly.';
-        setTimeout(() => success.classList.remove('show'), 6000);
-      }
-    } catch (err) {
-      // Network error — fall back to standard form submit
-      form.submit();
+  // Check for Formspree success redirect
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('_success') === '1') {
+    var success = document.getElementById('formSuccess');
+    if (success) {
+      success.classList.add('show');
+      success.textContent = 'Thank you! Your message has been sent. I\'ll get back to you soon.';
+      setTimeout(function() { success.classList.remove('show'); }, 6000);
+      // Clean the URL
+      window.history.replaceState({}, document.title, window.location.pathname);
     }
-
-    btn.disabled = false;
-    btn.textContent = btnText;
-  });
+  }
 })();
 
 // ===== Copy Email to Clipboard =====
