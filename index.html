@@ -230,6 +230,11 @@ body::before {
 .stat__value--blue { color: var(--accent-3); }
 .stat__label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.3px; color: var(--text-dim); margin-top: 8px; }
 
+/* Hero CTA button */
+.hero__cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; padding: 12px 24px; font-family: var(--font-mono); font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--bg); background: linear-gradient(135deg, var(--accent), var(--accent-3)); border: none; border-radius: 10px; cursor: pointer; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(56,200,200,0.3); }
+.hero__cta:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(56,200,200,0.45); }
+.hero__cta svg { width: 16px; height: 16px; }
+
 .hero__decor { position: absolute; top: 60px; right: 0; width: 240px; height: 240px; pointer-events: none; opacity: 1; overflow: visible; }
 .hero__decor svg { width: 100%; height: 100%; }
 .hero__decor .ring { fill: none; stroke: var(--accent); stroke-width: 1; }
@@ -1281,9 +1286,8 @@ body::before {
 <a href="#s7"><span class="num">07</span> Testimonials</a>
 <a href="#s8"><span class="num">08</span> Experience</a>
 <a href="#s9"><span class="num">09</span> Credentials</a>
-<a href="#s10"><span class="num">10</span> On-Job Training</a>
-<a href="#s11"><span class="num">11</span> Off-Job Training</a>
-<a href="#s12"><span class="num">12</span> Connect</a>
+<a href="#s10"><span class="num">10</span> Training & Dev</a>
+<a href="#s11"><span class="num">11</span> Connect</a>
     <div class="toc-foot"><span class="dot"></span>System Online</div>
   </nav>
 
@@ -1326,22 +1330,26 @@ body::before {
 
       <div class="hero__stats">
         <div class="stat reveal-scale" style="--i:3">
-          <div class="stat__value" data-count="10" data-suffix="+ hrs">0</div>
+          <div class="stat__value" data-count="10" data-suffix="+ hrs">10+ hrs</div>
           <div class="stat__label">Saved Weekly</div>
         </div>
         <div class="stat reveal-scale" style="--i:4">
-          <div class="stat__value stat__value--gold" data-count="7" data-suffix="">0</div>
+          <div class="stat__value stat__value--gold" data-count="7" data-suffix="">7</div>
           <div class="stat__label">Organizations</div>
         </div>
         <div class="stat reveal-scale" style="--i:5">
-          <div class="stat__value stat__value--blue" data-count="10" data-suffix="+">0</div>
+          <div class="stat__value stat__value--blue" data-count="10" data-suffix="+">10+</div>
           <div class="stat__label">Certifications</div>
         </div>
         <div class="stat reveal-scale" style="--i:6">
-          <div class="stat__value" data-count="13" data-suffix="">0</div>
+          <div class="stat__value" data-count="13" data-suffix="">13</div>
           <div class="stat__label">Training Topics</div>
         </div>
       </div>
+      <a class="hero__cta reveal-scale" style="--i:7" href="#contact-form" onclick="document.getElementById('contactForm').scrollIntoView({behavior:'smooth'});return false;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        Enquire about Training
+      </a>
     </section>
 
     
@@ -1688,14 +1696,16 @@ body::before {
 
     
 
-<!-- ===== On-Job Training ===== -->
+<!-- ===== Training & Development ===== -->
     <div class="sec-head" id="s10">
       <span class="sec-head__num">10</span>
-      <h2 class="sec-head__title">On-the-Job Training</h2>
+      <h2 class="sec-head__title">Training & Development</h2>
       <div class="sec-head__line"></div>
-      <span class="sec-head__tag">Applied Learning</span>
+      <span class="sec-head__tag">Applied & Certified</span>
     </div>
-    <div class="split-grid">
+
+    <h3 style="font-family:var(--font-display);font-size:18px;color:var(--accent);margin:24px 0 16px;padding-left:4px">On-the-Job Training</h3>
+<div class="split-grid">
       <div class="split-col reveal" style="--i:0">
         <h3>Aditya Birla Group</h3>
         <div class="train-item"><p class="train-item__title">DuPont Safety Standards</p><p class="train-item__meta">UltraTech Cement · Aditya Birla Group</p></div>
@@ -1714,14 +1724,10 @@ body::before {
 
     
 
-<!-- ===== Off-Job Training ===== -->
-    <div class="sec-head" id="s11">
-      <span class="sec-head__num">11</span>
-      <h2 class="sec-head__title">Off-the-Job Training</h2>
-      <div class="sec-head__line"></div>
-      <span class="sec-head__tag">Certified Programs</span>
-    </div>
-    <div class="split-grid">
+
+
+    <h3 style="font-family:var(--font-display);font-size:18px;color:var(--accent-2);margin:32px 0 16px;padding-left:4px">Off-the-Job Training</h3>
+<div class="split-grid">
       <div class="split-col split-col--off reveal" style="--i:0">
         <h3>External Certifications</h3>
         <div class="train-item"><p class="train-item__title">Generative AI for Everyone</p><p class="train-item__meta">Indo-German Tool Room, Indore · MSME India</p></div>
@@ -1740,8 +1746,8 @@ body::before {
     
 
 <!-- ===== Contact ===== -->
-    <div class="sec-head" id="s12">
-      <span class="sec-head__num">12</span>
+    <div class="sec-head" id="s11">
+      <span class="sec-head__num">11</span>
       <h2 class="sec-head__title">Let's Connect</h2>
       <div class="sec-head__line"></div>
       <span class="sec-head__tag">Contact</span>
