@@ -1346,7 +1346,7 @@ body::before {
           <div class="stat__label">Training Topics</div>
         </div>
       </div>
-      <a class="hero__cta reveal-scale" style="--i:7" href="#contact-form" onclick="document.getElementById('contactForm').scrollIntoView({behavior:'smooth'});return false;">
+      <a class="hero__cta reveal-scale" style="--i:7" href="#contact-form" onclick="smoothScrollTo('contactForm');return false;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         Enquire about Training
       </a>
@@ -1757,7 +1757,7 @@ body::before {
       <h2>Let's build something <em>impactful</em> together.</h2>
       <p>I welcome your feedback and inquiries. Whether you have questions or would like to share ideas, please feel free to reach out — I look forward to our communication.</p>
       <div class="contact-btns">
-        <a class="contact-btn" href="#contact-form" onclick="document.getElementById('contactForm').scrollIntoView({behavior:'smooth'});return false;">
+        <a class="contact-btn" href="#contact-form" onclick="smoothScrollTo('contactForm');return false;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           <span class="contact-btn__label">Email</span>
         </a>
@@ -2448,6 +2448,17 @@ body::before {
   }, { threshold: 0.5 });
   counters.forEach(c => countObserver.observe(c));
 })();
+
+// ===== Smooth Scroll Helper =====
+// Robust scroll that accounts for the sticky clock bar and is immune to layout shifts.
+function smoothScrollTo(targetId) {
+  var el = document.getElementById(targetId);
+  if (!el) return;
+  var bar = document.querySelector('.clock-bar');
+  var offset = bar ? bar.offsetHeight + 12 : 0;
+  var targetY = el.getBoundingClientRect().top + window.pageYOffset - offset;
+  window.scrollTo({ top: targetY, behavior: 'smooth' });
+}
 
 // ===== Back to Top =====
 (function() {
