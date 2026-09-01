@@ -1,9 +1,0 @@
-# robots.txt — Sudeep Ghosh Digital Profile
-# Tell search engines what to crawl and what to ignore.
-
-# Allow all crawlers full access
-User-agent: *
-Allow: /
-
-# Point search engines to the sitemap
-Sitemap: https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/sitemap.xml
