@@ -163,12 +163,12 @@ body::before {
 .toc-title { font-family: var(--font-mono); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim); padding: 0 0 10px; margin-bottom: 6px; }
 .toc a {
   display: flex; align-items: center; gap: 8px;
-  font-size: 13px; color: var(--text-dim); text-decoration: none;
+  font-size: 15px; color: var(--text-dim); text-decoration: none;
   padding: 5px 10px; border-radius: 6px; border-left: 2px solid transparent;
   transition: color 0.18s, background 0.18s, border-color 0.18s;
   line-height: 1.35; font-weight: 500;
 }
-.toc a .num { font-family: var(--font-mono); font-size: 9px; color: var(--accent); opacity: 0.7; flex-shrink: 0; }
+.toc a .num { font-family: var(--font-mono); font-size: 11px; color: var(--accent); opacity: 0.7; flex-shrink: 0; }
 .toc a:hover { color: var(--text); background: var(--surface); }
 .toc a.active { color: var(--text-bright); border-left-color: var(--accent); background: rgba(56,200,200,0.06); }
 
@@ -1067,20 +1067,90 @@ body::before {
 }
 
 /* ===== Responsive ===== */
+
+/* ===== TOC Collapsible Toggle ===== */
+.toc-toggle{
+  display:flex;align-items:center;gap:10px;width:100%;
+  padding:12px 14px;border-radius:10px;cursor:pointer;
+  background:linear-gradient(135deg,rgba(56,200,200,.08),rgba(91,141,239,.06));
+  border:1px solid var(--border);position:relative;overflow:hidden;
+  transition:border-color .2s,box-shadow .2s,transform .1s;
+  margin-bottom:8px;
+}
+.toc-toggle::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(56,200,200,.12),transparent);
+  transform:translateX(-100%);animation:tocShimmer 3s ease-in-out infinite;
+}
+.toc-toggle:hover{border-color:var(--border-glow);box-shadow:0 2px 12px rgba(56,200,200,.1)}
+.toc-toggle:active{transform:scale(.98)}
+.toc-toggle__dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;
+  background:var(--accent);box-shadow:0 0 8px var(--accent);
+  animation:tocDotPulse 2s ease-in-out infinite;
+}
+.toc-toggle__label{
+  flex:1;text-align:left;font-family:var(--font-body);font-size:17px;font-weight:700;
+  letter-spacing:.5px;color:var(--text-bright);
+}
+.toc-toggle__chevron{
+  width:28px;height:28px;border-radius:7px;flex-shrink:0;
+  display:grid;place-items:center;
+  background:rgba(56,200,200,.1);border:1px solid var(--border);
+  transition:transform .25s ease,background .2s;color:var(--accent);
+}
+.toc.expanded .toc-toggle__chevron{transform:rotate(180deg);background:rgba(56,200,200,.2)}
+
+/* Collapsible links wrapper */
+.toc-links-wrap{
+  max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .35s ease,opacity .25s ease;
+}
+.toc.expanded .toc-links-wrap{max-height:700px;opacity:1}
+
+/* FAQ highlight in TOC */
+.toc-faq{
+  position:relative;border-radius:8px;
+  background:linear-gradient(135deg,rgba(56,200,200,.08),rgba(212,167,58,.05));
+  border:1px solid rgba(56,200,200,.25)!important;
+  border-left:2px solid var(--accent)!important;
+  padding:8px 10px!important;margin:4px 0;
+  box-shadow:0 2px 12px rgba(56,200,200,.08);
+  animation:faqGlow 3s ease-in-out infinite;
+}
+.toc-faq:hover{background:linear-gradient(135deg,rgba(56,200,200,.12),rgba(212,167,58,.08));border-left-color:var(--accent)!important}
+.toc-faq.active{background:linear-gradient(135deg,rgba(56,200,200,.15),rgba(212,167,58,.1))!important;border-left-color:var(--accent)!important;color:var(--text-bright)!important}
+.toc-faq__tag{
+  display:inline-flex;align-items:center;font-family:var(--font-mono);
+  font-size:9px;font-weight:700;letter-spacing:1px;padding:2px 6px;
+  border-radius:4px;background:var(--accent-2);color:var(--bg);margin-left:6px;
+  animation:newPulse 2s ease-in-out infinite;
+}
+
+@keyframes tocShimmer{0%,100%{transform:translateX(-100%)}50%{transform:translateX(100%)}}
+@keyframes tocDotPulse{0%,100%{opacity:1;box-shadow:0 0 8px var(--accent)}50%{opacity:.5;box-shadow:0 0 4px var(--accent)}}
+@keyframes faqGlow{0%,100%{box-shadow:0 2px 12px rgba(56,200,200,.08)}50%{box-shadow:0 2px 20px rgba(56,200,200,.18)}}
+
 @media (max-width: 1000px) {
   .wrap { grid-template-columns: 1fr; padding: 0 22px; gap: 0; }
   .toc {
     position: sticky; top: 36px; z-index: 200; max-height: none;
-    display: flex; gap: 4px; align-items: center; overflow-x: auto;
-    -webkit-overflow-scrolling: touch; background: rgba(10,14,26,0.92);
+    background: rgba(10,14,26,0.92);
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border); padding: 12px 22px;
+    border-bottom: 1px solid var(--border); padding: 12px 16px;
     margin: 0 -22px 0; grid-row: auto;
   }
-  .toc::-webkit-scrollbar { display: none; }
-  .toc-brand, .toc-title, .toc-foot { display: none; }
-  .toc a { white-space: nowrap; flex-shrink: 0; border-left: none; border-bottom: 2px solid transparent; border-radius: 6px; padding: 7px 11px; font-size: 11px; }
-  .toc a.active { border-left: none; border-bottom-color: var(--accent); background: rgba(56,200,200,0.08); }
+  .toc-brand { display: none; }
+  .toc-toggle { padding: 10px 12px; margin-bottom: 0; }
+  .toc-toggle__label { font-size: 16px; }
+  .toc-toggle__chevron { width: 26px; height: 26px; }
+  .toc-links-wrap {
+    margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);
+  }
+  .toc a { padding: 7px 10px; font-size: 14px; border-radius: 6px; }
+  .toc a .num { font-size: 11px; }
+  .toc a.active { border-left-color: var(--accent); background: rgba(56,200,200,0.08); }
+  .toc-foot { margin-top: 14px; padding-top: 12px; }
   .sec-head { scroll-margin-top: 60px; }
   .main { padding-top: 16px; }
   .hero__decor { display: none; }
@@ -1171,6 +1241,24 @@ body::before {
 .tools-teaser-card:hover .tools-teaser-card__arrow{transform:translateX(4px);color:var(--text)}
 @media(max-width:600px){.hero__tools-teaser{grid-template-columns:1fr}.tools-callout{flex-direction:column;align-items:flex-start}.tools-callout__text{width:100%}}
 @media(prefers-reduced-motion:reduce){.tools-callout::before{animation:none}.tools-teaser-card{transition:none}.topic-card__prompt-link{transition:none}}
+
+/* ===== FAQ Section ===== */
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+.faq-item:hover{border-color:var(--border-bright)}
+.faq-item.open{border-color:var(--border-glow);box-shadow:0 2px 16px rgba(0,0,0,.1)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;cursor:pointer;font-family:var(--font-body);font-size:15px;font-weight:600;color:var(--text-bright);background:transparent;border:none;width:100%;text-align:left;transition:background .15s}
+.faq-q:hover{background:rgba(56,200,200,.03)}
+.faq-q__num{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--accent);flex-shrink:0;min-width:28px}
+.faq-q__text{flex:1}
+.faq-q__icon{width:24px;height:24px;border-radius:6px;background:rgba(56,200,200,.1);border:1px solid var(--border);display:grid;place-items:center;flex-shrink:0;transition:transform .25s ease,background .2s;font-size:14px;color:var(--accent)}
+.faq-item.open .faq-q__icon{transform:rotate(45deg);background:rgba(56,200,200,.2)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;padding:0 20px}
+.faq-item.open .faq-a{max-height:400px;padding:0 20px 18px}
+.faq-a__inner{font-size:14px;line-height:1.7;color:var(--text-dim);border-top:1px solid var(--border);padding-top:14px}
+.faq-a__inner strong{color:var(--text)}
+@media(max-width:768px){.faq-q{font-size:14px;padding:14px 16px}.faq-a{padding:0 16px}.faq-item.open .faq-a{padding:0 16px 14px}}
+@media(prefers-reduced-motion:reduce){.faq-a{transition:none}.faq-q__icon{transition:none}}
 
 /* ===== Six Sigma Calculators ===== */
 .calc-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
@@ -1437,22 +1525,31 @@ body::before {
       <div class="toc-brand__mark">S</div>
       <div class="toc-brand__name">Sudeep Ghosh<span>Trainer · Coach</span></div>
     </div>
-    <div class="toc-title">Sections</div>
-    <a href="#s1"><span class="num">01</span> Overview</a>
-    <a href="#s2"><span class="num">02</span> Mission</a>
-    <a href="#s3"><span class="num">03</span> Training Topics</a>
-    
-    <a href="#s4"><span class="num">04</span> Certificate</a>
-<a href="#s5"><span class="num">05</span> Photo Gallery</a>
-<a href="#s6"><span class="num">06</span> Press & Media</a>
-<a href="#s7"><span class="num">07</span> Testimonials</a>
-<a href="#s8"><span class="num">08</span> Experience</a>
-<a href="#s9"><span class="num">09</span> Credentials</a>
-<a href="#s10"><span class="num">10</span> Training & Dev</a>
-<a href="#s11"><span class="num">11</span> Connect</a>
-<a href="#s12"><span class="num">12</span> Sigma Tools <span class="new-badge">NEW</span></a>
-<a href="#s13"><span class="num">13</span> Prompt Library <span class="new-badge">NEW</span></a>
-    <div class="toc-foot"><span class="dot"></span>Available for Training</div>
+    <button class="toc-toggle" id="tocToggle" onclick="toggleTOC(event)" aria-expanded="false">
+      <span class="toc-toggle__dot"></span>
+      <span class="toc-toggle__label">Explore</span>
+      <span class="toc-toggle__chevron">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </button>
+    <div class="toc-links-wrap" id="tocLinks">
+      <div class="toc-title">Sections</div>
+      <a href="#s1"><span class="num">01</span> Overview</a>
+      <a href="#s2"><span class="num">02</span> Mission</a>
+      <a href="#s3"><span class="num">03</span> Training Topics</a>
+      <a href="#s4"><span class="num">04</span> Certificate</a>
+      <a href="#s5"><span class="num">05</span> Photo Gallery</a>
+      <a href="#s6"><span class="num">06</span> Press & Media</a>
+      <a href="#s7"><span class="num">07</span> Testimonials</a>
+      <a href="#s8"><span class="num">08</span> Experience</a>
+      <a href="#s9"><span class="num">09</span> Credentials</a>
+      <a href="#s10"><span class="num">10</span> Training & Dev</a>
+      <a href="#s11" class="toc-faq"><span class="num">11</span> FAQ <span class="toc-faq__tag">NEW</span></a>
+      <a href="#s12"><span class="num">12</span> Connect</a>
+      <a href="#s13"><span class="num">13</span> Sigma Tools <span class="new-badge">NEW</span></a>
+      <a href="#s14"><span class="num">14</span> Prompt Library <span class="new-badge">NEW</span></a>
+      <div class="toc-foot"><span class="dot"></span>Available for Training</div>
+    </div>
   </nav>
 
   <div class="main">
@@ -1512,7 +1609,7 @@ body::before {
       </div>
 
       <div class="hero__tools-teaser reveal-scale" style="--i:7">
-        <a class="tools-teaser-card tools-teaser-card--sigma" href="#s12" onclick="smoothScrollTo('s12');return false;">
+        <a class="tools-teaser-card tools-teaser-card--sigma" href="#s13" onclick="smoothScrollTo('s13',event);return false;">
           <div class="tools-teaser-card__head">
             <div class="tools-teaser-card__icon tools-teaser-card__icon--sigma">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/><circle cx="7" cy="15" r="1.6" fill="currentColor"/><circle cx="14" cy="14" r="1.6" fill="currentColor"/><circle cx="19" cy="8" r="1.6" fill="currentColor"/></svg>
@@ -1525,7 +1622,7 @@ body::before {
           <div class="tools-teaser-card__desc">DPMO, Cp/Cpk, Yield & RTY calculators with live sigma-level conversion</div>
           <svg class="tools-teaser-card__arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <a class="tools-teaser-card tools-teaser-card--prompts" href="#s13" onclick="smoothScrollTo('s13');return false;">
+        <a class="tools-teaser-card tools-teaser-card--prompts" href="#s14" onclick="smoothScrollTo('s14',event);return false;">
           <div class="tools-teaser-card__head">
             <div class="tools-teaser-card__icon tools-teaser-card__icon--prompts">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -1540,15 +1637,15 @@ body::before {
         </a>
       </div>
       <div class="hero__ctas reveal-scale" style="--i:8">
-        <a class="hero__cta hero__cta--main" href="#contact-form" onclick="smoothScrollTo('contactForm');return false;">
+        <a class="hero__cta hero__cta--main" href="#contact-form" onclick="smoothScrollTo('contactForm',event);return false;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           Enquire about Training
         </a>
-        <a class="hero__cta hero__cta--sigma" href="#s12" onclick="smoothScrollTo('s12');return false;">
+        <a class="hero__cta hero__cta--sigma" href="#s13" onclick="smoothScrollTo('s13',event);return false;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/><circle cx="7" cy="15" r="1.6" fill="currentColor"/><circle cx="14" cy="14" r="1.6" fill="currentColor"/><circle cx="19" cy="8" r="1.6" fill="currentColor"/></svg>
           Six Sigma Tools
         </a>
-        <a class="hero__cta hero__cta--prompts" href="#s13" onclick="smoothScrollTo('s13');return false;">
+        <a class="hero__cta hero__cta--prompts" href="#s14" onclick="smoothScrollTo('s14',event);return false;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           Prompt Library
         </a>
@@ -1586,8 +1683,8 @@ body::before {
         Explore the practical tools from my sessions — <strong>Six Sigma calculators</strong> and a <strong>curated prompt library</strong> are now available on this page.
       </div>
       <div class="tools-callout__links">
-        <a class="tools-callout__link tools-callout__link--sigma" href="#s12" onclick="smoothScrollTo('s12');return false;">Six Sigma Tools</a>
-        <a class="tools-callout__link tools-callout__link--prompts" href="#s13" onclick="smoothScrollTo('s13');return false;">Prompt Library</a>
+        <a class="tools-callout__link tools-callout__link--sigma" href="#s13" onclick="smoothScrollTo('s13',event);return false;">Six Sigma Tools</a>
+        <a class="tools-callout__link tools-callout__link--prompts" href="#s14" onclick="smoothScrollTo('s14',event);return false;">Prompt Library</a>
       </div>
     </div>
 
@@ -1602,19 +1699,19 @@ body::before {
     </div>
 
     <div class="grid-3">
-      <div class="topic-card reveal" style="--i:0" data-popup-id="tp12"><div class="topic-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/><circle cx="7" cy="15" r="1.6" fill="currentColor"/><circle cx="14" cy="14" r="1.6" fill="currentColor"/><circle cx="19" cy="8" r="1.6" fill="currentColor"/></svg></div><h4>Six Sigma + AI: The Future of Manufacturing Quality Management</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s13" onclick="smoothScrollTo('s13');return false;" data-prompt-cat="ss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Six Sigma Prompts</a></div>
-      <div class="topic-card reveal" style="--i:1" data-popup-id="tp13"><div class="topic-card__icon topic-card__icon--rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg></div><h4>Healthcare Reimagined: Six Sigma Meets Artificial Intelligence</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s13" onclick="smoothScrollTo('s13');return false;" data-prompt-cat="ss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Six Sigma Prompts</a></div>
-      <div class="topic-card reveal" style="--i:0" data-popup-id="tp1"><div class="topic-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg></div><h4>Career Planning for Young Professionals</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s13" onclick="smoothScrollTo('s13');return false;" data-prompt-cat="career"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Career Prompts</a></div>
-      <div class="topic-card reveal" style="--i:1" data-popup-id="tp2"><div class="topic-card__icon topic-card__icon--gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg></div><h4>Critical Thinking with AI Tools</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s13" onclick="smoothScrollTo('s13');return false;" data-prompt-cat="think"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Critical Thinking Prompts</a></div>
-      <div class="topic-card reveal" style="--i:2" data-popup-id="tp3"><div class="topic-card__icon topic-card__icon--blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8 6 8 10 12 14s4 8 0 8"/><path d="M12 2c4 4 4 8 0 12"/></svg></div><h4>Mindfulness & Meditation</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s13" onclick="smoothScrollTo('s13');return false;" data-prompt-cat="mind"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Mindfulness Prompts</a></div>
-      <div class="topic-card reveal" style="--i:3" data-popup-id="tp4"><div class="topic-card__icon topic-card__icon--rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h4>Effective Workplace Communication</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s13" onclick="smoothScrollTo('s13');return false;" data-prompt-cat="comm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Communication Prompts</a></div>
-      <div class="topic-card reveal" style="--i:4" data-popup-id="tp5"><div class="topic-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h4>Interpersonal Communication Skills</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s13" onclick="smoothScrollTo('s13');return false;" data-prompt-cat="comm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Communication Prompts</a></div>
-      <div class="topic-card reveal" style="--i:5" data-popup-id="tp6"><div class="topic-card__icon topic-card__icon--gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3-3-3 3"/><path d="M19 8v8"/></svg></div><h4>Essential Collaboration Skills</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s13" onclick="smoothScrollTo('s13');return false;" data-prompt-cat="mgmt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Management Prompts</a></div>
-      <div class="topic-card reveal" style="--i:6" data-popup-id="tp7"><div class="topic-card__icon topic-card__icon--blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><h4>Effective Managerial Skills</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s13" onclick="smoothScrollTo('s13');return false;" data-prompt-cat="mgmt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Management Prompts</a></div>
-      <div class="topic-card reveal" style="--i:7" data-popup-id="tp8"><div class="topic-card__icon topic-card__icon--rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></div><h4>Body Language & Professional Grooming</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s13" onclick="smoothScrollTo('s13');return false;" data-prompt-cat="body"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Body Language Prompts</a></div>
-      <div class="topic-card reveal" style="--i:8" data-popup-id="tp9"><div class="topic-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h4>Respectful Patient Interaction & Emotional Care</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s13" onclick="smoothScrollTo('s13');return false;" data-prompt-cat="health"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Healthcare Prompts</a></div>
-      <div class="topic-card reveal" style="--i:9" data-popup-id="tp10"><div class="topic-card__icon topic-card__icon--gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h4>Compassionate Communication for Patient Care</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s13" onclick="smoothScrollTo('s13');return false;" data-prompt-cat="health"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Healthcare Prompts</a></div>
-      <div class="topic-card reveal" style="--i:10" data-popup-id="tp11"><div class="topic-card__icon topic-card__icon--blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div><h4>Take Your Teaching Online</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s13" onclick="smoothScrollTo('s13');return false;" data-prompt-cat="teach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Teaching Prompts</a></div>
+      <div class="topic-card reveal" style="--i:0" data-popup-id="tp12"><div class="topic-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/><circle cx="7" cy="15" r="1.6" fill="currentColor"/><circle cx="14" cy="14" r="1.6" fill="currentColor"/><circle cx="19" cy="8" r="1.6" fill="currentColor"/></svg></div><h4>Six Sigma + AI: The Future of Manufacturing Quality Management</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s14" onclick="smoothScrollTo('s14',event);return false;" data-prompt-cat="ss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Six Sigma Prompts</a></div>
+      <div class="topic-card reveal" style="--i:1" data-popup-id="tp13"><div class="topic-card__icon topic-card__icon--rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg></div><h4>Healthcare Reimagined: Six Sigma Meets Artificial Intelligence</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s14" onclick="smoothScrollTo('s14',event);return false;" data-prompt-cat="ss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Six Sigma Prompts</a></div>
+      <div class="topic-card reveal" style="--i:0" data-popup-id="tp1"><div class="topic-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg></div><h4>Career Planning for Young Professionals</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s14" onclick="smoothScrollTo('s14',event);return false;" data-prompt-cat="career"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Career Prompts</a></div>
+      <div class="topic-card reveal" style="--i:1" data-popup-id="tp2"><div class="topic-card__icon topic-card__icon--gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg></div><h4>Critical Thinking with AI Tools</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s14" onclick="smoothScrollTo('s14',event);return false;" data-prompt-cat="think"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Critical Thinking Prompts</a></div>
+      <div class="topic-card reveal" style="--i:2" data-popup-id="tp3"><div class="topic-card__icon topic-card__icon--blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8 6 8 10 12 14s4 8 0 8"/><path d="M12 2c4 4 4 8 0 12"/></svg></div><h4>Mindfulness & Meditation</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s14" onclick="smoothScrollTo('s14',event);return false;" data-prompt-cat="mind"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Mindfulness Prompts</a></div>
+      <div class="topic-card reveal" style="--i:3" data-popup-id="tp4"><div class="topic-card__icon topic-card__icon--rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h4>Effective Workplace Communication</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s14" onclick="smoothScrollTo('s14',event);return false;" data-prompt-cat="comm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Communication Prompts</a></div>
+      <div class="topic-card reveal" style="--i:4" data-popup-id="tp5"><div class="topic-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h4>Interpersonal Communication Skills</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s14" onclick="smoothScrollTo('s14',event);return false;" data-prompt-cat="comm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Communication Prompts</a></div>
+      <div class="topic-card reveal" style="--i:5" data-popup-id="tp6"><div class="topic-card__icon topic-card__icon--gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11l-3-3-3 3"/><path d="M19 8v8"/></svg></div><h4>Essential Collaboration Skills</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s14" onclick="smoothScrollTo('s14',event);return false;" data-prompt-cat="mgmt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Management Prompts</a></div>
+      <div class="topic-card reveal" style="--i:6" data-popup-id="tp7"><div class="topic-card__icon topic-card__icon--blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><h4>Effective Managerial Skills</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s14" onclick="smoothScrollTo('s14',event);return false;" data-prompt-cat="mgmt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Management Prompts</a></div>
+      <div class="topic-card reveal" style="--i:7" data-popup-id="tp8"><div class="topic-card__icon topic-card__icon--rose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></div><h4>Body Language & Professional Grooming</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s14" onclick="smoothScrollTo('s14',event);return false;" data-prompt-cat="body"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Body Language Prompts</a></div>
+      <div class="topic-card reveal" style="--i:8" data-popup-id="tp9"><div class="topic-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h4>Respectful Patient Interaction & Emotional Care</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s14" onclick="smoothScrollTo('s14',event);return false;" data-prompt-cat="health"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Healthcare Prompts</a></div>
+      <div class="topic-card reveal" style="--i:9" data-popup-id="tp10"><div class="topic-card__icon topic-card__icon--gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h4>Compassionate Communication for Patient Care</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s14" onclick="smoothScrollTo('s14',event);return false;" data-prompt-cat="health"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Healthcare Prompts</a></div>
+      <div class="topic-card reveal" style="--i:10" data-popup-id="tp11"><div class="topic-card__icon topic-card__icon--blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div><h4>Take Your Teaching Online</h4><p class="topic-card__cta">Click to see the full outline <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></p><span class="cert-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> Certified</span><p class="cert-line"><strong>Certificate of Completion</strong> awarded on successful course completion.</p><a class="topic-card__prompt-link" href="#s14" onclick="smoothScrollTo('s14',event);return false;" data-prompt-cat="teach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>View Teaching Prompts</a></div>
     </div>
 
 
@@ -1958,13 +2055,112 @@ body::before {
         <div class="train-item"><p class="train-item__title">Effective Communication at the Workplace</p><p class="train-item__meta">The Open University, UK</p></div>
         <div class="train-item"><p class="train-item__title">Working in Diverse Teams</p><p class="train-item__meta">The Open University, UK</p></div>
       </div>
+    </div>    
+<!-- ===== FAQ ===== -->
+    <div class="sec-head reveal" id="s11" style="scroll-margin-top:60px;">
+      <span class="sec-head__num">11</span>
+      <h2 class="sec-head__title">Frequently Asked Questions</h2>
+      <div class="sec-head__line"></div>
+      <span class="sec-head__tag">Answers</span>
     </div>
 
-    
+    <div class="contact-panel reveal-scale" style="--i:0">
+      <div class="faq-list">
 
-<!-- ===== Contact ===== -->
-    <div class="sec-head" id="s11">
-      <span class="sec-head__num">11</span>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q__num">01</span>
+            <span class="faq-q__text">What types of training sessions do you offer?</span>
+            <span class="faq-q__icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a__inner">
+            I offer <strong>13 training topics</strong> spanning soft skills, Six Sigma, and Generative AI. These include Career Planning, Critical Thinking with AI Tools, Effective Workplace Communication, Interpersonal Communication, Collaboration Skills, Managerial Skills, Body Language & Professional Grooming, Mindfulness & Meditation, Respectful Patient Interaction, Compassionate Communication for Patient Care, Take Your Teaching Online, and two specialised Six Sigma + AI sessions. Sessions are available both online and in-person.
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q__num">02</span>
+            <span class="faq-q__text">Do you provide a certificate of completion?</span>
+            <span class="faq-q__icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a__inner">
+            Yes. Every certified training session includes a <strong>Certificate of Completion</strong> awarded through my online certificate generator. Trainees submit their details, I review and approve, and they receive a professional PDF certificate with a verification code — all handled digitally.
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q__num">03</span>
+            <span class="faq-q__text">How can AI tools be combined with soft skills training?</span>
+            <span class="faq-q__icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a__inner">
+            AI is a powerful tool for productivity, but it cannot replicate empathy, emotional intelligence, critical judgment, or human connection. My approach combines both: I teach professionals how to <strong>leverage AI tools effectively</strong> for tasks like drafting, analysis, and brainstorming, while strengthening the <strong>irreplaceable human skills</strong> — communication, collaboration, and decision-making — that make them truly indispensable. The result is typically over 10 hours saved per week.
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q__num">04</span>
+            <span class="faq-q__text">What is your experience and background?</span>
+            <span class="faq-q__icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a__inner">
+            I bring <strong>nearly two decades of cross-industry experience</strong> — starting as an Electrical Engineer at Shree Cement and UltraTech (Aditya Birla Group) from 2007 to 2018, then transitioning into training and development. I have trained across 15+ organisations including Apollo Healthcare, NAANDI/Mahindra, Wordsworth Lab, AIDIAS Consulting, and Argyle HR Solutions. I hold certifications as an International Career Coach (NCDA, USA), in Generative AI (MSME India), and in Training Design & Delivery (Asian College of Teachers).
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q__num">05</span>
+            <span class="faq-q__text">Are the Six Sigma calculators free to use?</span>
+            <span class="faq-q__icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a__inner">
+            Yes, completely free. The <strong>Four Six Sigma calculators</strong> — DPMO & Sigma Level, Cp/Cpk, Process Yield, and Rolled Throughput Yield — are available on this page for anyone to use. They are verified against standard Six Sigma tables and serve as practical tools for quality professionals, students, and trainees. No signup or download required.
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q__num">06</span>
+            <span class="faq-q__text">Can I use the prompts in the Prompt Library for my own work?</span>
+            <span class="faq-q__icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a__inner">
+            Absolutely. The <strong>Prompt Library</strong> contains 26 curated, battle-tested prompts covering all 13 training topics — from communication and critical thinking to Six Sigma and career planning. Click any prompt card to copy it to your clipboard and use it immediately with any AI tool. They are designed to enhance your thinking, not replace it.
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q__num">07</span>
+            <span class="faq-q__text">Do you offer custom training for organisations?</span>
+            <span class="faq-q__icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a__inner">
+            Yes, I partner with organisations to design and deliver <strong>customised training programs</strong> tailored to their specific needs. Sessions can be conducted online or on-site, and I work with HR teams and L&D leads to align the content with organisational goals. Use the booking page or the contact form below to start a conversation.
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFAQ(this)">
+            <span class="faq-q__num">08</span>
+            <span class="faq-q__text">How do I book a session with you?</span>
+            <span class="faq-q__icon">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a__inner">
+            You can book a session through my <strong>online booking page</strong> — choose a session type, pick an available time slot, and you will receive a confirmation email. Alternatively, use the contact form at the bottom of this page, or reach me directly via LinkedIn or WhatsApp. I respond to all enquiries within 24 hours.
+          </div></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== Contact ===== -->
+    <div class="sec-head" id="s12">
+      <span class="sec-head__num">12</span>
       <h2 class="sec-head__title">Let's Connect</h2>
       <div class="sec-head__line"></div>
       <span class="sec-head__tag">Contact</span>
@@ -1974,7 +2170,7 @@ body::before {
       <h2>Let's build something <em>impactful</em> together.</h2>
       <p>I welcome your feedback and inquiries. Whether you have questions or would like to share ideas, please feel free to reach out — I look forward to our communication.</p>
       <div class="contact-btns">
-        <a class="contact-btn" href="#contact-form" onclick="smoothScrollTo('contactForm');return false;">
+        <a class="contact-btn" href="#contact-form" onclick="smoothScrollTo('contactForm',event);return false;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           <span class="contact-btn__label">Email</span>
         </a>
@@ -2028,8 +2224,8 @@ body::before {
 
     
     <!-- ===== 12 · Six Sigma Calculators ===== -->
-    <div class="sec-head reveal" id="s12" style="scroll-margin-top:60px;">
-      <span class="sec-head__num">12</span>
+    <div class="sec-head reveal" id="s13" style="scroll-margin-top:60px;">
+      <span class="sec-head__num">13</span>
       <h2 class="sec-head__title">Six Sigma Calculators</h2>
       <div class="sec-head__line"></div>
       <span class="sec-head__tag">Tools</span>
@@ -2160,8 +2356,8 @@ body::before {
     </div>
 
     <!-- ===== 13 · Prompt Library ===== -->
-    <div class="sec-head reveal" id="s13" style="scroll-margin-top:60px;">
-      <span class="sec-head__num">13</span>
+    <div class="sec-head reveal" id="s14" style="scroll-margin-top:60px;">
+      <span class="sec-head__num">14</span>
       <h2 class="sec-head__title">Prompt Library</h2>
       <div class="sec-head__line"></div>
       <span class="sec-head__tag">Gen-AI Resources</span>
@@ -2771,6 +2967,16 @@ body::before {
   setInterval(updateClock, 1000);
 })();
 
+// ===== TOC Collapsible Toggle =====
+function toggleTOC(e){
+  if(e&&e.preventDefault)e.preventDefault();
+  var toc=document.getElementById('toc');
+  if(!toc)return;
+  toc.classList.toggle('expanded');
+  var btn=document.getElementById('tocToggle');
+  if(btn)btn.setAttribute('aria-expanded',toc.classList.contains('expanded'));
+}
+
 // ===== Scroll Spy (TOC) =====
 (function() {
   const toc = document.getElementById('toc');
@@ -2788,8 +2994,8 @@ body::before {
         const match = sections.find(s => s.el === entry.target);
         if (match) {
           match.link.classList.add('active');
-          if (window.innerWidth <= 1000) {
-            match.link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          if (window.innerWidth <= 1000 && toc.classList.contains('expanded')) {
+            match.link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }
         }
       }
@@ -2802,6 +3008,11 @@ body::before {
       const id = link.getAttribute('href').slice(1);
       const el = document.getElementById(id);
       if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); history.replaceState(null, '', '#' + id); }
+      // Auto-close TOC on navigation
+      var toc=document.getElementById('toc');
+      if(toc&&toc.classList.contains('expanded'))toc.classList.remove('expanded');
+      var btn=document.getElementById('tocToggle');
+      if(btn)btn.setAttribute('aria-expanded','false');
     });
   });
 })();
@@ -2837,7 +3048,19 @@ body::before {
 
 // ===== Smooth Scroll Helper =====
 // Robust scroll that accounts for the sticky clock bar and is immune to layout shifts.
-function smoothScrollTo(targetId) {
+
+// ===== FAQ Accordion =====
+function toggleFAQ(btn){
+  var item=btn.parentElement;
+  var wasOpen=item.classList.contains('open');
+  // Close all other FAQ items (accordion behavior - only one open at a time)
+  var allItems=document.querySelectorAll('.faq-item');
+  allItems.forEach(function(it){it.classList.remove('open');});
+  // Reopen this one if it was previously closed
+  if(!wasOpen)item.classList.add('open');
+}
+function smoothScrollTo(targetId, event) {
+  if (event && event.preventDefault) event.preventDefault();
   var el = document.getElementById(targetId);
   if (!el) return;
   var bar = document.querySelector('.clock-bar');
@@ -3378,8 +3601,8 @@ renderPrompts();
 <!-- ===== Floating Tools Banner (scroll-triggered) ===== -->
 <div class="tools-banner" id="toolsBanner">
   <span class="tools-banner__text"><strong>Try the tools:</strong> Six Sigma Calculators & Prompt Library</span>
-  <a class="tools-banner__btn tools-banner__btn--sigma" href="#s12" onclick="smoothScrollTo('s12');document.getElementById('toolsBanner').classList.remove('show');return false;">Six Sigma Tools</a>
-  <a class="tools-banner__btn tools-banner__btn--prompts" href="#s13" onclick="smoothScrollTo('s13');document.getElementById('toolsBanner').classList.remove('show');return false;">Prompt Library</a>
+  <a class="tools-banner__btn tools-banner__btn--sigma" href="#s13" onclick="smoothScrollTo('s13',event);document.getElementById('toolsBanner').classList.remove('show');return false;">Six Sigma Tools</a>
+  <a class="tools-banner__btn tools-banner__btn--prompts" href="#s14" onclick="smoothScrollTo('s14',event);document.getElementById('toolsBanner').classList.remove('show');return false;">Prompt Library</a>
   <button class="tools-banner__close" onclick="document.getElementById('toolsBanner').classList.remove('show');">&times;</button>
 </div>
 
