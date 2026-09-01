@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ghoshsudeep27-commits.github.io/Sudeep-Digital-Profile/sitemap.xml
