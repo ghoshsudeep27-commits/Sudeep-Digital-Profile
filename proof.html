@@ -2252,7 +2252,7 @@ html, body { overflow-x: clip; }
 
         <form id="samplerDownloadForm" novalidate>
 
-          <input type="text" name="company_website" tabindex="-1" autocomplete="off"
+          <input type="text" name="hp_trap_x7" tabindex="-1" autocomplete="off" aria-hidden="true"
                  style="position:absolute;left:-9999px;height:0;width:0;opacity:0;">
 
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;">
@@ -2339,6 +2339,7 @@ html, body { overflow-x: clip; }
         };
 
         var form    = document.getElementById("samplerDownloadForm");
+        var openedAt = Date.now();   /* anti-bot: when the form appeared */
         var errBox  = document.getElementById("smError");
         var success = document.getElementById("smSuccess");
         var btn     = document.getElementById("smSubmit");
@@ -2390,7 +2391,13 @@ html, body { overflow-x: clip; }
           if (!document.getElementById("smConsent").checked)
             return fail("Please tick the consent box to continue \u2014 it confirms you agree to your details being used for this download.");
 
-          if (form.elements["company_website"].value) { finish(); return; }
+          /* Anti-bot: (1) hidden trap field - real visitors never fill it;
+             (2) a person needs more than a few seconds to fill in and submit. */
+          if (form.elements["hp_trap_x7"].value) { finish(); return; }
+          if (Date.now() - openedAt < 3000) {
+            openedAt = 0;   /* a real visitor who pressed too fast gets through on the next press */
+            return fail("Please review your details and press the button once more.");
+          }
 
           var val = function (id) { return document.getElementById(id).value.trim(); };
 
