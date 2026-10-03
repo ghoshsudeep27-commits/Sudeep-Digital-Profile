@@ -4245,8 +4245,9 @@ renderPrompts();
   function loadFolder(){
     // Always read the folder live, so adding or deleting a file shows up straight away.
     // The last good result is kept only as a fallback for when GitHub can't be reached.
-    var url='https://api.github.com/repos/'+GH.owner+'/'+GH.repo+'/contents/'+GH.dir;
-    return fetch(url,{headers:{'Accept':'application/vnd.github+json'}})
+    // unique url each load: defeats the browser cache AND GitHub's 60-second CDN cache
+    var url='https://api.github.com/repos/'+GH.owner+'/'+GH.repo+'/contents/'+GH.dir+'?_='+Date.now();
+    return fetch(url,{cache:'no-store',headers:{'Accept':'application/vnd.github+json'}})
       .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
       .then(function(list){
         if(!Array.isArray(list)) throw new Error('bad listing');
