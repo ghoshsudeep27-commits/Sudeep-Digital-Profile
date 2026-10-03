@@ -4218,7 +4218,10 @@ renderPrompts();
     var t=todayStr(), from=g.from||'0000-01-01', until=g.until||'9999-12-31';
     return t>=from && t<=until;
   }
-  function computeActive(){ return GREETINGS.filter(activeNow); }
+  var broken={}, railPending=false;
+  function scheduleRail(){ if(railPending) return; railPending=true; setTimeout(function(){ railPending=false; renderRail(); },30); }
+  function markBroken(id){ if(!broken[id]){ broken[id]=1; scheduleRail(); } }
+  function computeActive(){ return GREETINGS.filter(function(g){ return !broken[g.id] && activeNow(g); }); }
 
   function fromFile(f){
     var name=f.name, base=name.replace(/\.[^.]+$/,''), from='', until='', title=base;
@@ -4240,10 +4243,8 @@ renderPrompts();
     });
   }
   function loadFolder(){
-    try{
-      var c=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');
-      if(c && c.t && (Date.now()-c.t)<CACHE_MS && Array.isArray(c.list)) return Promise.resolve({ok:true,list:c.list});
-    }catch(e){}
+    // Always read the folder live, so adding or deleting a file shows up straight away.
+    // The last good result is kept only as a fallback for when GitHub can't be reached.
     var url='https://api.github.com/repos/'+GH.owner+'/'+GH.repo+'/contents/'+GH.dir;
     return fetch(url,{headers:{'Accept':'application/vnd.github+json'}})
       .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
@@ -4269,7 +4270,7 @@ renderPrompts();
   }
 
   function faceHTML(g){
-    if(g.type==='image' && g.src) return '<img src="'+g.src+'" alt="" loading="lazy">';
+    if(g.type==='image' && g.src) return '<img src="'+g.src+'" alt="">';
     if(g.type==='video' && g.src) return '<video src="'+g.src+'" muted playsinline preload="metadata"></video><span class="gstory__play">\u25B6</span>';
     return g.emoji||'\u2728';
   }
@@ -4287,6 +4288,9 @@ renderPrompts();
         '<span class="gstory__label">'+(g.greet||'')+'</span>';
       b.addEventListener('click',function(){ openViewer(i); });
       rail.appendChild(b);
+      // if the media for this story can't load (file removed or renamed), drop the circle
+      var m=b.querySelector('img,video');
+      if(m) m.addEventListener('error',function(){ markBroken(g.id); },{once:true});
     });
   }
   function buildBars(){
