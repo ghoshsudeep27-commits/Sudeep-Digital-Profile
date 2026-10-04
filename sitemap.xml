@@ -2,92 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://humanskills.in/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-10-03</lastmod>
   </url>
   <url>
-    <loc>https://humanskills.in/index.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://humanskills.in/training.html</loc>
+    <lastmod>2026-10-01</lastmod>
   </url>
   <url>
-    <loc>https://humanskills.in/corporate-leadership-productivity/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://humanskills.in/proof.html</loc>
+    <lastmod>2026-10-02</lastmod>
   </url>
   <url>
-    <loc>https://humanskills.in/healthcare-excellence/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://humanskills.in/faq.html</loc>
+    <lastmod>2026-10-04</lastmod>
   </url>
   <url>
-    <loc>https://humanskills.in/early-career-educators/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://humanskills.in/free-resources.html</loc>
+    <lastmod>2026-10-01</lastmod>
   </url>
   <url>
-    <loc>https://humanskills.in/#course-1</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://humanskills.in/#course-2</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://humanskills.in/#course-3</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://humanskills.in/#course-4</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://humanskills.in/#course-5</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://humanskills.in/#course-6</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://humanskills.in/#course-7</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://humanskills.in/#course-8</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://humanskills.in/#course-9</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://humanskills.in/#course-10</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://humanskills.in/#course-11</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://humanskills.in/#course-12</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://humanskills.in/#course-13</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://humanskills.in/contact.html</loc>
+    <lastmod>2026-10-01</lastmod>
   </url>
 </urlset>
