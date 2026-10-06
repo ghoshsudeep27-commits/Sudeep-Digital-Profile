@@ -2000,6 +2000,27 @@ html, body { overflow-x: clip; }
   gtag('js', new Date());
   gtag('config', 'G-3SXHN4B877');
 </script>
+<!-- ===== Hero banner background ===== -->
+<link rel="preload" as="image" href="images/hero-mobile.webp" media="(max-width: 768px)">
+<link rel="preload" as="image" href="images/hero-desktop.webp" media="(min-width: 769px)">
+<style>
+.hero{isolation:isolate}
+.hero::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:100vw;margin-left:-50vw;
+  background:
+    linear-gradient(90deg,rgba(10,14,26,.90) 0%,rgba(10,14,26,.78) 50%,rgba(10,14,26,.38) 100%),
+    url(images/hero-desktop.webp) center/cover no-repeat;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 82%,transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 82%,transparent 100%);
+  pointer-events:none}
+@media (max-width:768px){
+  .hero::before{background:
+    linear-gradient(180deg,rgba(10,14,26,.64) 0%,rgba(10,14,26,.58) 100%),
+    url(images/hero-mobile.webp) center/cover no-repeat}
+}
+@media (min-width:1001px){
+  .hero__title--statement{max-width:calc(100% - 280px);text-wrap:balance}
+}
+</style>
 </head>
 <body>
 <!-- ===== Scroll Progress Bar ===== -->
