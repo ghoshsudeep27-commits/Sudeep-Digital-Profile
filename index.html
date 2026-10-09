@@ -4278,12 +4278,26 @@ renderPrompts();
       .catch(function(){ return {ok:false,list:[]}; });
   }
 
+  // Mobile browsers ignore preload="auto", so download story videos in the background
+  // after the page has loaded and play them from memory when opened.
+  var vidBlobs={};
+  function prefetchVideo(g){
+    if(g.type!=='video' || !g.src || (g.src in vidBlobs)) return;
+    var c=navigator.connection; if(c && c.saveData) return;
+    vidBlobs[g.src]=null;
+    fetch(g.src).then(function(r){ if(!r.ok) throw 0; return r.blob(); })
+      .then(function(b){ vidBlobs[g.src]=URL.createObjectURL(b); })
+      .catch(function(){ delete vidBlobs[g.src]; });
+  }
+  function prefetchAll(){ if(document.readyState!=='complete') return; computeActive().forEach(prefetchVideo); }
+  window.addEventListener('load',function(){ setTimeout(prefetchAll,800); });
   function faceHTML(g){
     if(g.type==='image' && g.src) return '<img src="'+g.src+'" alt="">';
-    if(g.type==='video' && g.src) return '<video src="'+g.src+'#t=0.1" muted playsinline preload="auto"></video><span class="gstory__play">\u25B6</span>';
+    if(g.type==='video' && g.src) return '<video src="'+g.src+'#t=0.1" muted playsinline preload="metadata"></video><span class="gstory__play">\u25B6</span>';
     return g.emoji||'\u2728';
   }
   function renderRail(){
+    prefetchAll();
     active=computeActive();
     if(!active.length){ section.hidden=true; return; }
     section.hidden=false; rail.innerHTML='';
@@ -4326,7 +4340,7 @@ renderPrompts();
       canvas.style.background='transparent';
     } else if(g.type==='video' && g.src){
       mediaWrap.style.display='block';
-      mediaWrap.innerHTML='<video src="'+g.src+'" autoplay muted playsinline preload="auto"></video><div class="'+scrimCls+'"></div><div class="gsspin"></div>';
+      mediaWrap.innerHTML='<video src="'+(vidBlobs[g.src]||g.src)+'" autoplay muted playsinline preload="auto"></video><div class="'+scrimCls+'"></div><div class="gsspin"></div>';
       canvas.style.background='transparent';
       var v=mediaWrap.querySelector('video');
       if(v){
