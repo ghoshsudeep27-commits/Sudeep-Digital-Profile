@@ -4340,15 +4340,21 @@ renderPrompts();
       canvas.style.background='transparent';
     } else if(g.type==='video' && g.src){
       mediaWrap.style.display='block';
-      mediaWrap.innerHTML='<video src="'+(vidBlobs[g.src]||g.src)+'" autoplay muted playsinline preload="auto"></video><div class="'+scrimCls+'"></div><div class="gsspin"></div>';
+      mediaWrap.innerHTML='<video src="'+(vidBlobs[g.src]||g.src)+'" autoplay muted playsinline preload="auto"></video><div class="'+scrimCls+'"></div><div class="gsspin is-off"></div>';
       canvas.style.background='transparent';
       var v=mediaWrap.querySelector('video');
       if(v){
         curVideo=v;
         var sp=mediaWrap.querySelector('.gsspin');
-        v.addEventListener('waiting',function(){ if(sp) sp.classList.remove('is-off'); });
-        v.addEventListener('playing',function(){ if(sp) sp.classList.add('is-off'); });
-        v.addEventListener('canplay',function(){ if(sp && !v.paused) sp.classList.add('is-off'); });
+        // show the spinner only if loading/buffering really drags on (>0.7s), so it never flashes
+        var spT=null;
+        function spOn(){ clearTimeout(spT); spT=setTimeout(function(){ if(sp && curVideo===v) sp.classList.remove('is-off'); },700); }
+        function spOff(){ clearTimeout(spT); if(sp) sp.classList.add('is-off'); }
+        spOn();
+        v.addEventListener('waiting',spOn);
+        v.addEventListener('playing',spOff);
+        v.addEventListener('ended',spOff);
+        v.addEventListener('error',spOff);
         // the bar follows the video itself; the story moves on only when the video ends
         v.addEventListener('ended',function(){ if(curVideo===v) next(); });
         v.addEventListener('error',function(){ if(curVideo===v) next(); });
