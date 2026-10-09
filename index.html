@@ -2317,6 +2317,178 @@ document.addEventListener('DOMContentLoaded',function(){
 
 
 
+<style>
+/* ===== Verify a Certificate — self-contained block ===== */
+.vc-wrap{margin:26px 0 6px}
+.vc-panel{position:relative;background:var(--surface-2);border:1px solid var(--border-bright);
+  border-radius:14px;padding:24px;box-shadow:var(--glow-teal);overflow:hidden}
+.vc-panel::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.9}
+.vc-panel__head{display:flex;gap:14px;align-items:flex-start;margin-bottom:18px}
+.vc-panel__icon{flex:0 0 auto;width:42px;height:42px;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;background:var(--bg);border:1px solid var(--border-bright);
+  color:var(--accent)}
+.vc-panel__icon svg{width:22px;height:22px}
+.vc-panel__title{font-family:var(--font-display);font-size:22px;line-height:1.2;margin:0 0 4px;
+  color:var(--text)}
+.vc-panel__sub{font-size:14px;color:var(--text-dim);margin:0;max-width:58ch}
+.vc-label{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-dim);margin-bottom:7px}
+.vc-row{display:flex;gap:10px;flex-wrap:wrap}
+.vc-input{flex:1 1 260px;min-width:0;font-family:var(--font-mono);font-size:14px;letter-spacing:.04em;
+  padding:12px 14px;color:var(--text);background:var(--bg);border:1px solid var(--border-bright);
+  border-radius:10px;outline:none;transition:border-color .2s,box-shadow .2s}
+.vc-input::placeholder{color:var(--text-dim);opacity:.7}
+.vc-input:focus{border-color:var(--accent);box-shadow:var(--glow-teal)}
+.vc-btn{flex:0 0 auto;font-family:var(--font-body);font-size:14px;font-weight:600;letter-spacing:.02em;
+  padding:12px 24px;color:var(--bg);background:var(--accent);border:1px solid var(--accent);
+  border-radius:10px;cursor:pointer;transition:transform .15s,box-shadow .2s,opacity .2s}
+.vc-btn:hover{box-shadow:var(--glow-teal)}
+.vc-btn:active{transform:translateY(1px)}
+.vc-btn[disabled]{opacity:.6;cursor:not-allowed}
+.vc-result{margin-top:16px}
+.vc-result:empty{display:none}
+.vc-card{border:1px solid var(--border-bright);border-radius:12px;padding:18px;background:var(--bg)}
+.vc-card--ok{border-color:var(--green)}
+.vc-card--bad{border-color:var(--accent-rose)}
+.vc-card__top{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.vc-badge{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  padding:4px 9px;border-radius:999px;border:1px solid currentColor}
+.vc-badge--ok{color:var(--green)}
+.vc-badge--bad{color:var(--accent-rose)}
+.vc-card__headline{font-family:var(--font-display);font-size:19px;margin:0;color:var(--text)}
+.vc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:0}
+.vc-item{min-width:0}
+.vc-item dt{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--text-dim);margin-bottom:3px}
+.vc-item dd{margin:0;font-size:14.5px;color:var(--text);word-break:break-word}
+.vc-item dd.vc-mono{font-family:var(--font-mono);font-size:13px;letter-spacing:.03em}
+.vc-msg{font-size:14.5px;color:var(--text-dim);margin:0}
+.vc-foot{font-size:12px;color:var(--text-dim);margin:14px 0 0}
+.vc-spin{display:inline-block;width:13px;height:13px;border:2px solid currentColor;
+  border-right-color:transparent;border-radius:50%;animation:vc-spin .7s linear infinite;
+  vertical-align:-2px;margin-right:7px}
+@keyframes vc-spin{to{transform:rotate(360deg)}}
+@media (max-width:560px){.vc-panel{padding:18px}.vc-btn{flex:1 1 100%}}
+@media (prefers-reduced-motion:reduce){.vc-spin{animation-duration:2s}}
+</style>
+
+<!-- ===== Verify a Certificate ===== -->
+<section class="vc-wrap" id="verify">
+  <div class="vc-panel">
+    <div class="vc-panel__head">
+      <div class="vc-panel__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/>
+             <circle cx="12" cy="12" r="9"/></svg>
+      </div>
+      <div>
+        <h3 class="vc-panel__title">Verify a Certificate</h3>
+        <p class="vc-panel__sub">Enter the Certificate ID or Tracking Code printed on the certificate
+           to confirm it is genuine. No personal contact details are shown.</p>
+      </div>
+    </div>
+
+    <form class="vc-form" id="vcForm" novalidate>
+      <label class="vc-label" for="vcCode">Certificate ID or Tracking Code</label>
+      <div class="vc-row">
+        <input class="vc-input" id="vcCode" name="code" type="text" autocomplete="off"
+               spellcheck="false" placeholder="e.g. CERT-20261008-A1B2C3D4E5F6">
+        <button class="vc-btn" id="vcBtn" type="submit"><span class="vc-btn__label">Verify</span></button>
+      </div>
+    </form>
+
+    <div class="vc-result" id="vcResult" role="status" aria-live="polite"></div>
+
+    <p class="vc-foot">Verification is served by humanskills.in. Certificates are tamper-proof and
+       can be revoked at any time.</p>
+  </div>
+</section>
+
+<script>
+(function () {
+  /* ── Configuration ───────────────────────────────────────────────────────
+     The verification API runs on the certificate app. If that app ever moves,
+     this is the ONLY line that needs changing.                              */
+  var API = "https://ghoshsudeep.pythonanywhere.com/api/verify";
+
+  var form = document.getElementById('vcForm');
+  var input = document.getElementById('vcCode');
+  var btn = document.getElementById('vcBtn');
+  var out = document.getElementById('vcResult');
+  if (!form || !input || !btn || !out) return;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function item(label, value, mono) {
+    if (!value) return '';
+    return '<div class="vc-item"><dt>' + esc(label) + '</dt><dd' +
+           (mono ? ' class="vc-mono"' : '') + '>' + esc(value) + '</dd></div>';
+  }
+  function showOk(d) {
+    out.innerHTML =
+      '<div class="vc-card vc-card--ok">' +
+        '<div class="vc-card__top">' +
+          '<span class="vc-badge vc-badge--ok">Verified</span>' +
+          '<h4 class="vc-card__headline">This certificate is genuine</h4>' +
+        '</div>' +
+        '<dl class="vc-grid">' +
+          item('Certificate ID', d.certificate_id, true) +
+          item('Trainee name', d.name) +
+          item('Course', d.course) +
+          item('Organisation', d.organisation) +
+          item('Location', d.location) +
+          item('Issued on', d.issued_on) +
+        '</dl>' +
+        '<p class="vc-foot">Issued by humanskills.in. No personal contact details are shown.</p>' +
+      '</div>';
+  }
+  function showBad(msg) {
+    out.innerHTML =
+      '<div class="vc-card vc-card--bad">' +
+        '<div class="vc-card__top">' +
+          '<span class="vc-badge vc-badge--bad">Not found</span>' +
+          '<h4 class="vc-card__headline">We could not verify that certificate</h4>' +
+        '</div>' +
+        '<p class="vc-msg">' + esc(msg) + '</p>' +
+      '</div>';
+  }
+  function busy(on) {
+    btn.disabled = !!on;
+    btn.querySelector('.vc-btn__label').innerHTML =
+      on ? '<span class="vc-spin"></span>Checking' : 'Verify';
+  }
+  function verify(code) {
+    code = (code || '').trim().toUpperCase();
+    if (!code) { showBad('Please enter a Certificate ID or Tracking Code.'); input.focus(); return; }
+    busy(true);
+    out.innerHTML = '<div class="vc-card"><p class="vc-msg"><span class="vc-spin"></span>' +
+                    'Checking the certificate...</p></div>';
+    fetch(API + '?code=' + encodeURIComponent(code), { method: 'GET', mode: 'cors' })
+      .then(function (r) { if (!r.ok && r.status !== 429) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (d) {
+        if (d && d.valid) { showOk(d); }
+        else { showBad((d && d.message) || 'No valid certificate was found for that ID.'); }
+      })
+      .catch(function () {
+        showBad('Verification is temporarily unavailable. Please try again in a moment.');
+      })
+      .then(function () { busy(false); });
+  }
+
+  form.addEventListener('submit', function (e) { e.preventDefault(); verify(input.value); });
+
+  /* Auto-verify when arriving from a certificate QR code: verify.html?code=... */
+  var prefill = '';
+  try { prefill = new URLSearchParams(window.location.search).get('code') || ''; } catch (err) {}
+  if (prefill) { input.value = prefill; verify(prefill); }
+})();
+</script>
+
+
 <!-- ===== Training Photo Gallery ===== -->
     <div class="sec-head" id="s5">
       <span class="sec-head__num">05</span>
