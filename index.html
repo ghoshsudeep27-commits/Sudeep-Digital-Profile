@@ -1802,6 +1802,9 @@ html, body { overflow-x: clip; }
 .gsviewer.is-open{display:flex;opacity:1}
 .gsviewer__stage{position:relative;width:min(420px,100%);height:min(760px,92vh);border-radius:20px;overflow:hidden;border:1px solid rgba(120,200,220,.22);background:#111726;box-shadow:0 30px 80px rgba(0,0,0,.6);display:flex;flex-direction:column;color:#e4ecf5;font-family:var(--font-body)}
 .gsviewer__media{position:absolute;inset:0;z-index:0;background:#000}
+.gsspin{position:absolute;top:50%;left:50%;width:38px;height:38px;margin:-19px 0 0 -19px;border:3px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:gsspin .8s linear infinite;z-index:3;pointer-events:none}
+.gsspin.is-off{display:none}
+@keyframes gsspin{to{transform:rotate(360deg)}}
 .gsviewer__media img,.gsviewer__media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .gsviewer__scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(6,9,16,.6) 0%,rgba(6,9,16,.12) 28%,rgba(6,9,16,.82) 100%)}
 .gsviewer__scrim--top{background:linear-gradient(180deg,rgba(6,9,16,.6) 0%,rgba(6,9,16,.06) 24%,rgba(6,9,16,0) 100%)}
@@ -4277,7 +4280,7 @@ renderPrompts();
 
   function faceHTML(g){
     if(g.type==='image' && g.src) return '<img src="'+g.src+'" alt="">';
-    if(g.type==='video' && g.src) return '<video src="'+g.src+'#t=0.1" muted playsinline preload="metadata"></video><span class="gstory__play">\u25B6</span>';
+    if(g.type==='video' && g.src) return '<video src="'+g.src+'#t=0.1" muted playsinline preload="auto"></video><span class="gstory__play">\u25B6</span>';
     return g.emoji||'\u2728';
   }
   function renderRail(){
@@ -4323,11 +4326,15 @@ renderPrompts();
       canvas.style.background='transparent';
     } else if(g.type==='video' && g.src){
       mediaWrap.style.display='block';
-      mediaWrap.innerHTML='<video src="'+g.src+'" autoplay muted playsinline preload="auto"></video><div class="'+scrimCls+'"></div>';
+      mediaWrap.innerHTML='<video src="'+g.src+'" autoplay muted playsinline preload="auto"></video><div class="'+scrimCls+'"></div><div class="gsspin"></div>';
       canvas.style.background='transparent';
       var v=mediaWrap.querySelector('video');
       if(v){
         curVideo=v;
+        var sp=mediaWrap.querySelector('.gsspin');
+        v.addEventListener('waiting',function(){ if(sp) sp.classList.remove('is-off'); });
+        v.addEventListener('playing',function(){ if(sp) sp.classList.add('is-off'); });
+        v.addEventListener('canplay',function(){ if(sp && !v.paused) sp.classList.add('is-off'); });
         // the bar follows the video itself; the story moves on only when the video ends
         v.addEventListener('ended',function(){ if(curVideo===v) next(); });
         v.addEventListener('error',function(){ if(curVideo===v) next(); });
