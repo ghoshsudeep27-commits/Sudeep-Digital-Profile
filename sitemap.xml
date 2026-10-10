@@ -1,31 +1,292 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://humanskills.in/</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-10</lastmod>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_01.jpg</image:loc>
+      <image:title>Sudeep Ghosh delivering a session on respectful interaction and emotional intelligence</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_02.jpg</image:loc>
+      <image:title>Sudeep Ghosh presenting at a training programme</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_03.jpg</image:loc>
+      <image:title>Sudeep Ghosh teaching a classroom of students</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_04.jpg</image:loc>
+      <image:title>Sudeep Ghosh leading a training session for medical staff</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_05.jpg</image:loc>
+      <image:title>Sudeep Ghosh presenting to participants during a training programme</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_06.jpg</image:loc>
+      <image:title>Sudeep Ghosh exchanging a memento at a training event</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_07.jpg</image:loc>
+      <image:title>Sudeep Ghosh with participants at a training session</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_08.jpg</image:loc>
+      <image:title>Group photo of students and faculty after a training workshop</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_09.jpg</image:loc>
+      <image:title>Group photo at Government Polytechnic Lisana after a training programme</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_10.jpg</image:loc>
+      <image:title>Group photo of students and faculty at a training programme</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_11.jpg</image:loc>
+      <image:title>Sudeep Ghosh speaking at the Baba Mastnath University employability enhancement training programme</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_12.jpg</image:loc>
+      <image:title>Sudeep Ghosh presenting to students in a classroom</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_13.jpg</image:loc>
+      <image:title>Medical professionals attending a training session led by Sudeep Ghosh</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_14.jpg</image:loc>
+      <image:title>Sudeep Ghosh presenting an award at a training session</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_15.jpg</image:loc>
+      <image:title>Sudeep Ghosh leading a discussion with medical professionals</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_16.jpg</image:loc>
+      <image:title>Sudeep Ghosh presenting to medical staff in a classroom</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_17.jpg</image:loc>
+      <image:title>Sudeep Ghosh presenting to medical professionals in a conference room</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_18.jpg</image:loc>
+      <image:title>Sudeep Ghosh presenting to medical staff in scrubs</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_19.jpg</image:loc>
+      <image:title>Sudeep Ghosh speaking to students in a classroom</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_20.jpg</image:loc>
+      <image:title>Sudeep Ghosh with participants at a training session</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_21.jpg</image:loc>
+      <image:title>Sudeep Ghosh speaking to medical students in a clinical setting</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/train_22.jpg</image:loc>
+      <image:title>Sudeep Ghosh presenting a session on patient trust to dental staff</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_01.jpg</image:loc>
+      <image:title>Testimonial from Prof. J. S. Laura, Maharshi Dayanand University, Rohtak</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_02.jpg</image:loc>
+      <image:title>Testimonial from Kshitij Kumar Singh, Apeejay Stya University</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_03.jpg</image:loc>
+      <image:title>Testimonial from Dr. Vikas Garg, Central University of Haryana</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_04.jpg</image:loc>
+      <image:title>Testimonial from the Principal's Office, Government ITI (Women)</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_05.jpg</image:loc>
+      <image:title>Testimonial from Hindu Kanya Mahavidyalaya, Jind</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_06.jpg</image:loc>
+      <image:title>Words Worth certificate for a Spoken English course conducted by Sudeep Ghosh</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_07.jpg</image:loc>
+      <image:title>Midigiworld Training Division record of 48 Personality Development sessions</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_08.jpg</image:loc>
+      <image:title>Thank-you from UltraTech Cement, Aditya Birla Group, for the Margdarshan skill programme</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_09.jpg</image:loc>
+      <image:title>Testimonial from Akhil, participant at an Apollo Homecare motivational session</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_10.jpg</image:loc>
+      <image:title>Testimonial from Babbar Akali Khalsa College, Garhshankar</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_11.jpg</image:loc>
+      <image:title>Testimonial from Kalpana Chawla Govt. Polytechnic for Women, Ambala</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_12.jpg</image:loc>
+      <image:title>Testimonial from Shri Sanatan Dharam Girls' College, Bathinda</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_13.jpg</image:loc>
+      <image:title>Testimonial from the Vice Chancellor of Lingaya's Vidyapeeth, Faridabad</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_14.jpg</image:loc>
+      <image:title>Testimonial from Dr. Sachin Mittal, Advanced Dentistry</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_15.jpg</image:loc>
+      <image:title>Testimonial from Ms. Jyoti Sharma, Prayas Juvenile Aid Centre Society</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/testi_16.jpg</image:loc>
+      <image:title>Testimonial from Prof. Divya Malhan, Maharshi Dayanand University, Rohtak</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_01.jpg</image:loc>
+      <image:title>News clipping on the Baba Mastnath University employability enhancement training programme</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_02.jpg</image:loc>
+      <image:title>Sudeep Ghosh addressing participants at a Mahindra &amp; Mahindra training programme</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_03.jpg</image:loc>
+      <image:title>Press coverage of the Mahindra &amp; Mahindra employability and life skills training programme</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_04.jpg</image:loc>
+      <image:title>Press report on a placement training camp at Karhali Sahib College</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_05.jpg</image:loc>
+      <image:title>Students at a placement training camp at Karhali Sahib College</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_06.jpg</image:loc>
+      <image:title>Press photo from a college event covered in a Punjabi newspaper</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_07.jpg</image:loc>
+      <image:title>Press coverage of a placement cell workshop at Guru Nanak College</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_08.jpg</image:loc>
+      <image:title>Press coverage of a placement cell workshop</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_09.jpg</image:loc>
+      <image:title>Press coverage of an interview skills workshop at a government P.G. college</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_10.jpg</image:loc>
+      <image:title>Press coverage of a body language and interview skills workshop at Rajkiya Mahavidyalaya Safidon</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_11.jpg</image:loc>
+      <image:title>Press coverage of a personality development session at a government college in Safidon</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_12.jpg</image:loc>
+      <image:title>Press coverage of an employment skill and vocational training programme at Khalsa College</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_13.jpg</image:loc>
+      <image:title>Press coverage of an employment skill development workshop at Hindu Kanya Mahavidyalaya</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_14.jpg</image:loc>
+      <image:title>Press coverage of employment skill development training at Hindu College</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_15.jpg</image:loc>
+      <image:title>Press report on the conclusion of a weekly workshop at a government P.G. college</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_16.jpg</image:loc>
+      <image:title>Group photo after a seven-day workshop with the Nandi Foundation at MDU's Sociology Department</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_17.jpg</image:loc>
+      <image:title>Press coverage of a personality development session at a government college</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_18.jpg</image:loc>
+      <image:title>Press photo from the conclusion of a weekly workshop at Government PG College</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_19.jpg</image:loc>
+      <image:title>Press photo from a programme completion ceremony at Khalsa College</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_20.jpg</image:loc>
+      <image:title>Press coverage of a personality development and corporate culture programme at Mata Gujari College</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_21.jpg</image:loc>
+      <image:title>Press coverage of a placement training camp at Karhali Sahib College</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_22.jpg</image:loc>
+      <image:title>Press coverage of a skill development workshop at SSD Girls College</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_23.jpg</image:loc>
+      <image:title>Press coverage of an employability skills enhancement workshop at Maharshi Dayanand University</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/press_24.jpg</image:loc>
+      <image:title>Press coverage of a talk on personality and employability by Sudeep Ghosh</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/sample_certificate_placeholder.png</image:loc>
+      <image:title>Sample certificate of completion issued by Human Skills by Sudeep Ghosh, with QR verification</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/portrait.png</image:loc>
+      <image:title>Portrait of Sudeep Ghosh, consultant trainer in AI and human skills</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://humanskills.in/images/logo-mark.png</image:loc>
+      <image:title>Human Skills by Sudeep Ghosh logo</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://humanskills.in/training.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
   <url>
     <loc>https://humanskills.in/proof.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
   <url>
     <loc>https://humanskills.in/faq.html</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
   <url>
     <loc>https://humanskills.in/free-resources.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
   <url>
     <loc>https://humanskills.in/contact.html</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
   <url>
     <loc>https://humanskills.in/verify.html</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-10</lastmod>
   </url>
 </urlset>
