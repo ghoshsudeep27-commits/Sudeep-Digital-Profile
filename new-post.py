@@ -78,17 +78,31 @@ def markdown_to_html(md):
             continue
         elif re.match(r"^[-*]\s+", ln):
             items = []
-            while i < len(lines) and re.match(r"^[-*]\s+", lines[i]):
-                items.append("    <li>" + inline(re.sub(r"^[-*]\s+", "", lines[i])) + "</li>")
-                i += 1
-            out.append("  <ul>\n" + "\n".join(items) + "\n  </ul>")
+            while i < len(lines):
+                cur = lines[i]
+                if re.match(r"^[-*]\s+", cur):
+                    items.append(re.sub(r"^[-*]\s+", "", cur))
+                    i += 1
+                elif cur.strip() and items and not re.match(r"^(#{1,3}\s|\d+\.\s|>\s|---$)", cur.strip()):
+                    items[-1] += " " + cur.strip()      # wrapped line - same item
+                    i += 1
+                else:
+                    break
+            out.append("  <ul>\n" + "\n".join("    <li>" + inline(t) + "</li>" for t in items) + "\n  </ul>")
             continue
         elif re.match(r"^\d+\.\s+", ln):
             items = []
-            while i < len(lines) and re.match(r"^\d+\.\s+", lines[i]):
-                items.append("    <li>" + inline(re.sub(r"^\d+\.\s+", "", lines[i])) + "</li>")
-                i += 1
-            out.append("  <ol>\n" + "\n".join(items) + "\n  </ol>")
+            while i < len(lines):
+                cur = lines[i]
+                if re.match(r"^\d+\.\s+", cur):
+                    items.append(re.sub(r"^\d+\.\s+", "", cur))
+                    i += 1
+                elif cur.strip() and items and not re.match(r"^(#{1,3}\s|[-*]\s|>\s|---$)", cur.strip()):
+                    items[-1] += " " + cur.strip()
+                    i += 1
+                else:
+                    break
+            out.append("  <ol>\n" + "\n".join("    <li>" + inline(t) + "</li>" for t in items) + "\n  </ol>")
             continue
         else:
             buf = []
@@ -211,7 +225,13 @@ def build(md_path):
     open(out, "w", encoding="utf-8").write(page)
 
     # ---- card into blog.html ----
+    thumb = ""
+    if image:
+        thumb = (f'        <div class="post-card__thumb"><img src="{image}" '
+                 f'alt="{html.escape(title, quote=True)}" width="1600" height="800" '
+                 f'loading="lazy" decoding="async"></div>\n')
     card = (f'      <article class="post-card">\n'
+            f'{thumb}'
             f'        <div class="post-card__tag">{category}</div>\n'
             f'        <h3 class="post-card__title"><a href="blog/{slug}.html">{title}</a></h3>\n'
             f'        <p class="post-card__ex">{excerpt}</p>\n'
