@@ -117,9 +117,11 @@ def build(md_path):
     slug = meta.get("slug") or slugify(title)
     read = meta.get("read") or ("%d min" % max(3, round(len(body_md.split()) / 200)))
     try:
-        iso = datetime.date.fromisoformat(date).isoformat()
+        _d = datetime.date.fromisoformat(date)
+        iso = _d.isoformat()
+        pretty = "%d %s %d" % (_d.day, _d.strftime("%b"), _d.year)
     except ValueError:
-        iso = datetime.date.today().isoformat()
+        iso = pretty = date
 
     listing = open(os.path.join(ROOT, "blog.html"), encoding="utf-8").read()
     nav    = extract(r'<nav class="top-nav".*?</nav>', listing)
@@ -187,7 +189,7 @@ def build(md_path):
   <div class="blog-wrap" style="max-width:820px;">
     <div class="blog-hero__eyebrow" style="color:var(--accent-2)">{category}</div>
     <h1 class="blog-hero__title" style="font-size:clamp(30px,4.2vw,48px);">{title}</h1>
-    <div class="post-card__meta" style="border:0;padding:0;margin:0;">{date} &middot; {read} read</div>{hero_img}
+    <div class="post-card__meta" style="border:0;padding:0;margin:0;">{pretty} &middot; {read} read</div>{hero_img}
   </div>
 </header>
 <article class="article">
@@ -205,6 +207,7 @@ def build(md_path):
 
     os.makedirs(os.path.join(ROOT, "blog"), exist_ok=True)
     out = os.path.join(ROOT, "blog", slug + ".html")
+    page = post_process(page)
     open(out, "w", encoding="utf-8").write(page)
 
     # ---- card into blog.html ----
@@ -212,7 +215,7 @@ def build(md_path):
             f'        <div class="post-card__tag">{category}</div>\n'
             f'        <h3 class="post-card__title"><a href="blog/{slug}.html">{title}</a></h3>\n'
             f'        <p class="post-card__ex">{excerpt}</p>\n'
-            f'        <div class="post-card__meta">{date} &middot; {read} read</div>\n'
+            f'        <div class="post-card__meta">{pretty} &middot; {read} read</div>\n'
             f'      </article>')
     if f'blog/{slug}.html' not in listing:
         if '<div class="post-grid">' in listing:
@@ -237,6 +240,94 @@ def build(md_path):
     print(f"  card added: blog.html")
     print(f"  sitemap   : {SITE}/blog/{slug}.html")
     print(f"  header img: {image if image else '(none - gradient fallback)'}")
+
+
+# ------------------------------------------------------------------ blog plumbing
+def post_process(html):
+    """A post lives in blog/, so: (a) root-relative paths need ../, and
+    (b) the Explore-more FAB must be added, listing the article's sections."""
+    def fix(m):
+        attr, url = m.group(1), m.group(2)
+        if re.match(r'^(https?:|mailto:|tel:|data:|#|\.\./)', url) or url == "":
+            return m.group(0)
+        return '%s="../%s"' % (attr, url)
+    html = re.sub(r'\b(href|src)="([^"]*)"', fix, html)
+
+    # id the h2s so the drawer can jump to them
+    n = [0]
+    def add_id(m):
+        n[0] += 1
+        return '<h2 id="s%d">%s</h2>' % (n[0], m.group(1))
+    html = re.sub(r'<h2>(.*?)</h2>', add_id, html, flags=re.S)
+
+    items = [("top", "#", "Top of page")]
+    for num, label in re.findall(r'<h2 id="s(\d+)">(.*?)</h2>', html, re.S):
+        label = re.sub(r"<[^>]+>", "", label).strip()
+        items.append(("s" + num, "#s" + num, label if len(label) < 52 else label[:49] + "..."))
+    items.append(("all", "../blog.html", "All insights"))
+    links = "\n".join(
+        '      <a href="%s" data-section="%s"><span class="num">%02d</span> %s</a>' % (h, i, k, l)
+        for k, (i, h, l) in enumerate(items, 1))
+    fab = FAB_TEMPLATE.format(links=links)
+    return html.replace("</body>", fab + "\n</body>", 1)
+
+
+FAB_TEMPLATE = """
+<!-- ===== Explore more FAB + drawer ===== -->
+<button class="toc-fab" id="tocFab" aria-label="Open section navigation">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+  </svg>
+  <span class="toc-fab__label">Explore more</span>
+  <span class="toc-fab__badge" id="tocFabBadge">01</span>
+</button>
+<div class="toc-backdrop" id="tocBackdrop"></div>
+<div class="section-drawer" id="sectionDrawer">
+  <a class="section-drawer__brand" href="../index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:10px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border);">
+    <span class="brand-badge brand-badge--drawer"><img src="../images/logo-mark.png" alt="Human Skills by Sudeep Ghosh logo" width="36" height="36" decoding="async"></span>
+    <div class="toc-brand__name">Human Skills by Sudeep Ghosh<span>Trainer &middot; Coach</span></div>
+  </a>
+  <div class="section-drawer__title">In this article</div>
+{links}
+</div>
+<script>
+if (typeof smoothScrollTo !== 'function') {{
+  window.smoothScrollTo = function(id) {{
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+  }};
+}}
+(function() {{
+  var fab=document.getElementById('tocFab'), drawer=document.getElementById('sectionDrawer');
+  var backdrop=document.getElementById('tocBackdrop'), badge=document.getElementById('tocFabBadge');
+  if(!fab||!drawer) return;
+  function open(){{drawer.classList.add('expanded'); if(backdrop)backdrop.classList.add('show');}}
+  function close(){{drawer.classList.remove('expanded'); if(backdrop)backdrop.classList.remove('show');}}
+  fab.addEventListener('click',open);
+  if(backdrop)backdrop.addEventListener('click',close);
+  drawer.querySelectorAll('a[data-section]').forEach(function(link){{
+    link.addEventListener('click',function(e){{
+      e.preventDefault(); var sid=link.getAttribute('data-section'); close();
+      var href=link.getAttribute('href');
+      if(sid==='all'||sid==='top'&&href!=='#'){{ window.location.href=href; return; }}
+      if(sid!=='top'&&typeof smoothScrollTo==='function'){{ smoothScrollTo(sid); history.replaceState(null,'','#'+sid); }}
+      else {{ window.scrollTo({{top:0,behavior:'smooth'}}); }}
+    }});
+  }});
+  document.addEventListener('keydown',function(e){{ if(e.key==='Escape') close(); }});
+  var links=drawer.querySelectorAll('a[data-section]');
+  var secs=[]; links.forEach(function(l){{ var id=l.getAttribute('href'); if(id&&id.charAt(0)==='#'){{var el=document.getElementById(id.slice(1)); if(el)secs.push({{el:el,link:l}});}} }});
+  if('IntersectionObserver' in window){{
+    var io=new IntersectionObserver(function(es){{ es.forEach(function(en){{
+      if(en.isIntersecting){{ links.forEach(function(l){{l.classList.remove('active');}});
+        var m=secs.find(function(s){{return s.el===en.target;}});
+        if(m){{ m.link.classList.add('active'); if(badge){{var n=m.link.querySelector('.num'); if(n)badge.textContent=n.textContent;}} }}
+      }} }}); }},{{rootMargin:'-20% 0px -70% 0px'}});
+    secs.forEach(function(s){{ io.observe(s.el); }});
+  }}
+}})();
+</script>
+"""
 
 
 if __name__ == "__main__":
