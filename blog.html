@@ -1963,6 +1963,17 @@ html, body { overflow-x: clip; }
   border: 1px solid var(--border-bright); }
 .post-hero-img img { display: block; width: 100%; height: auto; }
 
+
+/* Cover images on the listing */
+.post-feature__art { position: relative; overflow: hidden; background: var(--surface-2);
+  display: flex; align-items: center; justify-content: center; }
+.post-feature__art img { display: block; width: 100%; height: 100%; min-height: 300px;
+  object-fit: contain; }
+.post-card__thumb { margin: -26px -26px 20px; border-radius: 16px 16px 0 0; overflow: hidden;
+  aspect-ratio: 2 / 1; background: var(--surface-2); }
+.post-card__thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 900px) { .post-feature__art img { min-height: 190px; } }
+
 </style>
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
@@ -2003,7 +2014,7 @@ html, body { overflow-x: clip; }
     <span class="chip">Healthcare</span><span class="chip">Human Skills</span>
   </div>
   <article class="post-feature">
-    <div class="post-feature__art"></div>
+    <div class="post-feature__art"><img src="images/blog/claude-in-country-india.jpg" alt="India AI revolution - Claude and Amazon Bedrock: secure in-country inference for enterprise workloads" width="1600" height="800" loading="eager" decoding="async"></div>
     <div class="post-feature__body">
       <div class="post-feature__tag">Featured &middot; Enterprise AI</div>
       <span class="badge-mustread">Must read</span>
@@ -2015,6 +2026,7 @@ html, body { overflow-x: clip; }
 </section>
   <div class="post-grid">
       <article class="post-card">
+        <div class="post-card__thumb"><img src="images/blog/sample-header.jpg" alt="Shadow AI: the risk sitting in your team's personal accounts" width="1600" height="800" loading="lazy" decoding="async"></div>
         <div class="post-card__tag">AI Readiness</div>
         <h3 class="post-card__title"><a href="blog/shadow-ai-the-risk-sitting-in-your-teams-personal-accounts.html">Shadow AI: the risk sitting in your team's personal accounts</a></h3>
         <p class="post-card__ex">Most teams are already using AI at work. The problem is which accounts they are using it in, and what leaves the building with the prompt.</p>
