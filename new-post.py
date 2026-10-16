@@ -244,32 +244,46 @@ def build(md_path):
 
 # ------------------------------------------------------------------ blog plumbing
 def post_process(html):
-    """A post lives in blog/, so: (a) root-relative paths need ../, and
-    (b) the Explore-more FAB must be added, listing the article's sections."""
+    """A post lives in blog/, so it must borrow blog.html's chrome and push every
+    root-relative path up one level."""
+    def balanced(html, marker):
+        i = html.index(marker); depth = 0
+        for m in re.finditer(r'<div\b[^>]*>|</div>', html[i:]):
+            depth += 1 if m.group(0).startswith('<div') else -1
+            if depth == 0:
+                return html[i:i+m.end()]
+        return html[i:]
+
+    listing = open(os.path.join(ROOT, "blog.html"), encoding="utf-8").read()
+
+    # 1. favicon / apple-touch-icon from the listing
+    icons = "\n".join(re.findall(r'<link rel="(?:icon|apple-touch-icon)"[^>]*>', listing))
+
+    # 2. the Explore-more FAB + the site's section drawer
+    fab = re.search(r'<button class="toc-fab".*?</button>', listing, re.S).group(0)
+    backdrop = re.search(r'<div class="toc-backdrop"[^>]*></div>', listing).group(0)
+    drawer = balanced(listing, '<div class="section-drawer" id="sectionDrawer">')
+    script = re.search(r'<script>\s*if \(typeof smoothScrollTo.*?</script>', listing, re.S)
+    script = script.group(0) if script else ""
+    chrome = "\n<!-- Explore more -->\n" + fab + "\n" + backdrop + "\n" + drawer + "\n" + script
+
+    # 3. byline avatar -> the portrait
+    html = html.replace('<div class="byline__img"></div>',
+                        '<img class="byline__img" src="images/portrait.png" alt="Sudeep Ghosh" '
+                        'width="52" height="52" loading="lazy">')
+
+    # 4. push every root-relative path up a level (anchors like #s1 are left alone)
     def fix(m):
         attr, url = m.group(1), m.group(2)
         if re.match(r'^(https?:|mailto:|tel:|data:|#|\.\./)', url) or url == "":
             return m.group(0)
         return '%s="../%s"' % (attr, url)
     html = re.sub(r'\b(href|src)="([^"]*)"', fix, html)
+    icons = re.sub(r'href="(?!http)', 'href="../', icons)
+    chrome = re.sub(r'\b(href|src)="(?!http|#|\.\./)', lambda m: m.group(1) + '="../', chrome)
 
-    # id the h2s so the drawer can jump to them
-    n = [0]
-    def add_id(m):
-        n[0] += 1
-        return '<h2 id="s%d">%s</h2>' % (n[0], m.group(1))
-    html = re.sub(r'<h2>(.*?)</h2>', add_id, html, flags=re.S)
-
-    items = [("top", "#", "Top of page")]
-    for num, label in re.findall(r'<h2 id="s(\d+)">(.*?)</h2>', html, re.S):
-        label = re.sub(r"<[^>]+>", "", label).strip()
-        items.append(("s" + num, "#s" + num, label if len(label) < 52 else label[:49] + "..."))
-    items.append(("all", "../blog.html", "All insights"))
-    links = "\n".join(
-        '      <a href="%s" data-section="%s"><span class="num">%02d</span> %s</a>' % (h, i, k, l)
-        for k, (i, h, l) in enumerate(items, 1))
-    fab = FAB_TEMPLATE.format(links=links)
-    return html.replace("</body>", fab + "\n</body>", 1)
+    html = html.replace("</head>", icons + "\n</head>", 1)
+    return html.replace("</body>", chrome + "\n</body>", 1)
 
 
 FAB_TEMPLATE = """
