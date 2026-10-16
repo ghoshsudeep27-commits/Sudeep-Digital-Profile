@@ -230,7 +230,7 @@ def build(md_path):
         thumb = (f'        <div class="post-card__thumb"><img src="{image}" '
                  f'alt="{html.escape(title, quote=True)}" width="1600" height="800" '
                  f'loading="lazy" decoding="async"></div>\n')
-    card = (f'      <article class="post-card">\n'
+    card = (f'      <article class="post-card" data-category="{category}">\n'
             f'{thumb}'
             f'        <div class="post-card__tag">{category}</div>\n'
             f'        <h3 class="post-card__title"><a href="blog/{slug}.html">{title}</a></h3>\n'

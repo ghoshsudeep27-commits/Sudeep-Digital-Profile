@@ -1969,6 +1969,15 @@ html, body { overflow-x: clip; }
 .post-card__thumb { margin: -26px -26px 20px; border-radius: 16px 16px 0 0; overflow: hidden; aspect-ratio: 2 / 1; background: var(--surface-2); }
 .post-card__thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 900px) { .post-feature__art img { min-height: 190px; } }
+
+/* Filter chips */
+.chip { cursor: pointer; font-family: var(--font-mono); background: transparent; color: var(--text-dim); -webkit-appearance: none; appearance: none; }
+.chip:hover { border-color: var(--border-glow); color: var(--text-bright); }
+.chip[aria-pressed="true"] { color: #06231f; background: var(--accent); border-color: var(--accent); font-weight: 600; }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.no-results { display: none; padding: 40px 0 70px; color: var(--text-dim); font-size: 15px; }
+.no-results.is-on { display: block; }
+
 </style>
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
@@ -2004,11 +2013,11 @@ html, body { overflow-x: clip; }
 </header>
 <section class="blog-wrap">
   <div class="chips">
-    <span class="chip chip--on">All</span><span class="chip">Enterprise AI</span>
-    <span class="chip">AI Readiness</span><span class="chip">Manufacturing</span>
-    <span class="chip">Healthcare</span><span class="chip">Human Skills</span>
+    <button type="button" class="chip chip--on" data-filter="All" aria-pressed="true">All</button><button type="button" class="chip" data-filter="Enterprise AI" aria-pressed="false">Enterprise AI</button>
+    <button type="button" class="chip" data-filter="AI Readiness" aria-pressed="false">AI Readiness</button><button type="button" class="chip" data-filter="Manufacturing" aria-pressed="false">Manufacturing</button>
+    <button type="button" class="chip" data-filter="Healthcare" aria-pressed="false">Healthcare</button><button type="button" class="chip" data-filter="Human Skills" aria-pressed="false">Human Skills</button>
   </div>
-  <article class="post-feature">
+  <article class="post-feature" data-category="Enterprise AI">
     <div class="post-feature__art"><img src="images/blog/claude-in-country-india.jpg" alt="India AI revolution - Claude and Amazon Bedrock: secure in-country inference for enterprise workloads" width="1600" height="800" loading="eager" decoding="async"></div>
     <div class="post-feature__body">
       <div class="post-feature__tag">Featured &middot; Enterprise AI</div>
@@ -2021,20 +2030,21 @@ html, body { overflow-x: clip; }
 </section>
   <div class="post-grid">
 
-      <article class="post-card">
+      <article class="post-card" data-category="Enterprise AI">
         <div class="post-card__thumb"><img src="images/blog/sarvam-ai-trillion-parameter.webp" alt="Sarvam AI is building a trillion-parameter model - and why that matters for Indian enterprise" width="1600" height="800" loading="lazy" decoding="async"></div>
         <div class="post-card__tag">Enterprise AI</div>
         <h3 class="post-card__title"><a href="blog/sarvam-ai-trillion-parameter.html">Sarvam AI is building a trillion-parameter model - and why that matters for Indian enterprise</a></h3>
         <p class="post-card__ex">India has spent a decade consuming AI built elsewhere. Sarvam AI's trillion-parameter model is the first serious attempt to manufacture it here - and the case for it is as much economic as technical.</p>
         <div class="post-card__meta">6 Aug 2026 &middot; 3 min read</div>
       </article>
-<article class="post-card">
+<article class="post-card" data-category="AI Readiness">
         <div class="post-card__tag">AI Readiness</div>
         <h3 class="post-card__title"><a href="blog/shadow-ai-the-risk-sitting-in-your-teams-personal-accounts.html">Shadow AI: the risk sitting in your team's personal accounts</a></h3>
         <p class="post-card__ex">Most teams are already using AI at work. The problem is which accounts they are using it in, and what leaves the building with the prompt.</p>
         <div class="post-card__meta">2026-10-20 &middot; 3 min read</div>
       </article>
   </div>
+<div class="no-results" id="noResults">Nothing published under that topic yet — the filters fill in as posts are added.</div>
 <footer class="site-foot">
       <h2 class="site-foot__text" style="margin:0 0 4px">Human Skills by Sudeep Ghosh</h2>
       <div class="site-foot__text">© 2026. All rights reserved. &middot; <a href="privacy.html">Privacy Policy</a></div>
@@ -2189,6 +2199,33 @@ if (typeof smoothScrollTo !== 'function') {
       history.replaceState(null, '', '#' + id);
     });
   });
+})();
+</script>
+
+
+<script>
+(function () {
+  var chips = document.querySelectorAll('.chip[data-filter]');
+  var items = document.querySelectorAll('[data-category]');
+  var empty = document.getElementById('noResults');
+  if (!chips.length || !items.length) return;
+  function apply(value) {
+    var shown = 0;
+    items.forEach(function (el) {
+      var match = (value === 'All') || (el.getAttribute('data-category') === value);
+      el.style.display = match ? '' : 'none';
+      if (match) shown++;
+    });
+    if (empty) empty.classList.toggle('is-on', shown === 0);
+    chips.forEach(function (c) {
+      var on = c.getAttribute('data-filter') === value;
+      c.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () { apply(c.getAttribute('data-filter')); });
+  });
+  apply('All');
 })();
 </script>
 
