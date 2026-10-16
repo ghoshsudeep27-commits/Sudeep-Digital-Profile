@@ -1766,6 +1766,87 @@ html, body { overflow-x: clip; }
   .resume-cta-card__title { color: #111 !important; }
   .resume-cta-card__text { color: #444 !important; }
 }
+
+/* ===== Blog ===== */
+.nav-link--hot { position: relative; color: var(--accent) !important; border: 1px solid rgba(56,200,200,.45);
+  border-radius: 999px; padding: 6px 13px !important; animation: hotPulse 2.8s ease-in-out infinite; }
+.nav-link--hot .nav-num { color: var(--accent-2) !important; }
+@keyframes hotPulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(56,200,200,0); border-color: rgba(56,200,200,.40); }
+  50%      { box-shadow: 0 0 18px rgba(56,200,200,.45); border-color: rgba(56,200,200,.85); }
+}
+@media (prefers-reduced-motion: reduce) { .nav-link--hot { animation: none; } }
+
+.blog-hero { padding: 84px 0 56px; }
+.blog-hero__eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+.blog-hero__title { font-size: clamp(38px, 6vw, 66px); line-height: 1.06; font-weight: 700;
+  color: var(--text-bright); margin: 0 0 18px; letter-spacing: -0.02em; }
+.blog-hero__title em { font-family: var(--font-display); font-style: italic; color: var(--accent-2); }
+.blog-hero__sub { max-width: 640px; color: var(--text-dim); font-size: 17px; line-height: 1.7; }
+.blog-wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 38px 0 32px; }
+.chip { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 1px; text-transform: uppercase;
+  padding: 8px 15px; border-radius: 999px; border: 1px solid var(--border-bright); color: var(--text-dim); }
+.chip--on { color: #06231f; background: var(--accent); border-color: var(--accent); font-weight: 600; }
+.post-feature { display: grid; grid-template-columns: 1.1fr 1fr; border-radius: 18px; overflow: hidden;
+  border: 1px solid var(--border-bright); background: var(--surface); margin-bottom: 30px; }
+.post-feature__art { min-height: 300px; background:
+  radial-gradient(120% 120% at 20% 10%, rgba(56,200,200,.30), transparent 60%),
+  radial-gradient(120% 120% at 90% 90%, rgba(212,167,58,.22), transparent 55%),
+  linear-gradient(140deg,#0e1b2b,#132238); }
+.post-feature__body { padding: 38px 40px; }
+.post-feature__tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent-2); }
+.post-feature__title { font-size: 29px; line-height: 1.22; font-weight: 700; color: var(--text-bright);
+  margin: 12px 0 14px; letter-spacing: -0.01em; }
+.post-feature__title a { color: inherit; text-decoration: none; }
+.post-feature__ex { color: var(--text-dim); line-height: 1.7; font-size: 15px; }
+.post-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; padding-bottom: 84px; }
+.post-card { border: 1px solid var(--border); border-radius: 16px; background: var(--surface);
+  padding: 26px 26px 24px; display: flex; flex-direction: column; }
+.post-card__tag { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.6px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.post-card__title { font-size: 19px; line-height: 1.3; font-weight: 600; color: var(--text-bright); margin: 0 0 12px; }
+.post-card__title a { color: inherit; text-decoration: none; }
+.post-card__ex { color: var(--text-dim); font-size: 14px; line-height: 1.65; flex: 1; }
+.post-card__meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); opacity: .75;
+  margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border); }
+.badge-mustread { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.6px;
+  text-transform: uppercase; color: #06231f; background: var(--accent-2); border-radius: 999px;
+  padding: 4px 10px; margin-bottom: 12px; }
+/* article */
+.article { max-width: 720px; margin: 0 auto; padding: 0 28px 80px; }
+.article p { font-size: 17.5px; line-height: 1.85; color: var(--text-dim); margin: 0 0 24px; }
+.article h2 { font-size: 26px; font-weight: 700; color: var(--text-bright); margin: 44px 0 16px; letter-spacing: -0.01em; }
+.article ul { margin: 0 0 24px; padding-left: 22px; }
+.article li { font-size: 17px; line-height: 1.8; color: var(--text-dim); margin-bottom: 9px; }
+.article blockquote { margin: 34px 0; padding: 4px 0 4px 24px; border-left: 3px solid var(--accent-2); }
+.article blockquote p { font-family: var(--font-display); font-style: italic; font-size: 22px;
+  line-height: 1.55; color: var(--text-bright); margin: 0; }
+.article a { color: var(--accent); }
+.byline { display: flex; align-items: center; gap: 14px; margin-top: 40px; padding-top: 26px; border-top: 1px solid var(--border); }
+.byline__img { width: 52px; height: 52px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--border-bright); }
+.byline__name { color: var(--text-bright); font-weight: 600; font-size: 15px; }
+.byline__role { color: var(--text-dim); font-size: 13px; }
+.source-note { margin-top: 30px; padding: 16px 18px; border-radius: 12px; background: var(--surface-2);
+  border: 1px solid var(--border); font-size: 14px; color: var(--text-dim); }
+@media (max-width: 900px) {
+  .post-grid { grid-template-columns: 1fr; } .post-feature { grid-template-columns: 1fr; }
+  .post-feature__art { min-height: 160px; }
+}
+
+
+/* Footer privacy link - was rendering as a browser-default blue link */
+.site-foot__text a { color: var(--text-dim); text-decoration: none; }
+.site-foot__text a:hover { color: var(--accent); }
+
+
+/* Optional header image on a post */
+.post-hero-img { margin-top: 26px; border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--border-bright); }
+.post-hero-img img { display: block; width: 100%; height: auto; }
+
 </style>
 
 <!-- ===== JSON-LD Structured Data (Person schema) ===== -->
@@ -2565,7 +2646,9 @@ html, body { overflow-x: clip; }
   <button class="top-nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
-</nav>
+
+    <a href="blog.html" class="nav-link nav-link--hot"><span class="nav-num">07</span> Insights</a>
+  </nav>
 <div class="wrap">
 <div class="main">
 <!-- ===== LIGHT CONTENT ZONE (blend theme) ===== -->
