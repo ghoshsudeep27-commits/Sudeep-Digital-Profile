@@ -264,6 +264,27 @@ def build(md_path):
 
 
 # ------------------------------------------------------------------ blog plumbing
+def keep_featured_image(listing):
+    """The featured card is static; make sure its art still points at a real image."""
+    m = re.search(r'<div class="post-feature__art">(.*?)</div>', listing, re.S)
+    if not m or "<img" in m.group(1):
+        return listing
+    feat = re.search(r'post-feature__title"><a href="([^"]+)"', listing)
+    if not feat:
+        return listing
+    page = os.path.join(ROOT, feat.group(1))
+    if not os.path.exists(page):
+        return listing
+    src = open(page, encoding="utf-8").read()
+    img = re.search(r'<div class="post-hero-img"><img src="\.\./([^"]+)"', src)
+    if not img:
+        return listing
+    alt = re.search(r'<div class="post-hero-img"><img src="[^"]+" alt="([^"]*)"', src)
+    block = ('<div class="post-feature__art"><img src="%s" alt="%s" width="1600" height="800" '
+             'loading="eager" decoding="async"></div>') % (img.group(1), alt.group(1) if alt else "")
+    return listing.replace(m.group(0), block, 1)
+
+
 def post_process(html):
     """A post lives in blog/, so it must borrow blog.html's chrome and push every
     root-relative path up one level."""
