@@ -68,6 +68,11 @@ def markdown_to_html(md):
             out.append(f"  <h2>{inline(ln[3:])}</h2>")
         elif ln.startswith("# "):
             out.append(f"  <h2>{inline(ln[2:])}</h2>")
+        elif re.match(r"^!\[[^\]]*\]\([^)]+\)\s*$", ln.strip()):
+            m = re.match(r"^!\[([^\]]*)\]\(([^)]+)\)\s*$", ln.strip())
+            alt, src = m.group(1), m.group(2)
+            cap = f"<figcaption>{inline(alt)}</figcaption>" if alt else ""
+            out.append(f'  <figure class="post-figure"><img src="{src}" alt="{alt}" loading="lazy" decoding="async">{cap}</figure>')
         elif ln.strip() in ("---", "***"):
             out.append("  <hr>")
         elif ln.startswith("> "):

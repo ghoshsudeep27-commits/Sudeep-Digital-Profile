@@ -85,3 +85,10 @@
   aspect-ratio: 2 / 1; background: var(--surface-2); }
 .post-card__thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 900px) { .post-feature__art img { min-height: 190px; } }
+
+/* Figures inside a post */
+.post-figure { margin: 34px 0; }
+.post-figure img { display: block; width: 100%; height: auto; border-radius: 12px;
+  border: 1px solid var(--border-bright); background: var(--surface-2); }
+.post-figure figcaption { margin-top: 10px; font-size: 13px; line-height: 1.55;
+  color: var(--text-dim); font-family: var(--font-mono); }
