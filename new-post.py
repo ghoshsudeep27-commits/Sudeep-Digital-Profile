@@ -135,6 +135,9 @@ def build(md_path):
     excerpt, image = meta["excerpt"], meta.get("image", "").strip()
     slug = meta.get("slug") or slugify(title)
     read = meta.get("read") or ("%d min" % max(3, round(len(body_md.split()) / 200)))
+    # keep the head within the limits search engines flag
+    _seo_t = seo_title(title, meta.get("seo_title"))
+    _seo_d = seo_desc(excerpt, meta.get("seo_description"))
     try:
         _d = datetime.date.fromisoformat(date)
         iso = _d.isoformat()
@@ -162,12 +165,12 @@ def build(md_path):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title} &mdash; Human Skills by Sudeep Ghosh</title>
-<meta name="description" content="{html.escape(excerpt, quote=True)}">
+<title>{_seo_t}</title>
+<meta name="description" content="{html.escape(_seo_d, quote=True)}">
 <link rel="canonical" href="{SITE}/blog/{slug}.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="{html.escape(title, quote=True)}">
-<meta property="og:description" content="{html.escape(excerpt, quote=True)}">
+<meta property="og:title" content="{html.escape(_seo_t, quote=True)}">
+<meta property="og:description" content="{html.escape(_seo_d, quote=True)}">
 <meta property="og:url" content="{SITE}/blog/{slug}.html">"""
     if image:
         page += f'\n<meta property="og:image" content="{SITE}/{image}">'
@@ -179,7 +182,7 @@ def build(md_path):
  "@graph": [
   {{"@type": "BlogPosting", "@id": "{SITE}/blog/{slug}.html#post",
     "headline": "{title}",
-    "description": "{html.escape(excerpt, quote=True)}",
+    "description": "{html.escape(_seo_d, quote=True)}",
     "datePublished": "{iso}", "dateModified": "{iso}",
     "author": {{"@id": "{SITE}/#sudeep-ghosh"}},
     "publisher": {{"@id": "{SITE}/#organization"}},
@@ -306,6 +309,40 @@ def sync_blog_index(listing):
     os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, "w", encoding="utf-8").write(idx)
     return len(idx)
+
+
+
+# --- SEO limits: Bing flags titles over 65 and descriptions outside 120-160 ---
+SEO_TITLE_MAX = 65
+SEO_DESC_MAX = 160
+SEO_DESC_MIN = 120
+
+def seo_title(title, seo_title_field=None):
+    """Prefer an explicit seo_title; otherwise title + a short brand suffix, trimmed to fit."""
+    if seo_title_field:
+        t = seo_title_field.strip()
+        if len(t) > SEO_TITLE_MAX:
+            print(f"    !! seo_title is {len(t)} chars (limit {SEO_TITLE_MAX}) - trim it in the front matter")
+        return t
+    suffix = " | Human Skills"
+    room = SEO_TITLE_MAX - len(suffix)
+    base = title.strip()
+    if len(base) > room:
+        cut = base[:room].rsplit(" ", 1)[0].rstrip(" -:,.|")
+        print(f"    note: title is {len(base)} chars; using a {len(cut)}-char version for <title>")
+        base = cut
+    return base + suffix
+
+def seo_desc(excerpt, seo_desc_field=None):
+    """Prefer an explicit seo_description; otherwise the excerpt, trimmed to fit."""
+    d = (seo_desc_field or excerpt).strip()
+    if len(d) > SEO_DESC_MAX:
+        cut = d[:SEO_DESC_MAX].rsplit(" ", 1)[0].rstrip(" -:,.|") + "."
+        print(f"    note: description is {len(d)} chars; trimmed to {len(cut)}")
+        d = cut
+    elif len(d) < SEO_DESC_MIN:
+        print(f"    note: description is only {len(d)} chars - Bing prefers {SEO_DESC_MIN}-{SEO_DESC_MAX}")
+    return d
 
 
 def post_process(html):
