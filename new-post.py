@@ -250,6 +250,7 @@ def build(md_path):
             idx = listing.rfind("</section>", 0, listing.find('<footer class="site-foot"'))
             listing = listing[:idx] + grid + listing[idx:]
         listing = keep_featured_image(listing)
+        sync_blog_index(listing)
         open(os.path.join(ROOT, "blog.html"), "w", encoding="utf-8").write(listing)
 
     # ---- sitemap ----
@@ -288,6 +289,23 @@ def keep_featured_image(listing):
     block = ('<div class="post-feature__art"><img src="%s" alt="%s" width="1600" height="800" '
              'loading="eager" decoding="async"></div>') % (img.group(1), alt.group(1) if alt else "")
     return listing.replace(m.group(0), block, 1)
+
+
+def sync_blog_index(listing):
+    """blog/index.html is the canonical listing. Keep it identical to blog.html,
+    with every relative path raised one level and card links made local."""
+    import re as _re
+    def up(m):
+        attr, url = m.group(1), m.group(2)
+        if _re.match(r'^(https?:|mailto:|tel:|data:|#|\.\./)', url) or url == "":
+            return m.group(0)
+        return f'{attr}="../{url}"'
+    idx = _re.sub(r'\b(href|src)="([^"]*)"', up, listing)
+    idx = idx.replace('href="../blog/', 'href="')
+    out = os.path.join(ROOT, "blog", "index.html")
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    open(out, "w", encoding="utf-8").write(idx)
+    return len(idx)
 
 
 def post_process(html):
