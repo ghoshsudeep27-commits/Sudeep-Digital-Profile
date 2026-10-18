@@ -2119,4 +2119,17 @@ html, body { overflow-x: clip; }
   <div class="toc-foot"><span class="dot"></span>Available for Training</div>
 </div>
 
+<script>
+// ===== Top Nav Mobile Toggle =====
+(function() {
+  var toggle = document.getElementById('navToggle');
+  var links = document.querySelector('.top-nav__links');
+  if (!toggle || !links) return;
+  toggle.addEventListener('click', function() {
+    links.classList.toggle('mobile-open');
+    toggle.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', links.classList.contains('mobile-open'));
+  });
+})();
+</script>
 </body></html>
