@@ -2344,9 +2344,10 @@ html, body { overflow-x: clip; }
 .track-tab.active{box-shadow:0 0 0 2px rgba(10,14,26,.34),0 0 0 5px rgba(255,255,255,.95),0 8px 20px rgba(10,14,26,.18);}
 .track-tab__n{opacity:.6;margin-left:4px;}
 .track-tab__chev{margin-left:auto;font-size:10px;line-height:1;opacity:.8;}
-.track-hint{font-family:var(--font-mono);font-size:10.5px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--text-dim);margin:2px 0 10px;}
-.track-hint span{font-weight:400;letter-spacing:.3px;text-transform:none;opacity:.75;}
+.track-hint{display:inline-block;font-family:var(--font-mono);font-size:10.5px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:#ffffff;background:#0a0e1a;padding:8px 13px;border-radius:6px;
+  margin:2px 0 10px;box-shadow:0 3px 12px rgba(10,14,26,.22);}
+.track-hint span{font-weight:400;font-size:10px;letter-spacing:.3px;text-transform:none;color:#ffffff;}
 .track-tab::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;pointer-events:none;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:ctaShimmer 3s ease-in-out infinite;}
 .track-tab:nth-child(2)::after{animation-delay:.18s}
