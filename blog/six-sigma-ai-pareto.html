@@ -1141,17 +1141,6 @@ body:has(.tools-banner.show) .back-top { bottom: 72px; }
   color: var(--text-bright); letter-spacing: 1px;
   white-space: nowrap; overflow: hidden;
 }
-.clock-bar__dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #ef4444; flex-shrink: 0;
-  box-shadow: 0 0 10px #ef4444;
-  animation: clock-blink 1s steps(2) infinite;
-}
-@keyframes clock-blink {
-  0% { opacity: 1; }
-  50% { opacity: 0.15; }
-  100% { opacity: 1; }
-}
 .clock-bar__sep { color: var(--text-dim); opacity: 0.5; }
 .clock-bar__day { color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; font-size: 12px; }
 .clock-bar__date { color: var(--text); }
@@ -1164,9 +1153,6 @@ body:has(.tools-banner.show) .back-top { bottom: 72px; }
   .clock-bar { font-size: 11px; gap: 6px; padding: 7px 12px; }
   .clock-bar__day { font-size: 10px; }
   .clock-bar__tz { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .clock-bar__dot { animation: none; }
 }
 
 /* ===== Responsive ===== */
