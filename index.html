@@ -2547,7 +2547,19 @@ document.addEventListener('DOMContentLoaded',function(){
   /* ── Configuration ───────────────────────────────────────────────────────
      The verification API runs on the certificate app. If that app ever moves,
      this is the ONLY line that needs changing.                              */
-  var API = "https://ghoshsudeep.pythonanywhere.com/api/verify";
+  /* Verification runs through a Google Apps Script proxy first, because some
+     corporate networks block pythonanywhere.com. If the proxy is unreachable
+     for any reason, we fall back to the API directly. */
+  var API_PROXY  = "https://script.google.com/macros/s/AKfycbxSSGyG8n7OwkRv5hCIz81am7krybbv-R_oIgDL86SmISbjT2qxyGOGlwKvMHrE6GES/exec";
+  var API_DIRECT = "https://ghoshsudeep.pythonanywhere.com/api/verify";
+
+  function fetchVerify(code) {
+    function call(base) {
+      return fetch(base + '?code=' + encodeURIComponent(code), { method: 'GET', mode: 'cors' })
+        .then(function (r) { if (!r.ok && r.status !== 429) throw new Error('HTTP ' + r.status); return r.json(); });
+    }
+    return call(API_PROXY).catch(function () { return call(API_DIRECT); });
+  }
 
   var form = document.getElementById('vcForm');
   var input = document.getElementById('vcCode');
@@ -2627,8 +2639,7 @@ document.addEventListener('DOMContentLoaded',function(){
     showActions(false);
     out.innerHTML = '<div class="vc-card"><p class="vc-msg"><span class="vc-spin"></span>' +
                     'Checking the certificate...</p></div>';
-    fetch(API + '?code=' + encodeURIComponent(code), { method: 'GET', mode: 'cors' })
-      .then(function (r) { if (!r.ok && r.status !== 429) throw new Error('HTTP ' + r.status); return r.json(); })
+    fetchVerify(code)
       .then(function (d) {
         if (d && d.valid) { showOk(d); }
         else if (d && d.reason === 'revoked') {
@@ -2637,7 +2648,7 @@ document.addEventListener('DOMContentLoaded',function(){
         else { showBad((d && d.message) || 'No valid certificate was found for that ID.'); }
       })
       .catch(function () {
-        showBad('Verification is temporarily unavailable. Please try again in a moment.');
+        showBad('Verification is temporarily unavailable. Please try again in a moment. If it stays down, email training@humanskills.in with the Certificate ID and we will confirm it for you.');
       })
       .then(function () { busy(false); });
   }
