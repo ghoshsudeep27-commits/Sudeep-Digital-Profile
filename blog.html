@@ -2109,6 +2109,24 @@ html, body { overflow-x: clip; }
   ]
 }
 </script>
+<!-- ===== Blog hero banner background ===== -->
+<link rel="preload" as="image" href="images/hero-mobile.webp" media="(max-width: 768px)">
+<link rel="preload" as="image" href="images/hero-desktop.webp" media="(min-width: 769px)">
+<style>
+.blog-hero{position:relative;isolation:isolate}
+.blog-hero::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:100vw;margin-left:-50vw;
+  background:
+    linear-gradient(90deg,rgba(10,14,26,.92) 0%,rgba(10,14,26,.88) 58%,rgba(10,14,26,.62) 100%),
+    url(images/hero-desktop.webp) center/cover no-repeat;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 84%,transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 84%,transparent 100%);
+  pointer-events:none}
+@media (max-width:768px){
+  .blog-hero::before{background:
+    linear-gradient(180deg,rgba(10,14,26,.82) 0%,rgba(10,14,26,.74) 100%),
+    url(images/hero-mobile.webp) center/cover no-repeat}
+}
+</style>
 </head>
 <body>
 <nav class="top-nav" id="topNav">
