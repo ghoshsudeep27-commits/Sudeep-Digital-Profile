@@ -1653,6 +1653,22 @@ html, body { overflow-x: clip; }
 .light-zone path[stroke="#1c2640"] { stroke: #e3eaf3; }
 /* hardcoded bright-yellow tags -> audited dark gold, no neon glow */
 .light-zone .sec-head__tag { color: #7a5c14; text-shadow: none; }
+
+/* calm section-number badge on light pages (was red + blinking) */
+.light-zone .sec-head__num { color: #0e7373; border-color: rgba(14,115,115,.35); background: rgba(14,115,115,.10); animation: none; }
+
+/* ===== Page cover (light pages) ===== */
+.page-cover{position:relative; width:100vw; margin-left:calc(50% - 50vw); margin-top:-84px; margin-bottom:34px;
+  padding:90px calc(50vw - 50%) 28px;
+  background:
+    radial-gradient(ellipse 55% 130% at 90% 0%, rgba(184,134,11,.15) 0%, transparent 62%),
+    linear-gradient(120deg, rgba(14,115,115,.11) 0%, rgba(14,115,115,0) 58%);
+  border-bottom:1px solid var(--border);}
+.page-cover__kicker{font-family:var(--font-mono); font-size:11px; letter-spacing:2.4px; text-transform:uppercase; color:var(--accent); font-weight:600; display:flex; align-items:center; gap:10px;}
+.page-cover__kicker .num{font-family:var(--font-mono); font-size:11px; font-weight:700; letter-spacing:1px; color:var(--accent); border:1px solid rgba(14,115,115,.35); background:rgba(14,115,115,.10); padding:2px 8px; border-radius:5px;}
+.page-cover__title{margin:14px 0 10px; font-size:clamp(30px,3.4vw,40px); font-weight:700; color:var(--text-bright); letter-spacing:-.6px; line-height:1.12;}
+.page-cover__lede{margin:0; max-width:660px; font-size:15px; line-height:1.65; color:var(--text-dim);}
+.page-cover__rule{width:64px; height:3px; border-radius:2px; margin-top:18px; background:linear-gradient(90deg,#0e7373,#d4a73a);}
 .light-zone .hl-g { font-weight: 700; }
 .light-zone .calc-tab.active { color: #ffffff; }
 
@@ -2069,12 +2085,12 @@ html, body { overflow-x: clip; }
 <!-- ===== LIGHT CONTENT ZONE (blend theme) ===== -->
 <div class="light-zone">
     <!-- ===== Contact ===== -->
-    <div class="sec-head" id="s12">
-      <span class="sec-head__num">12</span>
-      <h1 class="sec-head__title">Let's Connect</h1>
-      <div class="sec-head__line"></div>
-      <span class="sec-head__tag">Contact</span>
-    </div>
+    <header class="page-cover" id="s12">
+      <div class="page-cover__kicker"><span class="num">12</span> Contact</div>
+      <h1 class="page-cover__title">Let's Connect</h1>
+      <p class="page-cover__lede">Tell me about your team and what you&rsquo;re trying to achieve &mdash; I&rsquo;ll come back with a plan and next steps.</p>
+      <div class="page-cover__rule"></div>
+    </header>
 
     <div class="contact-panel reveal-scale" style="--i:0">
       <h2>Let's build something <em>impactful</em> together.</h2>
