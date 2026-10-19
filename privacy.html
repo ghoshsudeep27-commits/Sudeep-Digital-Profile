@@ -1225,12 +1225,6 @@ body:has(.tools-banner.show) .back-top { bottom: 72px; }
 }
 .toc-faq:hover{background:linear-gradient(135deg,rgba(56,200,200,.12),rgba(212,167,58,.08));border-left-color:var(--accent)!important}
 .toc-faq.active{background:linear-gradient(135deg,rgba(56,200,200,.15),rgba(212,167,58,.1))!important;border-left-color:var(--accent)!important;color:var(--text-bright)!important}
-.toc-faq__tag{
-  display:inline-flex;align-items:center;font-family:var(--font-mono);
-  font-size:9px;font-weight:700;letter-spacing:1px;padding:2px 6px;
-  border-radius:4px;background:var(--accent-2);color:var(--bg);margin-left:6px;
-  animation:newPulse 2s ease-in-out infinite;
-}
 
 @keyframes tocShimmer{0%,100%{transform:translateX(-100%)}50%{transform:translateX(100%)}}
 @keyframes tocDotPulse{0%,100%{opacity:1;box-shadow:0 0 8px var(--accent)}50%{opacity:.5;box-shadow:0 0 4px var(--accent)}}
@@ -1287,8 +1281,7 @@ body:has(.tools-banner.show) .back-top { bottom: 72px; }
 .hero__cta--sigma{animation:ctaPulse 2.5s ease-in-out 3 .8s}
 .hero__cta--prompts{animation:ctaPulse 2.5s ease-in-out 3 1.6s}
 /* NEW badge for TOC links */
-.toc a .new-badge{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:8px;font-weight:700;letter-spacing:1px;padding:1px 5px;border-radius:3px;background:var(--accent-2);color:var(--bg);margin-left:6px;animation:newPulse 2s ease-in-out infinite;vertical-align:middle}
-@keyframes newPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(212,167,58,.4)}50%{opacity:.8;box-shadow:0 0 0 4px rgba(212,167,58,0)}}
+.new-badge{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:1px;padding:2px 6px;border-radius:4px;background:var(--accent-2);color:var(--bg);margin-left:6px;vertical-align:middle}
 /* Floating tools banner */
 .tools-banner{position:fixed;bottom:0;left:0;right:0;z-index:250;background:var(--surface-2);border-top:1px solid var(--border-glow);padding:14px 24px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);box-shadow:0 -4px 24px rgba(0,0,0,.3)}
 .tools-banner.show{transform:translateY(0)}
@@ -1301,7 +1294,7 @@ body:has(.tools-banner.show) .back-top { bottom: 72px; }
 .tools-banner__btn--sigma{background:var(--accent-2);color:var(--bg)}
 .tools-banner__btn--prompts{background:var(--accent-3);color:#fff}
 @media(max-width:768px){.tools-banner__text{font-size:12px;text-align:center}.tools-banner{padding:10px 14px;gap:8px}.tools-banner__close{right:8px}}
-@media(prefers-reduced-motion:reduce){.hero__cta::after{animation:none}.hero__cta--main,.hero__cta--sigma,.hero__cta--prompts{animation:none}.toc a .new-badge{animation:none}}
+@media(prefers-reduced-motion:reduce){.hero__cta::after{animation:none}.hero__cta--main,.hero__cta--sigma,.hero__cta--prompts{animation:none}}
 
 
 /* ===== Mission Tools Callout ===== */
