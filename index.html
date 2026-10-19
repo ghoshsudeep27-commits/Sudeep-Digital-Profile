@@ -2105,6 +2105,24 @@ html, body { overflow-x: clip; }
   gtag('js', new Date());
   gtag('config', 'G-3SXHN4B877');
 </script>
+<!-- ===== Hero banner background ===== -->
+<link rel="preload" as="image" href="images/hero-mobile.webp" media="(max-width: 768px)">
+<link rel="preload" as="image" href="images/hero-desktop.webp" media="(min-width: 769px)">
+<style>
+.hero{isolation:isolate}
+.hero::before{content:"";position:absolute;z-index:-1;top:0;bottom:0;left:50%;width:100vw;margin-left:-50vw;
+  background:
+    linear-gradient(90deg,rgba(10,14,26,.90) 0%,rgba(10,14,26,.78) 50%,rgba(10,14,26,.38) 100%),
+    url(images/hero-desktop.webp) center/cover no-repeat;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 82%,transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 82%,transparent 100%);
+  pointer-events:none}
+@media (max-width:768px){
+  .hero::before{background:
+    linear-gradient(180deg,rgba(10,14,26,.64) 0%,rgba(10,14,26,.58) 100%),
+    url(images/hero-mobile.webp) center/cover no-repeat}
+}
+</style>
 <link rel="canonical" href="https://humanskills.in/">
 </head>
 <body>
@@ -2171,7 +2189,7 @@ html, body { overflow-x: clip; }
         </div>
       </div>
 
-      <div class="hero__kicker reveal" style="--i:0">Consultant Trainer | Modern Synthesiser</div>
+      <div class="hero__kicker reveal" style="--i:0">Consultant Trainer | AI and Human Skills</div>
       <h1 class="hero__title hero__title--statement reveal" style="--i:1">19 Years of Industry. 60+ Workshops.<br>One Mission: Redefining AI the Human Way<em>.</em></h1>
       <p class="hero__lede reveal" style="--i:2">
         I train individuals to leverage <strong>AI tools effectively</strong> while highlighting the essential
