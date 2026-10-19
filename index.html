@@ -2333,10 +2333,14 @@ html, body { overflow-x: clip; }
 .track-tab{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;
   padding:9px 14px;border-radius:8px;border:none;background:linear-gradient(135deg,#4fd6d6,#2bb6b6);color:#0a0e1a;
   cursor:pointer;position:relative;overflow:hidden;box-shadow:0 3px 12px rgba(56,200,200,.28);
-  transition:box-shadow .2s,transform .15s;}
-.track-tab:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(56,200,200,.45);}
-.track-tab.active{background:linear-gradient(135deg,#63dede,#31c6c6);
-  box-shadow:0 0 0 2px rgba(10,14,26,.28),0 0 0 5px rgba(56,200,200,.6),0 8px 22px rgba(56,200,200,.5);}
+  transition:box-shadow .2s,transform .15s,filter .2s;}
+/* one colour per programme type (from the site palette) */
+.track-tab[data-track="corporate"]{background:linear-gradient(135deg,#5b8def,#3f6fd8);color:#fff;box-shadow:0 3px 12px rgba(91,141,239,.30);}
+.track-tab[data-track="healthcare"]{background:linear-gradient(135deg,#e885b4,#cf5a92);color:#fff;box-shadow:0 3px 12px rgba(224,112,160,.30);}
+.track-tab[data-track="early"]{background:linear-gradient(135deg,#e8c558,#d4a73a);color:#0a0e1a;box-shadow:0 3px 12px rgba(212,167,58,.30);}
+.track-tab:hover{transform:translateY(-1px);filter:brightness(1.06);}
+/* active marker — neutral ring, so it reads on any of the four colours */
+.track-tab.active{box-shadow:0 0 0 2px rgba(10,14,26,.34),0 0 0 5px rgba(255,255,255,.95),0 8px 20px rgba(10,14,26,.18);}
 .track-tab__n{opacity:.6;margin-left:4px;}
 .track-tab::after{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;pointer-events:none;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:ctaShimmer 3s ease-in-out infinite;}
