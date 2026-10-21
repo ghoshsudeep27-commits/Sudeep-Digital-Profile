@@ -1670,6 +1670,34 @@ html, body { overflow-x: clip; }
 }
 .hero__cta--main:hover { box-shadow: 0 6px 28px rgba(212,167,58,.5) !important; }
 
+/* ---- CTA hierarchy: one primary (gold), quiet links for the rest ---- */
+.hero__cta--quiet {
+  background: transparent !important;
+  color: var(--text-dim) !important;
+  border: none !important;
+  box-shadow: none !important;
+  animation: none !important;
+  padding: 8px 6px !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+.hero__cta--quiet:hover { color: var(--accent) !important; transform: none !important; box-shadow: none !important; background: transparent !important; }
+.hero__cta--quiet::after { display: none !important; }
+.hero__cta--quiet svg { width: 14px; height: 14px; opacity: .75; }
+
+/* ---- Secondary CTA: outlined, so a second action doesn't compete with the primary ---- */
+.hero__cta--secondary {
+  background: transparent !important;
+  color: var(--accent) !important;
+  border: 1.5px solid var(--accent) !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+.hero__cta--secondary:hover { background: rgba(56,200,200,.08) !important; box-shadow: none !important; transform: translateY(-2px); }
+.hero__cta--secondary::after { display: none !important; }
+
 /* ---- print: clean document for HR / recruiters ---- */
 @media print {
   .clock-bar, .top-nav, .back-top, .tools-banner, .section-drawer,
@@ -2232,15 +2260,15 @@ html, body { overflow-x: clip; }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           Enquire about Training
         </a>
-        <a class="hero__cta hero__cta--sigma" href="free-resources.html#s13" onclick="window.location.href='free-resources.html#s13';return false;">
+        <a class="hero__cta hero__cta--quiet" href="free-resources.html#s13" onclick="window.location.href='free-resources.html#s13';return false;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/><circle cx="7" cy="15" r="1.6" fill="currentColor"/><circle cx="14" cy="14" r="1.6" fill="currentColor"/><circle cx="19" cy="8" r="1.6" fill="currentColor"/></svg>
           Six Sigma Tools
         </a>
-        <a class="hero__cta hero__cta--prompts" href="free-resources.html#s14" onclick="window.location.href='free-resources.html#s14';return false;">
+        <a class="hero__cta hero__cta--quiet" href="free-resources.html#s14" onclick="window.location.href='free-resources.html#s14';return false;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           Prompt Library
         </a>
-        <a class="hero__cta hero__cta--resume" href="#resume-download" onclick="if(window.gtag)gtag('event','resume_cta',{cta_placement:'hero'});">
+        <a class="hero__cta hero__cta--quiet" href="#resume-download" onclick="if(window.gtag)gtag('event','resume_cta',{cta_placement:'hero'});">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download Executive Resume
         </a>
@@ -2457,7 +2485,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
     <!-- Curriculum sampler download CTA -->
     <div style="text-align:center;margin:38px 0 10px;">
-      <a class="hero__cta hero__cta--main" href="proof.html#sampler-download" onclick="if(window.gtag)gtag('event','sampler_cta',{cta_placement:'training_topics'});">
+      <a class="hero__cta hero__cta--secondary" href="proof.html#sampler-download" onclick="if(window.gtag)gtag('event','sampler_cta',{cta_placement:'training_topics'});">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Get the Workshop Curriculum Sampler
       </a>
