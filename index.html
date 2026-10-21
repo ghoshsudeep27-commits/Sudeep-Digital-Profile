@@ -1029,12 +1029,6 @@ body::before {
 }
 
 /* Lift back-top above the floating tools banner when it's visible */
-.tools-banner.show ~ .back-top,
-body:has(.tools-banner.show) .back-top { bottom: 72px; }
-@media (max-width: 768px) {
-  .tools-banner.show ~ .back-top,
-  body:has(.tools-banner.show) .back-top { bottom: 64px; }
-}
 
 /* ===== Desktop FAB Drawer (when TOC is expanded via FAB) ===== */
 @media (min-width: 1001px) {
@@ -1297,18 +1291,6 @@ body:has(.tools-banner.show) .back-top { bottom: 72px; }
 .hero__cta--prompts{animation:ctaPulse 2.5s ease-in-out 3 1.6s}
 /* NEW badge for TOC links */
 .new-badge{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:1px;padding:2px 6px;border-radius:4px;background:var(--accent-2);color:var(--bg);margin-left:6px;vertical-align:middle}
-/* Floating tools banner */
-.tools-banner{position:fixed;bottom:0;left:0;right:0;z-index:250;background:var(--surface-2);border-top:1px solid var(--border-glow);padding:14px 24px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);box-shadow:0 -4px 24px rgba(0,0,0,.3)}
-.tools-banner.show{transform:translateY(0)}
-.tools-banner__text{font-size:13px;color:var(--text);font-weight:500}
-.tools-banner__text strong{color:var(--accent)}
-.tools-banner__close{position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer;padding:4px 8px;line-height:1;transition:color .15s}
-.tools-banner__close:hover{color:var(--text)}
-.tools-banner__btn{font-family:var(--font-mono);font-size:11px;font-weight:600;padding:8px 16px;border-radius:8px;text-decoration:none;transition:transform .15s,box-shadow .15s;display:inline-flex;align-items:center;gap:6px}
-.tools-banner__btn:hover{transform:translateY(-1px)}
-.tools-banner__btn--sigma{background:var(--accent-2);color:var(--bg)}
-.tools-banner__btn--prompts{background:var(--accent-3);color:#fff}
-@media(max-width:768px){.tools-banner__text{font-size:12px;text-align:center}.tools-banner{padding:10px 14px;gap:8px}.tools-banner__close{right:8px}}
 @media(prefers-reduced-motion:reduce){.hero__cta::after{animation:none}.hero__cta--main,.hero__cta--sigma,.hero__cta--prompts{animation:none}}
 
 
@@ -1321,6 +1303,39 @@ body:has(.tools-banner.show) .back-top { bottom: 72px; }
 .tools-callout__text{font-size:13px;color:var(--text);line-height:1.5;flex:1;min-width:200px}
 .tools-callout__text strong{color:var(--accent)}
 .tools-callout__links{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ===== Values row (What I Stand For) ===== */
+.values-head{display:flex;align-items:baseline;gap:14px;margin:38px 0 6px}
+.values-head h3{margin:0;font-size:19px;font-weight:600;color:var(--text-bright);letter-spacing:-.2px}
+.values-head__line{flex:1;height:1px;background:var(--border)}
+.values-head__tag{font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent-2)}
+.values-sub{margin:0 0 22px;font-family:var(--font-mono);font-size:12.5px;color:var(--text-dim)}
+.values-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.value-card{border-radius:14px;padding:26px 22px 24px}
+.value-card__word{font-size:23px;font-weight:700;letter-spacing:-.3px;color:var(--text-bright);margin-top:16px}
+.value-card__tag{font-family:var(--font-mono);font-size:12.5px;color:var(--text-dim);margin-top:7px}
+.v-icon{position:relative;overflow:hidden;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;animation:vGlow 3.2s ease-in-out infinite}
+.v-icon::after{content:'';position:absolute;top:-75%;left:-70%;width:46%;height:250%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);transform:rotate(20deg);animation:vGlimmer 3.6s ease-in-out infinite}
+.v-icon svg{position:relative;z-index:1}
+@keyframes vGlimmer{0%{left:-70%}55%,100%{left:140%}}
+@keyframes vGlow{0%,100%{box-shadow:0 0 8px var(--glow)}50%{box-shadow:0 0 16px var(--glow),0 0 28px var(--glow)}}
+/* ===== How It Works ===== */
+.steps-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 18px}
+.step__n{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--accent);letter-spacing:1px}
+.step__title{font-size:16px;font-weight:600;color:var(--text-bright);margin-top:8px}
+.step__text{font-size:13.5px;color:var(--text-dim);line-height:1.55;margin-top:6px}
+@media (max-width:900px){.steps-row{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.steps-row{grid-template-columns:1fr 1fr;gap:10px}.step{padding:14px 13px}.step__title{font-size:14.5px}.step__text{font-size:12.5px}}
+@media (max-width:760px){
+.values-row{grid-template-columns:1fr;gap:12px}
+.value-card{display:flex;align-items:center;gap:14px;padding:14px 16px}
+.v-icon{width:36px;height:36px;flex:none}
+.v-icon svg{width:18px;height:18px}
+.value-card__word{margin-top:0;font-size:18px}
+.value-card__tag{display:none}
+}
+@media (prefers-reduced-motion: reduce){.v-icon{animation:none}.v-icon::after{animation:none;display:none}}
 .tools-callout__link{font-family:var(--font-mono);font-size:11px;font-weight:600;padding:6px 14px;border-radius:6px;text-decoration:none;transition:transform .15s,box-shadow .15s;display:inline-flex;align-items:center;gap:5px}
 .tools-callout__link:hover{transform:translateY(-1px)}
 .tools-callout__link--sigma{background:var(--accent-2);color:var(--bg)}
@@ -1700,7 +1715,7 @@ html, body { overflow-x: clip; }
 
 /* ---- print: clean document for HR / recruiters ---- */
 @media print {
-  .clock-bar, .top-nav, .back-top, .tools-banner, .section-drawer,
+  .clock-bar, .top-nav, .back-top, .section-drawer,
   .toc-fab, .toc-backdrop, .shimmer-bg { display: none !important; }
   .light-zone {
     background: #ffffff !important; background-image: none !important;
@@ -2231,14 +2246,6 @@ html, body { overflow-x: clip; }
           <div class="stat__value" data-count="10" data-suffix="+ hrs">10+ hrs</div>
           <div class="stat__label">Saved Weekly</div>
         </div>
-        <div class="stat reveal-scale" style="--i:4">
-          <div class="stat__value stat__value--gold" data-count="7" data-suffix="+">7+</div>
-          <div class="stat__label">Enterprise Clients</div>
-        </div>
-        <div class="stat reveal-scale" style="--i:5">
-          <div class="stat__value stat__value--blue" data-count="10" data-suffix="+">10+</div>
-          <div class="stat__label">Validations</div>
-        </div>
         <div class="stat reveal-scale" style="--i:6">
           <div class="stat__value" data-count="13" data-suffix="">13</div>
           <div class="stat__label">Training Topics</div>
@@ -2250,10 +2257,6 @@ html, body { overflow-x: clip; }
         <div class="stat reveal-scale" style="--i:8">
           <div class="stat__value stat__value--blue" data-count="60" data-suffix="+">60+</div>
           <div class="stat__label">Workshops Conducted</div>
-        </div>
-        <div class="stat reveal-scale" style="--i:9">
-          <div class="stat__value" data-count="1000" data-suffix="+">1000+</div>
-          <div class="stat__label">Hours Training</div>
         </div>
       </div>
 
@@ -2342,6 +2345,43 @@ html, body { overflow-x: clip; }
       <div class="mission-panel reveal-scale" style="--i:1">
         <p class="mission-panel__quote">"Empower people to embrace AI technology as a crucial ally in their professional growth."</p>
         <div class="mission-panel__attr">— Core Mission Statement</div>
+      </div>
+    </div>
+
+    <!-- Values row: What I Stand For -->
+    <div class="values-head reveal" style="--i:2">
+      <h3>What I Stand For</h3>
+      <div class="values-head__line"></div>
+      <span class="values-head__tag">Principles</span>
+    </div>
+    <p class="values-sub reveal" style="--i:2">Technology is the tool. People are the point.</p>
+    <div class="values-row reveal" style="--i:3">
+      <div class="value-card" style="background:linear-gradient(180deg,#fbeef4 0%,#ffffff 78%);border:1px solid #f0c9dc;">
+        <div class="v-icon" style="--glow:#a8336688;background:#a8336626;border:1px solid #a8336670;color:#a83366;">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-6.2 7-6.2s7 2.6 7 6.2"/></svg>
+        </div>
+        <div class="value-card__text">
+          <div class="value-card__word">Human-First</div>
+          <div class="value-card__tag">People before platforms</div>
+        </div>
+      </div>
+      <div class="value-card" style="background:linear-gradient(180deg,#eef2fd 0%,#ffffff 78%);border:1px solid #ccd8f8;">
+        <div class="v-icon" style="--glow:#18307f88;background:#18307f26;border:1px solid #18307f70;color:#18307f;">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="7.5" y="7.5" width="9" height="9" rx="2"/><path d="M10.5 3.5v3M13.5 3.5v3M10.5 17.5v3M13.5 17.5v3M3.5 10.5h3M3.5 13.5h3M17.5 10.5h3M17.5 13.5h3"/></svg>
+        </div>
+        <div class="value-card__text">
+          <div class="value-card__word">AI-Ready</div>
+          <div class="value-card__tag">Confident with the tools</div>
+        </div>
+      </div>
+      <div class="value-card" style="background:linear-gradient(180deg,#f1f7e8 0%,#ffffff 78%);border:1px solid #d3e5b4;">
+        <div class="v-icon" style="--glow:#4a661988;background:#4a661926;border:1px solid #4a661970;color:#4a6619;">
+          <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3.2v5.6c0 4.7-3.2 8.4-7.5 9.4-4.3-1-7.5-4.7-7.5-9.4V6.2z"/><path d="M9 12.2l2.1 2.1L15 10.4"/></svg>
+        </div>
+        <div class="value-card__text">
+          <div class="value-card__word">Future-Proof</div>
+          <div class="value-card__tag">Built to adapt</div>
+        </div>
       </div>
     </div>
 
@@ -2801,6 +2841,20 @@ document.addEventListener('DOMContentLoaded',function(){
 
     <!-- ===== Footer ===== -->
     
+
+    <!-- ===== How It Works ===== -->
+    <div class="values-head reveal" style="--i:0">
+      <h3>How It Works</h3>
+      <div class="values-head__line"></div>
+      <span class="values-head__tag">Engagement</span>
+    </div>
+    <p class="values-sub reveal" style="--i:0">From first conversation to certificates &mdash; four steps, and no layers in between.</p>
+    <div class="steps-row reveal" style="--i:1">
+      <div class="step"><div class="step__n">01</div><div class="step__title">Discovery call</div><div class="step__text">We talk through your team, the goal and the constraints &mdash; 30 minutes, no obligation.</div></div>
+      <div class="step"><div class="step__n">02</div><div class="step__title">Tailored proposal</div><div class="step__text">You get a programme built for your context &mdash; format, duration, outcomes and cost.</div></div>
+      <div class="step"><div class="step__n">03</div><div class="step__title">Delivery</div><div class="step__text">I run the sessions myself, on-site or online, with hands-on practice throughout.</div></div>
+      <div class="step"><div class="step__n">04</div><div class="step__title">Follow-up &amp; certificates</div><div class="step__text">Participants get resources and a verifiable certificate; you get a summary.</div></div>
+    </div>
 
     <!-- ================================================================
       RESUME DOWNLOAD FORM (Google Forms backend)
@@ -4546,47 +4600,9 @@ renderPrompts();
 
 
 
-// ===== Floating Tools Banner (scroll-triggered) =====
-(function(){
-  var banner=document.getElementById('toolsBanner');
-  if(!banner)return;
-  var heroSection=document.getElementById('s1')||document.querySelector('.hero');
-  var shown=false;
-  var dismissed=false;
-  function checkScroll(){
-    if(dismissed)return;
-    if(!heroSection)return;
-    var rect=heroSection.getBoundingClientRect();
-    // Show banner when hero is scrolled past (bottom of hero above viewport center)
-    if(rect.bottom<window.innerHeight*0.3 && !shown){
-      shown=true;
-      banner.classList.add('show');
-      // Auto-hide after 15 seconds
-      setTimeout(function(){
-        if(shown&&!dismissed){banner.classList.remove('show');}
-      },15000);
-    }
-    // Hide when scrolled back to hero
-    if(rect.bottom>window.innerHeight*0.5 && shown){
-      shown=false;
-      banner.classList.remove('show');
-    }
-  }
-  window.addEventListener('scroll',checkScroll,{passive:true});
-  // Check on load
-  setTimeout(checkScroll,500);
-})();
 
 
 </script>
-<!-- ===== Floating Tools Banner (scroll-triggered) ===== -->
-<div class="tools-banner" id="toolsBanner">
-  <span class="tools-banner__text"><strong>Try the tools:</strong> Six Sigma Calculators & Prompt Library</span>
-  <a class="tools-banner__btn tools-banner__btn--sigma" href="free-resources.html#s13" onclick="window.location.href='free-resources.html#s13';document.getElementById('toolsBanner').classList.remove('show');return false;">Six Sigma Tools</a>
-  <a class="tools-banner__btn tools-banner__btn--prompts" href="free-resources.html#s14" onclick="window.location.href='free-resources.html#s14';document.getElementById('toolsBanner').classList.remove('show');return false;">Prompt Library</a>
-  <button class="tools-banner__close" onclick="document.getElementById('toolsBanner').classList.remove('show');">&times;</button>
-</div>
-
 
 <script>
 /* Anchor landing fix. Two things make #hash navigation land short:
