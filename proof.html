@@ -3384,29 +3384,19 @@ function smoothScrollTo(targetId, event) {
 
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
 
-  function probeImage(url) {
-    return new Promise(resolve => {
-      const img = new Image();
-      img.onload = () => resolve(true);
-      img.onerror = () => resolve(false);
-      img.src = url;
-    });
-  }
-
   async function buildGallery(trackId, config) {
     const track = document.getElementById(trackId);
     if (!track) return;
     
-    // Fire all probes in parallel for fast detection
-    const probePromises = [];
-    for (let i = 1; i <= 99; i++) {
-      const filename = 'images/' + config.prefix + pad(i) + '.jpg';
-      probePromises.push(probeImage(filename).then(exists => ({ filename, exists, num: i })));
+    // Known image counts per track — build the list directly instead of
+    // probing 1..99, which downloaded every image on page load just to
+    // detect which existed (and defeated loading="lazy").
+    const knownCounts = { 'train-track': 22, 'testi-track': 16, 'press-track': 24 };
+    const count = knownCounts[trackId] || 0;
+    const images = [];
+    for (let i = 1; i <= count; i++) {
+      images.push('images/' + config.prefix + pad(i) + '.jpg');
     }
-    const results = await Promise.all(probePromises);
-    
-    // Collect existing images in order
-    const images = results.filter(r => r.exists).map(r => r.filename);
     
     // Reverse so newest (highest-numbered) images appear first
     images.reverse();
