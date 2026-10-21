@@ -332,8 +332,12 @@ body::before {
   overflow-x: auto; -webkit-overflow-scrolling: touch;
 }
 .exp-graph__svg {
-  display: block; width: 100%; min-width: 720px; height: 520px;
+  display: block; width: 100%; min-width: 980px; height: auto;
 }
+/* Career timeline — Option A */
+.exp-row[data-popup-id] { cursor: pointer; }
+.exp-row__bar { transition: filter .15s ease; }
+.exp-row[data-popup-id]:hover .exp-row__bar { filter: brightness(1.08); }
 .exp-graph__grid line { stroke: var(--border); stroke-width: 0.5; stroke-dasharray: 3 3; }
 .exp-graph__axis-text { font-family: 'JetBrains Mono', monospace; font-size: 16px; fill: var(--text-dim); letter-spacing: 1px; }
 .exp-graph__axis-label { font-family: 'JetBrains Mono', monospace; font-size: 15px; fill: var(--text-dim); text-transform: uppercase; letter-spacing: 1.5px; }
@@ -458,7 +462,7 @@ body::before {
 /* Mobile: allow horizontal scroll for graph */
 @media (max-width: 860px) {
   .exp-graph { padding: 8px 0; }
-  .exp-graph__svg { min-width: 680px; height: 540px; }
+  .exp-graph__svg { min-width: 980px; height: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
   .exp-milestone__dot, .exp-milestone__pulse { animation: none !important; opacity: 1; }
@@ -2117,140 +2121,96 @@ html, body { overflow-x: clip; }
     </div>
 
     <div class="exp-graph reveal" style="--i:0">
-      <svg class="exp-graph__svg" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="expGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="rgba(56,200,200,0.15)" />
-            <stop offset="100%" stop-color="rgba(56,200,200,0)" />
-          </linearGradient>
-        </defs>
-
-        <!-- Grid -->
-        <g class="exp-graph__grid">
-          <line x1="80" y1="100" x2="860" y2="100"/>
-          <line x1="80" y1="200" x2="860" y2="200"/>
-          <line x1="80" y1="300" x2="860" y2="300"/>
-          <line x1="80" y1="400" x2="860" y2="400"/>
-          <line x1="80" y1="460" x2="860" y2="460"/>
-        </g>
-
-        <!-- Y-axis label -->
-        <text class="exp-graph__axis-label" x="20" y="260" transform="rotate(-90 20 260)" text-anchor="middle">Career Trajectory</text>
-
-        <!-- Year axis labels and lines -->
-        <g>
-          <line class="exp-year-line" x1="80" y1="80" x2="80" y2="460"/>
-          <text class="exp-year-tick" x="80" y="478" text-anchor="middle">2007</text>
-          <line class="exp-year-line" x1="210" y1="80" x2="210" y2="460"/>
-          <text class="exp-year-tick" x="210" y="478" text-anchor="middle">2010</text>
-          <line class="exp-year-line" x1="395" y1="80" x2="395" y2="460"/>
-          <text class="exp-year-tick" x="395" y="478" text-anchor="middle">2018</text>
-          <line class="exp-year-line" x1="580" y1="80" x2="580" y2="460"/>
-          <text class="exp-year-tick" x="580" y="478" text-anchor="middle">2023</text>
-          <line class="exp-year-line" x1="830" y1="80" x2="830" y2="460"/>
-          <text class="exp-year-tick" x="830" y="478" text-anchor="middle">2026</text>
-        </g>
-
-        <!-- Area fill under the line -->
-        <path class="exp-graph__area" d="M 80,400 L 210,360 L 395,300 L 470,250 L 530,210 L 605,175 L 680,145 L 830,110 L 830,460 L 80,460 Z"/>
-
-        <!-- The line path -->
-        <path class="exp-graph__line" d="M 80,400 L 210,360 L 395,300 L 470,250 L 530,210 L 605,175 L 680,145 L 830,110"/>
-
-        <!-- Milestone 1: Shree Cement (2007) -->
-        <g class="exp-milestone" data-popup-id="exp7">
-          <circle class="exp-milestone__pulse" cx="80" cy="400" r="10"/>
-          <circle class="exp-milestone__ring" cx="80" cy="400" r="8"/>
-          <circle class="exp-milestone__dot" cx="80" cy="400" r="5"/>
-          <rect class="exp-milestone__label-bg" x="95" y="372" width="150" height="56" style="animation-delay:0.8s"/>
-          <text class="exp-milestone__role" x="102" y="392" style="animation-delay:0.8s">Electrical Eng.</text>
-          <text class="exp-milestone__org" x="102" y="407" style="animation-delay:0.8s">Shree Cement</text>
-          <text class="exp-milestone__year" x="102" y="421" style="animation-delay:0.8s">2007 – 2010</text>
-        </g>
-
-        <!-- Milestone 2: UltraTech Cement (2010) -->
-        <g class="exp-milestone" data-popup-id="exp6">
-          <circle class="exp-milestone__pulse" cx="210" cy="360" r="10"/>
-          <circle class="exp-milestone__ring" cx="210" cy="360" r="8"/>
-          <circle class="exp-milestone__dot" cx="210" cy="360" r="5"/>
-          <rect class="exp-milestone__label-bg" x="225" y="332" width="155" height="56" style="animation-delay:1.0s"/>
-          <text class="exp-milestone__role" x="232" y="352" style="animation-delay:1.0s">Sr. Electrical Eng.</text>
-          <text class="exp-milestone__org" x="232" y="367" style="animation-delay:1.0s">UltraTech / Birla</text>
-          <text class="exp-milestone__year" x="232" y="381" style="animation-delay:1.0s">2010 – 2018</text>
-        </g>
-
-        <!-- Milestone 3: Transition to Training (2018) -->
-        <g class="exp-milestone" data-popup-id="exp4">
-          <circle class="exp-milestone__pulse" cx="395" cy="300" r="10"/>
-          <circle class="exp-milestone__ring" cx="395" cy="300" r="8"/>
-          <circle class="exp-milestone__dot" cx="395" cy="300" r="5"/>
-          <rect class="exp-milestone__label-bg" x="410" y="272" width="145" height="56" style="animation-delay:1.2s"/>
-          <text class="exp-milestone__role" x="417" y="292" style="animation-delay:1.2s">Consultant Tr.</text>
-          <text class="exp-milestone__org" x="417" y="307" style="animation-delay:1.2s">AIDIAS Consulting</text>
-          <text class="exp-milestone__year" x="417" y="321" style="animation-delay:1.2s">2018+</text>
-        </g>
-
-        <!-- Milestone 4: Wordsworth (2019) -->
-        <g class="exp-milestone" data-popup-id="exp3">
-          <circle class="exp-milestone__pulse" cx="470" cy="250" r="10"/>
-          <circle class="exp-milestone__ring" cx="470" cy="250" r="8"/>
-          <circle class="exp-milestone__dot" cx="470" cy="250" r="5"/>
-          <rect class="exp-milestone__label-bg" x="340" y="222" width="145" height="56" style="animation-delay:1.4s"/>
-          <text class="exp-milestone__role" x="347" y="242" style="animation-delay:1.4s">English Trainer</text>
-          <text class="exp-milestone__org" x="347" y="257" style="animation-delay:1.4s">Wordsworth Lab</text>
-          <text class="exp-milestone__year" x="347" y="271" style="animation-delay:1.4s">2019+</text>
-        </g>
-
-        <!-- Milestone 5: Apollo Healthcare (2020) -->
-        <g class="exp-milestone" data-popup-id="exp5">
-          <circle class="exp-milestone__pulse" cx="530" cy="210" r="10"/>
-          <circle class="exp-milestone__ring" cx="530" cy="210" r="8"/>
-          <circle class="exp-milestone__dot" cx="530" cy="210" r="5"/>
-          <rect class="exp-milestone__label-bg" x="560" y="250" width="150" height="56" style="animation-delay:1.6s"/>
-          <text class="exp-milestone__role" x="567" y="270" style="animation-delay:1.6s">Motivational Exp.</text>
-          <text class="exp-milestone__org" x="567" y="285" style="animation-delay:1.6s">Apollo Healthcare</text>
-          <text class="exp-milestone__year" x="567" y="299" style="animation-delay:1.6s">2020+</text>
-        </g>
-
-        <!-- Milestone 6: NAANDI Foundation (2022) -->
-        <g class="exp-milestone" data-popup-id="exp2">
-          <circle class="exp-milestone__pulse" cx="605" cy="175" r="10"/>
-          <circle class="exp-milestone__ring" cx="605" cy="175" r="8"/>
-          <circle class="exp-milestone__dot" cx="605" cy="175" r="5"/>
-          <rect class="exp-milestone__label-bg" x="475" y="147" width="150" height="56" style="animation-delay:1.8s"/>
-          <text class="exp-milestone__role" x="482" y="167" style="animation-delay:1.8s">Employability Tr.</text>
-          <text class="exp-milestone__org" x="482" y="182" style="animation-delay:1.8s">NAANDI / Mahindra</text>
-          <text class="exp-milestone__year" x="482" y="196" style="animation-delay:1.8s">2022+</text>
-        </g>
-
-        <!-- Milestone 7: Argyle HR (2024) -->
-        <g class="exp-milestone" data-popup-id="exp1">
-          <circle class="exp-milestone__pulse" cx="680" cy="145" r="10"/>
-          <circle class="exp-milestone__ring" cx="680" cy="145" r="8"/>
-          <circle class="exp-milestone__dot" cx="680" cy="145" r="5"/>
-          <rect class="exp-milestone__label-bg" x="695" y="117" width="150" height="56" style="animation-delay:2.0s"/>
-          <text class="exp-milestone__role" x="702" y="137" style="animation-delay:2.0s">Consultant Tr.</text>
-          <text class="exp-milestone__org" x="702" y="152" style="animation-delay:2.0s">Argyle HR Solutions</text>
-          <text class="exp-milestone__year" x="702" y="166" style="animation-delay:2.0s">2026+</text>
-        </g>
-
-        <!-- Milestone 8: Consultant Trainer | Modern Synthesiser (2026) -->
-        <g class="exp-milestone exp-milestone--current" data-popup-id="exp1">
-          <circle class="exp-milestone__pulse" cx="830" cy="110" r="10"/>
-          <circle class="exp-milestone__ring" cx="830" cy="110" r="8"/>
-          <circle class="exp-milestone__dot" cx="830" cy="110" r="5"/>
-          <rect class="exp-milestone__label-bg" x="700" y="82" width="155" height="56" style="animation-delay:2.2s"/>
-          <text class="exp-milestone__role" x="707" y="102" style="animation-delay:2.2s">Consultant Trainer</text>
-          <text class="exp-milestone__org" x="707" y="117" style="animation-delay:2.2s">Modern Synthesiser</text>
-          <text class="exp-milestone__year" x="707" y="131" style="animation-delay:2.2s">2026 — Current</text>
-        </g>
-
-        <!-- X-axis line -->
-        <line x1="80" y1="460" x2="860" y2="460" stroke="var(--border-bright)" stroke-width="1"/>
-        <text class="exp-graph__axis-label" x="470" y="500" text-anchor="middle">Timeline · 2007 to Present</text>
-      </svg>
+      <svg class="exp-graph__svg" viewBox="0 0 1280 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Career timeline: 2007 to 2010 Shree Cement; 2010 to 2018 UltraTech Cement; 2018 to present Human Skills by Sudeep Ghosh as founder, with concurrent engagements at Apollo Home Healthcare, MIDIGIWORLD, AIDIAS Consulting, Naandi Foundation, Wordsworth English Lab, and Argyle HR Solutions from 2026." font-family="'Space Grotesk','Segoe UI',Helvetica,Arial,sans-serif">
+            <line x1="372.0" y1="86" x2="372.0" y2="482.0" stroke="var(--border)" stroke-width="1"/>
+            <text x="372.0" y="504" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="13" fill="var(--text-dim)">2007</text>
+            <line x1="498.9" y1="86" x2="498.9" y2="482.0" stroke="var(--border)" stroke-width="1"/>
+            <text x="498.9" y="504" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="13" fill="var(--text-dim)">2010</text>
+            <line x1="625.8" y1="86" x2="625.8" y2="482.0" stroke="var(--border)" stroke-width="1"/>
+            <text x="625.8" y="504" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="13" fill="var(--text-dim)">2013</text>
+            <line x1="752.7" y1="86" x2="752.7" y2="482.0" stroke="var(--border)" stroke-width="1"/>
+            <text x="752.7" y="504" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="13" fill="var(--text-dim)">2016</text>
+            <line x1="879.6" y1="86" x2="879.6" y2="482.0" stroke="var(--border)" stroke-width="1"/>
+            <text x="879.6" y="504" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="13" fill="var(--text-dim)">2019</text>
+            <line x1="1006.5" y1="86" x2="1006.5" y2="482.0" stroke="var(--border)" stroke-width="1"/>
+            <text x="1006.5" y="504" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="13" fill="var(--text-dim)">2022</text>
+            <line x1="1133.4" y1="86" x2="1133.4" y2="482.0" stroke="var(--border)" stroke-width="1"/>
+            <text x="1133.4" y="504" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="13" fill="var(--text-dim)">2025</text>
+            <g class="exp-row" data-popup-id="exp7">
+            <line x1="358" y1="132.0" x2="1218" y2="132.0" stroke="var(--border)" stroke-width="0.6" opacity="0.5"/>
+            <text x="348" y="109.0" text-anchor="end" font-size="13.5" font-weight="600" fill="var(--text-bright)">Shree Cement Ltd</text>
+            <text x="348" y="125.0" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10.5" fill="var(--text-dim)">Electrical Engineer (O&amp;M)</text>
+            <rect class="exp-row__bar" x="372.0" y="100.0" width="126.9" height="20" rx="10" fill="var(--accent-3)"/>
+            <text x="435.4" y="114.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#ffffff">2007 – 2010</text>
+            </g>
+            <g class="exp-row" data-popup-id="exp6">
+            <line x1="358" y1="176.0" x2="1218" y2="176.0" stroke="var(--border)" stroke-width="0.6" opacity="0.5"/>
+            <text x="348" y="153.0" text-anchor="end" font-size="13.5" font-weight="600" fill="var(--text-bright)">UltraTech Cement Ltd | Aditya Birla Group</text>
+            <text x="348" y="169.0" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10.5" fill="var(--text-dim)">Electrical Engineer (Projects &amp; O&amp;M)</text>
+            <rect class="exp-row__bar" x="498.9" y="144.0" width="338.4" height="20" rx="10" fill="var(--accent-3)"/>
+            <text x="668.1" y="158.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#ffffff">2010 – 2018</text>
+            </g>
+            <g class="exp-row">
+            <line x1="358" y1="220.0" x2="1218" y2="220.0" stroke="var(--border)" stroke-width="0.6" opacity="0.5"/>
+            <text x="348" y="197.0" text-anchor="end" font-size="13.5" font-weight="600" fill="var(--text-bright)">Human Skills by Sudeep Ghosh</text>
+            <text x="348" y="213.0" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10.5" fill="var(--text-dim)">Founder &amp; Consultant Trainer</text>
+            <rect class="exp-row__bar" x="837.3" y="188.0" width="372.2" height="20" rx="10" fill="var(--accent)"/>
+            <text x="1023.4" y="202.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#ffffff">2018 – present</text>
+            </g>
+            <g class="exp-row" data-popup-id="exp5">
+            <line x1="358" y1="264.0" x2="1218" y2="264.0" stroke="var(--border)" stroke-width="0.6" opacity="0.5"/>
+            <text x="348" y="241.0" text-anchor="end" font-size="13.5" font-weight="600" fill="var(--text-bright)">Apollo Home Healthcare</text>
+            <text x="348" y="257.0" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10.5" fill="var(--text-dim)">Motivational Expert</text>
+            <rect class="exp-row__bar" x="921.9" y="232.0" width="84.6" height="20" rx="10" fill="#e070a0"/>
+            <text x="1015.5" y="246.0" font-family="'JetBrains Mono',monospace" font-size="11" fill="var(--text-dim)">2020 – 2022</text>
+            </g>
+            <g class="exp-row">
+            <line x1="358" y1="308.0" x2="1218" y2="308.0" stroke="var(--border)" stroke-width="0.6" opacity="0.5"/>
+            <text x="348" y="285.0" text-anchor="end" font-size="13.5" font-weight="600" fill="var(--text-bright)">MIDIGIWORLD</text>
+            <text x="348" y="301.0" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10.5" fill="var(--text-dim)">Career Coach</text>
+            <rect class="exp-row__bar" x="964.2" y="276.0" width="42.3" height="20" rx="10" fill="#e070a0"/>
+            <text x="1015.5" y="290.0" font-family="'JetBrains Mono',monospace" font-size="11" fill="var(--text-dim)">2021 – 2022</text>
+            </g>
+            <g class="exp-row" data-popup-id="exp4">
+            <line x1="358" y1="352.0" x2="1218" y2="352.0" stroke="var(--border)" stroke-width="0.6" opacity="0.5"/>
+            <text x="348" y="329.0" text-anchor="end" font-size="13.5" font-weight="600" fill="var(--text-bright)">AIDIAS Consulting Group</text>
+            <text x="348" y="345.0" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10.5" fill="var(--text-dim)">Consultant Trainer</text>
+            <rect class="exp-row__bar" x="964.2" y="320.0" width="42.3" height="20" rx="10" fill="#e070a0"/>
+            <text x="1015.5" y="334.0" font-family="'JetBrains Mono',monospace" font-size="11" fill="var(--text-dim)">2021 – 2022</text>
+            </g>
+            <g class="exp-row" data-popup-id="exp2">
+            <line x1="358" y1="396.0" x2="1218" y2="396.0" stroke="var(--border)" stroke-width="0.6" opacity="0.5"/>
+            <text x="348" y="373.0" text-anchor="end" font-size="13.5" font-weight="600" fill="var(--text-bright)">Mahindra Pride Classroom | Naandi Foundation</text>
+            <text x="348" y="389.0" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10.5" fill="var(--text-dim)">Employability Skills Trainer</text>
+            <rect class="exp-row__bar" x="1006.5" y="364.0" width="126.9" height="20" rx="10" fill="#e070a0"/>
+            <text x="1070.0" y="378.0" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#ffffff">2022 – 2025</text>
+            </g>
+            <g class="exp-row" data-popup-id="exp3">
+            <line x1="358" y1="440.0" x2="1218" y2="440.0" stroke="var(--border)" stroke-width="0.6" opacity="0.5"/>
+            <text x="348" y="417.0" text-anchor="end" font-size="13.5" font-weight="600" fill="var(--text-bright)">Wordsworth English Language Lab</text>
+            <text x="348" y="433.0" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10.5" fill="var(--text-dim)">Communicative English Trainer</text>
+            <rect class="exp-row__bar" x="1048.8" y="408.0" width="42.3" height="20" rx="10" fill="#e070a0"/>
+            <text x="1100.1" y="422.0" font-family="'JetBrains Mono',monospace" font-size="11" fill="var(--text-dim)">2023 – 2024</text>
+            </g>
+            <g class="exp-row" data-popup-id="exp1">
+            <line x1="358" y1="484.0" x2="1218" y2="484.0" stroke="var(--border)" stroke-width="0.6" opacity="0.5"/>
+            <text x="348" y="461.0" text-anchor="end" font-size="13.5" font-weight="600" fill="var(--text-bright)">Argyle HR Solutions Pvt Ltd</text>
+            <text x="348" y="477.0" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10.5" fill="var(--text-dim)">Consultant Trainer</text>
+            <rect class="exp-row__bar" x="1175.7" y="452.0" width="33.8" height="20" rx="10" fill="#d4a73a"/>
+            <text x="1166.7" y="466.0" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="11" fill="var(--text-dim)">2026 – present</text>
+            </g>
+            <rect x="372.0" y="527.0" width="13" height="13" rx="3" fill="var(--accent-3)"/>
+            <text x="392.0" y="538.0" font-size="12.5" fill="var(--text-dim)">Industry (employed)</text>
+            <rect x="534.6" y="527.0" width="13" height="13" rx="3" fill="var(--accent)"/>
+            <text x="554.6" y="538.0" font-size="12.5" fill="var(--text-dim)">Founder practice</text>
+            <rect x="675.0" y="527.0" width="13" height="13" rx="3" fill="#e070a0"/>
+            <text x="695.0" y="538.0" font-size="12.5" fill="var(--text-dim)">Concurrent engagements</text>
+            <rect x="859.8" y="527.0" width="13" height="13" rx="3" fill="#d4a73a"/>
+            <text x="879.8" y="538.0" font-size="12.5" fill="var(--text-dim)">Current role</text>
+            <text x="795.0" y="568" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12.5" fill="var(--text-dim)" letter-spacing="1">Timeline · 2007 to Present</text>
+            </svg>
     </div>
-    <p style="font-size:13px; color:var(--text-dim); margin:12px 0 0; font-family:var(--font-mono); text-align:center; letter-spacing:0.5px;">Click any blinking red milestone for details · Scroll horizontally on mobile</p>
+    <p style="font-size:13px; color:var(--text-dim); margin:12px 0 0; font-family:var(--font-mono); text-align:center; letter-spacing:0.5px;">Click any role for details · Scroll horizontally on mobile</p>
 
     
 
