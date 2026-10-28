@@ -2885,8 +2885,8 @@ document.addEventListener('DOMContentLoaded',function(){
       1. Upload Sudeep_Ghosh_Executive_Resume_Presentation.pdf to the
          repo next to index.html.
       2. forms.google.com -> Blank form. Questions, in this order
-         (required unless noted): Full name / Organisation / Designation /
-         Email address / Contact number (all Short answer),
+         (REQUIRED: Full name, Email address.  OPTIONAL: Organisation,
+         Designation, Contact number -- all Short answer),
          "I consent" (Checkbox, option: Yes),
          "Contact me about training?" (Checkbox, option: Yes, optional).
       3. Form editor -> three-dots -> "Get pre-filled link": type a dummy
@@ -2901,6 +2901,9 @@ document.addEventListener('DOMContentLoaded',function(){
       (Google's reply is unreadable by the browser, so a typo in an entry
       ID would lose that field silently.) Google Forms -> Responses -> "Link to
       Sheets" keeps a spreadsheet record.
+      NOTE: There is NO work-email gate on this form -- any valid email
+      address is accepted. (The checklist and sampler forms DO reject
+      free mail domains; this one does not.)
     ================================================================ -->
     <section id="resume-download" style="max-width:640px;margin:20px auto 8px;padding:0 16px;font-family:'Space Grotesk','Segoe UI',Helvetica,Arial,sans-serif;">
 
@@ -3089,9 +3092,9 @@ document.addEventListener('DOMContentLoaded',function(){
      ONE-TIME SETUP (same as the resume form):
      1. Create a new Google Form (blank form) titled
         "AI-Readiness Checklist Download".
-     2. Questions, in this order (required unless noted):
-        Full name / Organisation / Designation / Email address /
-        Contact number (all Short answer),
+     2. Questions, in this order (REQUIRED: Full name, Email address.
+        OPTIONAL: Organisation, Designation, Contact number -- all
+        Short answer),
         "I consent to being contacted about this download"
         (Checkbox, option: Yes, required),
         "Contact me about training programs?"
@@ -3112,10 +3115,11 @@ document.addEventListener('DOMContentLoaded',function(){
         resume-lead-email-script.js, add an On-form-submit trigger).
      7. Upload Sudeep_Ghosh_AI_Readiness_Checklist.pdf next
         to index.html in the repo.
-     NOTE: A work-email gate is built in: free mail domains (Gmail,
-     Yahoo, Outlook, etc.) are rejected, EXCEPT the tester address
-     sudeep@humanskills.in (TESTER_EMAILS in the script) - use that
-     for your own tests. Add more testers there if needed.
+     NOTE: A work-email gate is built in ON THIS FORM: free mail domains
+     (Gmail, Yahoo, Outlook, etc.) are rejected, EXCEPT the tester
+     address sudeep@humanskills.in (TESTER_EMAILS in the script) - use
+     that for your own tests. Add more testers there if needed.
+     (The resume form has no such gate - any valid email is accepted.)
      8. Submit ONE test entry and confirm it appears in the form's
         Responses tab (a wrong entry ID loses that field silently).
      ============================================================ -->
