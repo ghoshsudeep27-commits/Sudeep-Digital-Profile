@@ -2345,8 +2345,8 @@ html, body { overflow-x: clip; }
               <p style="margin:4px 0 0;font-size:11.5px;color:#5b6b7f;">Work email required &mdash; free mail accounts (Gmail, Yahoo, Outlook, etc.) cannot download.</p>
             </div>
             <div>
-              <label for="smPhone" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Contact number <span style="color:#7a5c14;">*</span></label>
-              <input type="tel" id="smPhone" name="contact_number" required autocomplete="tel"
+              <label for="smPhone" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Contact number <span style="color:#5b6b7f;font-weight:400;">(optional)</span></label>
+              <input type="tel" id="smPhone" name="contact_number" autocomplete="tel"
                      placeholder="+91 XXXXX XXXXX"
                      style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #cfdde8;border-radius:8px;font-size:14.5px;color:#24354d;background:#f4f7fb;outline:none;">
             </div>
@@ -2428,7 +2428,7 @@ html, body { overflow-x: clip; }
           btn.disabled = true;
           btn.textContent = "Please wait...";
 
-          var fields = ["smFullname", "smOrg", "smDesig", "smEmail", "smPhone"];
+          var fields = ["smFullname", "smOrg", "smDesig", "smEmail"];
           for (var i = 0; i < fields.length; i++) {
             var el = document.getElementById(fields[i]);
             el.style.border = "1px solid #cfdde8";
@@ -2449,7 +2449,7 @@ html, body { overflow-x: clip; }
 
 
           var phone = document.getElementById("smPhone").value.trim();
-          if (!/^[0-9+()\-\s]{8,18}$/.test(phone)) return fail("Please enter a valid contact number.");
+          if (phone && !/^[0-9+()\-\s]{8,18}$/.test(phone)) return fail("Please enter a valid contact number.");
 
           if (!document.getElementById("smConsent").checked)
             return fail("Please tick the consent box to continue \u2014 it confirms you agree to your details being used for this download.");
@@ -2471,7 +2471,7 @@ html, body { overflow-x: clip; }
             q.append(m.organisation, val("smOrg"));
             q.append(m.designation, val("smDesig"));
             q.append(m.email, val("smEmail"));
-            q.append(m.contact_number, val("smPhone"));
+            var _smph = val("smPhone"); if (_smph) q.append(m.contact_number, _smph);
             if (m.consent) q.append(m.consent, GOOGLE_FORM.consentValue);
             if (m.follow_up && document.getElementById("smFollowup").checked)
               q.append(m.follow_up, GOOGLE_FORM.followupValue);
