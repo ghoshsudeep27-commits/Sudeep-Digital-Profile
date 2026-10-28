@@ -2326,14 +2326,14 @@ html, body { overflow-x: clip; }
                      style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #cfdde8;border-radius:8px;font-size:14.5px;color:#24354d;background:#f4f7fb;outline:none;">
             </div>
             <div>
-              <label for="smOrg" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Organisation <span style="color:#7a5c14;">*</span></label>
-              <input type="text" id="smOrg" name="organisation" required autocomplete="organization"
+              <label for="smOrg" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Organisation <span style="color:#5b6b7f;font-weight:400;">(optional)</span></label>
+              <input type="text" id="smOrg" name="organisation" autocomplete="organization"
                      placeholder="e.g. UltraTech Cement"
                      style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #cfdde8;border-radius:8px;font-size:14.5px;color:#24354d;background:#f4f7fb;outline:none;">
             </div>
             <div>
-              <label for="smDesig" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Designation <span style="color:#7a5c14;">*</span></label>
-              <input type="text" id="smDesig" name="designation" required autocomplete="organization-title"
+              <label for="smDesig" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Designation <span style="color:#5b6b7f;font-weight:400;">(optional)</span></label>
+              <input type="text" id="smDesig" name="designation" autocomplete="organization-title"
                      placeholder="e.g. L&D Head"
                      style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #cfdde8;border-radius:8px;font-size:14.5px;color:#24354d;background:#f4f7fb;outline:none;">
             </div>
@@ -2428,7 +2428,7 @@ html, body { overflow-x: clip; }
           btn.disabled = true;
           btn.textContent = "Please wait...";
 
-          var fields = ["smFullname", "smOrg", "smDesig", "smEmail"];
+          var fields = ["smFullname", "smEmail"];
           for (var i = 0; i < fields.length; i++) {
             var el = document.getElementById(fields[i]);
             el.style.border = "1px solid #cfdde8";
@@ -2468,8 +2468,8 @@ html, body { overflow-x: clip; }
             var q = new URLSearchParams();
             var m = GOOGLE_FORM.entries;
             q.append(m.full_name, val("smFullname"));
-            q.append(m.organisation, val("smOrg"));
-            q.append(m.designation, val("smDesig"));
+            var _smo = val("smOrg"); if (_smo) q.append(m.organisation, _smo);
+            var _smd = val("smDesig"); if (_smd) q.append(m.designation, _smd);
             q.append(m.email, val("smEmail"));
             var _smph = val("smPhone"); if (_smph) q.append(m.contact_number, _smph);
             if (m.consent) q.append(m.consent, GOOGLE_FORM.consentValue);

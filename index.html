@@ -2927,14 +2927,14 @@ document.addEventListener('DOMContentLoaded',function(){
                      style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #cfdde8;border-radius:8px;font-size:14.5px;color:#24354d;background:#f4f7fb;outline:none;">
             </div>
             <div>
-              <label for="rdOrg" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Organisation <span style="color:#7a5c14;">*</span></label>
-              <input type="text" id="rdOrg" name="organisation" required autocomplete="organization"
+              <label for="rdOrg" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Organisation <span style="color:#5b6b7f;font-weight:400;">(optional)</span></label>
+              <input type="text" id="rdOrg" name="organisation" autocomplete="organization"
                      placeholder="e.g. Argyle HR Solutions"
                      style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #cfdde8;border-radius:8px;font-size:14.5px;color:#24354d;background:#f4f7fb;outline:none;">
             </div>
             <div>
-              <label for="rdDesig" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Designation <span style="color:#7a5c14;">*</span></label>
-              <input type="text" id="rdDesig" name="designation" required autocomplete="organization-title"
+              <label for="rdDesig" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Designation <span style="color:#5b6b7f;font-weight:400;">(optional)</span></label>
+              <input type="text" id="rdDesig" name="designation" autocomplete="organization-title"
                      placeholder="e.g. L&D Manager"
                      style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #cfdde8;border-radius:8px;font-size:14.5px;color:#24354d;background:#f4f7fb;outline:none;">
             </div>
@@ -3024,7 +3024,7 @@ document.addEventListener('DOMContentLoaded',function(){
           btn.disabled = true;
           btn.textContent = "Please wait...";
 
-          var fields = ["rdFullname", "rdOrg", "rdDesig", "rdEmail"];
+          var fields = ["rdFullname", "rdEmail"];
           for (var i = 0; i < fields.length; i++) {
             var el = document.getElementById(fields[i]);
             el.style.border = "1px solid #cfdde8";
@@ -3052,8 +3052,8 @@ document.addEventListener('DOMContentLoaded',function(){
             var q = new URLSearchParams();
             var m = GOOGLE_FORM.entries;
             q.append(m.full_name, val("rdFullname"));
-            q.append(m.organisation, val("rdOrg"));
-            q.append(m.designation, val("rdDesig"));
+            var _rdo = val("rdOrg"); if (_rdo) q.append(m.organisation, _rdo);
+            var _rdd = val("rdDesig"); if (_rdd) q.append(m.designation, _rdd);
             q.append(m.email, val("rdEmail"));
             var _rdph = val("rdPhone"); if (_rdph) q.append(m.contact_number, _rdph);
             if (m.consent) q.append(m.consent, GOOGLE_FORM.consentValue);
@@ -3144,14 +3144,14 @@ document.addEventListener('DOMContentLoaded',function(){
                      style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #cfdde8;border-radius:8px;font-size:14.5px;color:#24354d;background:#f4f7fb;outline:none;">
             </div>
             <div>
-              <label for="clOrg" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Organisation <span style="color:#7a5c14;">*</span></label>
-              <input type="text" id="clOrg" name="organisation" required autocomplete="organization"
+              <label for="clOrg" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Organisation <span style="color:#5b6b7f;font-weight:400;">(optional)</span></label>
+              <input type="text" id="clOrg" name="organisation" autocomplete="organization"
                      placeholder="e.g. Apollo Home Healthcare"
                      style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #cfdde8;border-radius:8px;font-size:14.5px;color:#24354d;background:#f4f7fb;outline:none;">
             </div>
             <div>
-              <label for="clDesig" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Designation <span style="color:#7a5c14;">*</span></label>
-              <input type="text" id="clDesig" name="designation" required autocomplete="organization-title"
+              <label for="clDesig" style="display:block;font-size:12.5px;font-weight:600;color:#24354d;margin-bottom:4px;">Designation <span style="color:#5b6b7f;font-weight:400;">(optional)</span></label>
+              <input type="text" id="clDesig" name="designation" autocomplete="organization-title"
                      placeholder="e.g. Head of L&D"
                      style="width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #cfdde8;border-radius:8px;font-size:14.5px;color:#24354d;background:#f4f7fb;outline:none;">
             </div>
@@ -3246,7 +3246,7 @@ document.addEventListener('DOMContentLoaded',function(){
           btn.disabled = true;
           btn.textContent = "Please wait...";
 
-          var fields = ["clFullname", "clOrg", "clDesig", "clEmail"];
+          var fields = ["clFullname", "clEmail"];
           for (var i = 0; i < fields.length; i++) {
             var el = document.getElementById(fields[i]);
             el.style.border = "1px solid #cfdde8";
@@ -3286,8 +3286,8 @@ document.addEventListener('DOMContentLoaded',function(){
             var q = new URLSearchParams();
             var m = GOOGLE_FORM.entries;
             q.append(m.full_name, val("clFullname"));
-            q.append(m.organisation, val("clOrg"));
-            q.append(m.designation, val("clDesig"));
+            var _clo = val("clOrg"); if (_clo) q.append(m.organisation, _clo);
+            var _cld = val("clDesig"); if (_cld) q.append(m.designation, _cld);
             q.append(m.email, val("clEmail"));
             var _clph = val("clPhone"); if (_clph) q.append(m.contact_number, _clph);
             if (m.consent) q.append(m.consent, GOOGLE_FORM.consentValue);
