@@ -2135,5 +2135,134 @@ html, body { overflow-x: clip; }
       <a href="../free-resources.html#s14" data-cross-page="1" data-section="s14" data-cross-page="1"><span class="num">14</span> Prompt Library <span class="new-badge">NEW</span></a>
   <div class="toc-foot"><span class="dot"></span>Available for Training</div>
 </div>
+<script>
+// fallback for smoothScrollTo if the site's version is absent
+if (typeof smoothScrollTo !== 'function') {
+  window.smoothScrollTo = function(id) {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+}
 
+// ===== FAB Section Drawer (ALL 14 sections, cross-page nav) =====
+(function() {
+  var fab = document.getElementById('tocFab');
+  var drawer = document.getElementById('sectionDrawer');
+  var backdrop = document.getElementById('tocBackdrop');
+  var badge = document.getElementById('tocFabBadge');
+  if (!fab || !drawer) return;
+
+  function openDrawer() {
+    drawer.classList.add('expanded');
+    if (backdrop) backdrop.classList.add('show');
+  }
+  function closeDrawer() {
+    drawer.classList.remove('expanded');
+    if (backdrop) backdrop.classList.remove('show');
+  }
+  fab.addEventListener('click', openDrawer);
+  if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+  // FAB is permanently visible — no scroll trigger needed
+
+  // Drawer link clicks: same-page = smooth scroll, cross-page = navigate
+  var drawerLinks = drawer.querySelectorAll('a[data-section]');
+  drawerLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var sid = link.getAttribute('data-section');
+      var isCrossPage = link.getAttribute('data-cross-page');
+      closeDrawer();
+      if (isCrossPage) {
+        // Navigate to the other page
+        var href = link.getAttribute('href');
+        window.location.href = href;
+      } else {
+        // Same page — smooth scroll to section
+        if (sid && typeof smoothScrollTo === 'function') {
+          var el = document.getElementById(sid);
+          if (el) {
+            void el.offsetHeight;
+            requestAnimationFrame(function() { smoothScrollTo(sid); });
+            history.replaceState(null, '', '#' + sid);
+          }
+        }
+      }
+    });
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && drawer.classList.contains('expanded')) closeDrawer();
+  });
+
+  // Update badge with active section (via scroll spy)
+  var allDrawerLinks = drawer.querySelectorAll('a[data-section]');
+  allDrawerLinks.forEach(function(link) {
+    var mo = new MutationObserver(function() {
+      if (link.classList.contains('active') && badge) {
+        var num = link.querySelector('.num');
+        if (num) badge.textContent = num.textContent;
+      }
+    });
+    mo.observe(link, { attributes: true, attributeFilter: ['class'] });
+  });
+})();
+// ===== Scroll Spy (TOC) =====
+(function() {
+  const toc = document.getElementById('toc') || document.getElementById('sectionDrawer');
+  if (!toc) return;
+  const links = toc.querySelectorAll('a');
+  const sections = [];
+  links.forEach(link => {
+    const id = link.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) sections.push({ id, el, link });
+  });
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const match = sections.find(s => s.el === entry.target);
+        if (match) {
+          match.link.classList.add('active');
+          if (window.innerWidth <= 1000 && toc.classList.contains('expanded')) {
+            match.link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px' });
+  sections.forEach(s => observer.observe(s.el));
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const id = link.getAttribute('href').slice(1);
+      // Close drawer FIRST so layout stabilizes before scrolling
+      var tocEl=document.getElementById('toc');
+      var backdrop=document.getElementById('tocBackdrop');
+      if(tocEl)tocEl.classList.remove('expanded');
+      if(backdrop)backdrop.classList.remove('show');
+      var btn=document.getElementById('tocToggle');
+      if(btn)btn.setAttribute('aria-expanded','false');
+      // Use smoothScrollTo which accounts for the sticky clock bar offset
+      smoothScrollTo(id, e);
+      history.replaceState(null, '', '#' + id);
+    });
+  });
+})();
+</script>
+<script>
+// ===== Top Nav Mobile Toggle =====
+(function() {
+  var toggle = document.getElementById('navToggle');
+  var links = document.querySelector('.top-nav__links');
+  if (!toggle || !links) return;
+  toggle.addEventListener('click', function() {
+    links.classList.toggle('mobile-open');
+    toggle.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', links.classList.contains('mobile-open'));
+  });
+})();
+</script>
 </body></html>
