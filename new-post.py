@@ -365,8 +365,14 @@ def post_process(html):
     fab = re.search(r'<button class="toc-fab".*?</button>', listing, re.S).group(0)
     backdrop = re.search(r'<div class="toc-backdrop"[^>]*></div>', listing).group(0)
     drawer = balanced(listing, '<div class="section-drawer" id="sectionDrawer">')
-    script = re.search(r'<script>\s*if \(typeof smoothScrollTo.*?</script>', listing, re.S)
-    script = script.group(0) if script else ""
+    # the behaviour scripts: the Explore-more / drawer logic and the mobile nav toggle.
+    # Match on content, not on how the block happens to start - the block opens with a
+    # comment, so a regex anchored on "if (typeof smoothScrollTo" never matched.
+    scripts = []
+    for m in re.finditer(r'<script\b(?![^>]*ld\+json)[^>]*>(.*?)</script>', listing, re.S):
+        if 'smoothScrollTo' in m.group(1) or 'navToggle' in m.group(1):
+            scripts.append(m.group(0))
+    script = "\n".join(scripts)
     chrome = "\n<!-- Explore more -->\n" + fab + "\n" + backdrop + "\n" + drawer + "\n" + script
 
     # 3. byline avatar -> the portrait
