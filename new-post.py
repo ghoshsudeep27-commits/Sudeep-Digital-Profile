@@ -358,8 +358,15 @@ def post_process(html):
 
     listing = open(os.path.join(ROOT, "blog.html"), encoding="utf-8").read()
 
-    # 1. favicon / apple-touch-icon from the listing
+    # 1. favicon / apple-touch-icon from the listing, plus the analytics snippet.
+    #    Posts are generated, so anything the listing carries in <head> has to be
+    #    copied across explicitly - otherwise new posts ship without GA.
     icons = "\n".join(re.findall(r'<link rel="(?:icon|apple-touch-icon)"[^>]*>', listing))
+    ga = re.search(r'(?:<!--\s*Google Analytics[^>]*-->\s*)?'
+                   r'<script async src="https://www\.googletagmanager\.com/gtag/js\?id=[^"]+"></script>'
+                   r'\s*<script>.*?</script>', listing, re.S)
+    if ga:
+        icons = ga.group(0) + "\n" + icons
 
     # 2. the Explore-more FAB + the site's section drawer
     fab = re.search(r'<button class="toc-fab".*?</button>', listing, re.S).group(0)
