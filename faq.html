@@ -1172,11 +1172,11 @@ body:has(.tools-banner.show) .back-top { bottom: 72px; }
   white-space: nowrap; overflow: hidden;
 }
 .clock-bar__sep { color: var(--text-dim); opacity: 0.5; }
-.clock-bar__day { color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; font-size: 12px; }
+.clock-bar__day { color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 0 1 auto; }
 .clock-bar__date { color: var(--text); }
 .clock-bar__time { color: var(--accent-2); font-weight: 600; }
 .clock-bar__tz { color: var(--text-dim); font-size: 13px; }
-.clock-bar__email { color: var(--accent-2); font-weight: 600; text-decoration: none; letter-spacing: .2px; }
+.clock-bar__email { color: var(--accent-2); font-weight: 600; text-decoration: none; letter-spacing: .2px; flex: 0 0 auto; }
 .clock-bar__email:hover { text-decoration: underline; }
 @media (max-width: 700px) { .clock-bar__email--alt, .clock-bar__sep--alt { display: none; } }
 @media (max-width: 600px) {
@@ -2153,7 +2153,7 @@ html, body { overflow-x: clip; }
 
 <!-- ===== Live Clock Bar ===== -->
 <div class="clock-bar" id="contactBar">
-  <span class="clock-bar__day">Humanskills.in</span>
+  <span class="clock-bar__day">Human Skills by Sudeep Ghosh</span>
   <span class="clock-bar__sep">|</span>
   <a class="clock-bar__email" href="mailto:info@humanskills.in">info@humanskills.in</a>
   <span class="clock-bar__sep clock-bar__sep--alt">|</span>
@@ -2163,7 +2163,7 @@ html, body { overflow-x: clip; }
 <!-- ===== Top Navigation Bar ===== -->
 <nav class="top-nav" id="topNav">
   <a class="top-nav__brand" href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:10px;">
-    <span class="brand-badge brand-badge--nav"><img src="images/logo-mark.png" alt="Humanskills.in" width="30" height="30"></span>
+    <span class="brand-badge brand-badge--nav"><img src="images/logo-mark.png" alt="Human Skills by Sudeep Ghosh" width="30" height="30"></span>
     <div class="top-nav__name">Human Skills by Sudeep Ghosh<span>Trainer · Coach</span></div>
   </a>
   <div class="top-nav__links">
@@ -2900,7 +2900,7 @@ html, body { overflow-x: clip; }
 <!-- ===== FAB Section Drawer (ALL 14 sections) ===== -->
 <div class="section-drawer" id="sectionDrawer">
   <a class="section-drawer__brand" href="index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:10px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border);">
-    <span class="brand-badge brand-badge--drawer"><img src="images/logo-mark.png" alt="Humanskills.in" width="36" height="36"></span>
+    <span class="brand-badge brand-badge--drawer"><img src="images/logo-mark.png" alt="Human Skills by Sudeep Ghosh" width="36" height="36"></span>
     <div class="toc-brand__name">Human Skills by Sudeep Ghosh<span>Trainer · Coach</span></div>
   </a>
   <div class="section-drawer__title">All Sections</div>
