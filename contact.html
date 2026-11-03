@@ -1475,23 +1475,49 @@ function smoothScrollTo(targetId, event) {
 // No AJAX — the form submits natively, Formspree shows CAPTCHA if needed,
 // then redirects back to this page with a _success query parameter.
 (function() {
-  // Check for Formspree success redirect
-  var urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('_success') === '1') {
-    var success = document.getElementById('formSuccess');
-    if (success) {
-      success.classList.add('show');
-      // The redirect lands at the top of the page and the form sits below the
-      // fold, so bring the confirmation into view. No smooth scroll for people
-      // who have asked for reduced motion.
-      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      success.scrollIntoView({ block: 'center', behavior: still ? 'auto' : 'smooth' });
-      // The notice stays until the visitor navigates away: six seconds is long
-      // enough to miss if you look away. Only the query string is cleaned, so a
-      // refresh does not replay it.
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
+  // A submission can bring the visitor back two different ways:
+  //   1. Formspree redirects to _next  -> the URL carries ?_success=1
+  //   2. Formspree shows its own confirmation page and the visitor taps
+  //      "Go Back" -> that is browser history, so no query string arrives.
+  // The query string alone therefore misses case 2, which is what happens on
+  // a phone after the reCAPTCHA. A sessionStorage mark set at submit time
+  // covers both, and pageshow catches a back/forward-cache restore, where the
+  // page is redisplayed without re-running this script.
+  var KEY = 'hs_form_submitted';
+  var MAX_AGE = 30 * 60 * 1000; // half an hour
+  var form = document.getElementById('contactForm');
+  var notice = document.getElementById('formSuccess');
+
+  function showNotice() {
+    if (!notice || notice.classList.contains('show')) return;
+    notice.classList.add('show');
+    // The return lands at the top of the page and the form sits below the
+    // fold, so bring the confirmation into view. No smooth scroll for people
+    // who have asked for reduced motion.
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    notice.scrollIntoView({ block: 'center', behavior: still ? 'auto' : 'smooth' });
   }
+
+  function checkReturn() {
+    var viaRedirect = new URLSearchParams(window.location.search).get('_success') === '1';
+    var viaReturn = false;
+    try {
+      var stamp = parseInt(sessionStorage.getItem(KEY) || '0', 10);
+      if (stamp && Date.now() - stamp < MAX_AGE) viaReturn = true;
+      if (viaReturn) sessionStorage.removeItem(KEY);
+    } catch (e) { /* storage blocked: fall back to the query string only */ }
+    if (viaRedirect || viaReturn) showNotice();
+    // Only the query string is cleaned, so a refresh does not replay it.
+    if (viaRedirect) window.history.replaceState({}, document.title, window.location.pathname);
+  }
+
+  if (form) {
+    form.addEventListener('submit', function() {
+      try { sessionStorage.setItem(KEY, String(Date.now())); } catch (e) {}
+    });
+  }
+  checkReturn();
+  window.addEventListener('pageshow', function(e) { if (e.persisted) checkReturn(); });
 })();
 
 // ===== Copy Email to Clipboard =====
