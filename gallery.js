@@ -77,8 +77,8 @@
       20: "Dainik Savera clipping, Tohana: Week-long personality development and corporate culture training begins at Mata Gujri College, Fatehabad, with a photograph of the session.",
       21: "Desh Pardesh Times clipping: Placement training camp at Karhali Sahib College, with Sudeep Ghosh teaching a classroom of students.",
       22: "Punjabi press clipping, Bathinda: Seven-day employability skills workshop at SSD Girls College, 24 to 30 July 2024, with photographs of the sessions and participants.",
-      23: "Hindi news brief, Rohtak: Employability Skills Enhancement workshop at Maharshi Dayanand University, 19 November 2025, with students in the audience.",
-      24: "Hindi press clipping, Rohtak: Employability Skills Enhancement workshop at Maharshi Dayanand University, with Sudeep Ghosh addressing students."
+      23: "Dainik Bhaskar news brief, Rohtak: Employability Skills Enhancement workshop at Maharshi Dayanand University, 19 November 2025, with students in the audience.",
+      24: "Punjab Kesri clipping, Rohtak: Employability Skills Enhancement workshop at Maharshi Dayanand University, with Sudeep Ghosh addressing students."
       },
     }
   };
