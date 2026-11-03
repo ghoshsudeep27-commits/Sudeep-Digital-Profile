@@ -1277,7 +1277,7 @@ body::before {
 
 /* ===== Values row (What I Stand For) ===== */
 .values-head{display:flex;align-items:baseline;gap:14px;margin:38px 0 6px}
-.values-head h3{margin:0;font-size:19px;font-weight:600;color:var(--text-bright);letter-spacing:-.2px}
+.values-head h2,.values-head h3{margin:0;font-size:19px;font-weight:600;color:var(--text-bright);letter-spacing:-.2px}
 .values-head__line{flex:1;height:1px;background:var(--border)}
 .values-head__tag{font-family:var(--font-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent-2)}
 .values-sub{margin:0 0 22px;font-family:var(--font-mono);font-size:12.5px;color:var(--text-dim)}
@@ -1987,4 +1987,47 @@ html, body { overflow-x: clip; }
 @media (max-width: 900px) {
   .testi-band .testi-grid { grid-template-columns: 1fr; }
   .testi-band .testi-card { padding: 22px 22px 18px; }
+}
+
+/* ===== How It Works — tinted step cards (option B) =====
+   One accent wash per step, using the light-zone palette. Colour lives in the
+   card surface and the 3px top rule; the text keeps its normal ink, so every
+   card stays above 4.5:1. Scoped to .steps-row--tinted, so the homepage block
+   (which has no such class) keeps its neutral treatment. */
+.light-zone .steps-row--tinted { margin: 0 0 26px; }
+.light-zone .steps-row--tinted .step {
+  border-top: 3px solid transparent;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.light-zone .steps-row--tinted .step:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(13, 21, 32, .08);
+}
+.light-zone .steps-row--tinted .step:nth-child(1) {
+  background: rgba(14, 115, 115, .07); border-color: rgba(14, 115, 115, .26); border-top-color: #0e7373;
+}
+.light-zone .steps-row--tinted .step:nth-child(2) {
+  background: rgba(122, 92, 20, .08); border-color: rgba(122, 92, 20, .26); border-top-color: #7a5c14;
+}
+.light-zone .steps-row--tinted .step:nth-child(3) {
+  background: rgba(43, 79, 196, .07); border-color: rgba(43, 79, 196, .24); border-top-color: #2b4fc4;
+}
+.light-zone .steps-row--tinted .step:nth-child(4) {
+  background: rgba(224, 112, 160, .09); border-color: rgba(224, 112, 160, .30); border-top-color: #c2558a;
+}
+.light-zone .steps-row--tinted .step:nth-child(1) .step__n { color: #0e7373; }
+.light-zone .steps-row--tinted .step:nth-child(2) .step__n { color: #7a5c14; }
+.light-zone .steps-row--tinted .step:nth-child(3) .step__n { color: #2b4fc4; }
+.light-zone .steps-row--tinted .step:nth-child(4) .step__n { color: #b3457a; }
+
+/* Phone: number and title share a line, so four steps cost one screen
+   rather than three. The body text stays in the page, just tighter. */
+@media (max-width: 640px) {
+  .light-zone .steps-row--tinted { grid-template-columns: 1fr; gap: 10px; }
+  .light-zone .steps-row--tinted .step {
+    display: grid; grid-template-columns: 30px 1fr; column-gap: 10px;
+    align-items: baseline; padding: 14px 16px;
+  }
+  .light-zone .steps-row--tinted .step__title { margin-top: 0; font-size: 15px; }
+  .light-zone .steps-row--tinted .step__text { grid-column: 2; font-size: 13px; margin-top: 4px; }
 }
