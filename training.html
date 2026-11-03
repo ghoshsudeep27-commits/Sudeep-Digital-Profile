@@ -2980,6 +2980,14 @@ function smoothScrollTo(targetId, event) {
 
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
 
+  // Alt text is keyed by the number in the filename, not by position: the array
+  // is reversed so the newest image shows first, so a positional lookup would
+  // pair every alt with the wrong picture.
+  function altFor(config, src) {
+    var n = parseInt(String(src).replace(/[^0-9]/g, ''), 10);
+    return (config.alts && config.alts[n]) || (config.altPrefix + ' ' + n);
+  }
+
   async function buildGallery(trackId, config) {
     const track = document.getElementById(trackId);
     if (!track) return;
@@ -3000,7 +3008,7 @@ function smoothScrollTo(targetId, event) {
       const slide = document.createElement('div');
       slide.className = 'carousel__slide';
       slide.innerHTML = '<div class="' + config.cardClass + ' reveal" style="--i:' + idx + '" data-full="' + src + '">'
-        + '<img src="' + src + '" alt="' + config.altPrefix + ' ' + (idx + 1) + '" loading="lazy">'
+        + '<img src="' + src + '" alt="' + altFor(config, src) + '" loading="lazy">'
         + config.overlaySvg
         + '</div>';
       track.appendChild(slide);
@@ -3027,6 +3035,8 @@ window.initLightbox = function() {
     if (el.dataset.lightboxBound) return;
     el.dataset.lightboxBound = '1';
     el.addEventListener('click', () => {
+      var thumb = el.querySelector('img');
+      lbImg.alt = thumb && thumb.alt ? thumb.alt : (el.getAttribute('aria-label') || 'Full size view');
       lbImg.src = el.dataset.full;
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';

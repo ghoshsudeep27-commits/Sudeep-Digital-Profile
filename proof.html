@@ -3464,11 +3464,47 @@ function smoothScrollTo(targetId, event) {
       prefix: 'press_',
       altPrefix: 'Press clipping',
       cardClass: 'press-item',
+      // Real alt text per clipping: publication, headline and what the photo shows.
+      // Keyed by image number, so press_07.jpg uses alts[7].
+      alts: {
+      1: "Pal Pal News clipping, Rohtak: Employability enhancement training begins at Baba Mastnath University, with a photograph of Sudeep Ghosh addressing students.",
+      2: "Punjabi press clipping: Employment training workshop at Guru Hargobind Sahib Khalsa Girls College, Balbera, run with Mahindra and Mahindra for 70 students.",
+      3: "Desh Pardesh Times clipping: Six-day employment training workshop at Guru Hargobind Sahib Khalsa Girls College, Balbera, with photographs of the speakers and the student audience.",
+      4: "Desh Pardesh Times clipping: Placement training camp at Karhali Sahib College, with a photograph of Sudeep Ghosh teaching a classroom of students.",
+      5: "Desh Pardesh Times clipping: Two-day placement training camp concludes at Karhali Sahib College, with students seated in a classroom session.",
+      6: "Punjabi press clipping, Amritsar: Mock interview session for final-semester students at Sri Guru Hargobind Sahib Khalsa Girls College, with the principal and students photographed together.",
+      7: "Sach Di Pehchan clipping, Batala: Two-day workshop by the placement cell of Guru Nanak College begins, shown in four photographs including the lamp-lighting ceremony and classroom sessions.",
+      8: "Punjabi press clipping, Batala: Two-day placement workshop at Guru Nanak College, with a photograph of the principal and staff presenting a bouquet.",
+      9: "Hindi press clipping, Safidon: Workshop teaching interview skills to students at Government PG College, Safidon, with a group photograph of participants.",
+      10: "Hindi press clipping, Safidon: Body language workshop at Government PG College, Safidon, with a photograph of Sudeep Ghosh addressing students.",
+      11: "Hindi press clipping, Safidon: Six-day personality development and interview skills training at Government College, Safidon, with Sudeep Ghosh teaching a full classroom.",
+      12: "Savera News clipping, Garhshankar: Seven-day employability and skills training programme begins at Akali Memorial Khalsa College, with staff photographed at the launch.",
+      13: "Hindi press clipping, Jind: Employability skills workshop running to 4 September at Hindu Kanya Mahavidyalaya, Jind, with a photograph of a session in the computer lab.",
+      14: "Hindi press clipping, Jind: Employability skills training at Hindu Kanya Mahavidyalaya, with Sudeep Ghosh addressing students in the computer lab.",
+      15: "Hindi press clipping, Safidon: Week-long workshop on critical thinking and problem solving concludes at Government PG College, Safidon.",
+      16: "Hindi press clipping, Rohtak: Seven-day workshop with the Department of Sociology, Maharshi Dayanand University and Naandi Foundation, with a group photograph outside the department.",
+      17: "Hindi press clipping, Safidon: Six-day personality development and interview skills training begins at Government College, Safidon, with a photograph of the classroom.",
+      18: "Hindi press clipping, Safidon: Week-long workshop concludes at Government PG College, Safidon, with a group photograph of students and the trainer.",
+      19: "Ajit clipping, Garhshankar: Employability and skills training programme concludes at Akali Memorial Khalsa College, with Sudeep Ghosh being honoured on stage.",
+      20: "Dainik Savera clipping, Tohana: Week-long personality development and corporate culture training begins at Mata Gujri College, Fatehabad, with a photograph of the session.",
+      21: "Desh Pardesh Times clipping: Placement training camp at Karhali Sahib College, with Sudeep Ghosh teaching a classroom of students.",
+      22: "Punjabi press clipping, Bathinda: Seven-day employability skills workshop at SSD Girls College, 24 to 30 July 2024, with photographs of the sessions and participants.",
+      23: "Hindi news brief, Rohtak: Employability Skills Enhancement workshop at Maharshi Dayanand University, 19 November 2025, with students in the audience.",
+      24: "Hindi press clipping, Rohtak: Employability Skills Enhancement workshop at Maharshi Dayanand University, with Sudeep Ghosh addressing students."
+      },
       overlaySvg: ''
     }
   };
 
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  // Alt text is keyed by the number in the filename, not by position: the array
+  // is reversed so the newest image shows first, so a positional lookup would
+  // pair every alt with the wrong picture.
+  function altFor(config, src) {
+    var n = parseInt(String(src).replace(/[^0-9]/g, ''), 10);
+    return (config.alts && config.alts[n]) || (config.altPrefix + ' ' + n);
+  }
 
   async function buildGallery(trackId, config) {
     const track = document.getElementById(trackId);
@@ -3490,7 +3526,7 @@ function smoothScrollTo(targetId, event) {
       const slide = document.createElement('div');
       slide.className = 'carousel__slide';
       slide.innerHTML = '<div class="' + config.cardClass + ' reveal" style="--i:' + idx + '" data-full="' + src + '">'
-        + '<img src="' + src + '" alt="' + config.altPrefix + ' ' + (idx + 1) + '" loading="lazy">'
+        + '<img src="' + src + '" alt="' + altFor(config, src) + '" loading="lazy">'
         + config.overlaySvg
         + '</div>';
       track.appendChild(slide);
@@ -3516,6 +3552,8 @@ window.initLightbox = function() {
     if (el.dataset.lightboxBound) return;
     el.dataset.lightboxBound = '1';
     el.addEventListener('click', () => {
+      var thumb = el.querySelector('img');
+      lbImg.alt = thumb && thumb.alt ? thumb.alt : (el.getAttribute('aria-label') || 'Full size view');
       lbImg.src = el.dataset.full;
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
