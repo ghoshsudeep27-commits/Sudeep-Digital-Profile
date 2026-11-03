@@ -3084,105 +3084,10 @@ function smoothScrollTo(targetId, event) {
   btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 })();
 
-// ===== Dynamic Gallery Builder =====
-// Auto-detects images by probing for sequential filenames (train_01.jpg, train_02.jpg, ...)
-// Just add/remove image files in the images/ folder — the carousel updates automatically.
-(function() {
-  if (!document.querySelector('.carousel__track')) return;
-  const galleryConfig = {
-    'train-track': {
-      prefix: 'train_',
-      altPrefix: 'Training photo',
-      cardClass: 'gallery-item',
-      overlaySvg: '<div class="gallery-item__overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>'
-    },
-    'testi-track': {
-      prefix: 'testi_',
-      altPrefix: 'Testimonial',
-      cardClass: 'testi-card',
-      overlaySvg: '<div class="testi-card__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>'
-    },
-    'press-track': {
-      prefix: 'press_',
-      altPrefix: 'Press clipping',
-      cardClass: 'press-item',
-      overlaySvg: ''
-    }
-  };
-
-  function pad(n) { return n < 10 ? '0' + n : '' + n; }
-
-  // Alt text is keyed by the number in the filename, not by position: the array
-  // is reversed so the newest image shows first, so a positional lookup would
-  // pair every alt with the wrong picture.
-  function altFor(config, src) {
-    var n = parseInt(String(src).replace(/[^0-9]/g, ''), 10);
-    return (config.alts && config.alts[n]) || (config.altPrefix + ' ' + n);
-  }
-
-  async function buildGallery(trackId, config) {
-    const track = document.getElementById(trackId);
-    if (!track) return;
-    
-    // Known image counts per track — build the list directly instead of
-    // probing 1..99, which downloaded every image on page load just to
-    // detect which existed (and defeated loading="lazy").
-    const knownCounts = { 'train-track': 22, 'testi-track': 16, 'press-track': 24 };
-    const count = knownCounts[trackId] || 0;
-    const images = [];
-    for (let i = 1; i <= count; i++) {
-      images.push('images/' + config.prefix + pad(i) + '.jpg');
-    }
-    
-    // Reverse so newest (highest-numbered) images appear first
-    images.reverse();
-    images.forEach((src, idx) => {
-      const slide = document.createElement('div');
-      slide.className = 'carousel__slide';
-      slide.innerHTML = '<div class="' + config.cardClass + ' reveal" style="--i:' + idx + '" data-full="' + src + '">'
-        + '<img src="' + src + '" alt="' + altFor(config, src) + '" loading="lazy">'
-        + config.overlaySvg
-        + '</div>';
-      track.appendChild(slide);
-    });
-  }
-
-  Promise.all([
-    buildGallery('train-track', galleryConfig['train-track']),
-    buildGallery('testi-track', galleryConfig['testi-track']),
-    buildGallery('press-track', galleryConfig['press-track'])
-  ]).then(() => {
-    window.dispatchEvent(new Event('galleriesReady'));
-    if (typeof window.initLightbox === 'function') window.initLightbox();
-  });
-})();
-
-// ===== Lightbox =====
-window.initLightbox = function() {
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lbImg');
-  const lbClose = document.getElementById('lbClose');
-  if (!lb) return;
-  document.querySelectorAll('[data-full]').forEach(el => {
-    if (el.dataset.lightboxBound) return;
-    el.dataset.lightboxBound = '1';
-    el.addEventListener('click', () => {
-      var thumb = el.querySelector('img');
-      lbImg.alt = thumb && thumb.alt ? thumb.alt : (el.getAttribute('aria-label') || 'Full size view');
-      lbImg.src = el.dataset.full;
-      lb.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-  const close = () => {
-    lb.classList.remove('open');
-    lbImg.src = '';
-    document.body.style.overflow = '';
-  };
-  lb.addEventListener('click', e => { if (e.target === lb || e.target === lbClose) close(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-};
-window.initLightbox();
+</script>
+<!-- Shared gallery builder + lightbox: one copy, used by every page -->
+<script src="gallery.js"></script>
+<script>
 
 // ===== Experience Line Graph Animation Sequence =====
 (function() {
