@@ -413,7 +413,7 @@ body:has(.tools-banner.show) .back-top { bottom: 72px; }
         <form id="contactForm" action="https://formspree.io/f/mljrazbd" method="POST">
           <input type="hidden" name="_subject" value="New inquiry from your Digital Profile">
           <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_next" value="https://humanskills.in/?_success=1">
+          <input type="hidden" name="_next" value="https://humanskills.in/contact.html?_success=1">
           <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
           <div class="form-row">
             <div class="form-field">
@@ -436,7 +436,14 @@ body:has(.tools-banner.show) .back-top { bottom: 72px; }
             </button>
           </div>
           <p class="form-consent">By submitting, you agree to our <a href="privacy.html">privacy policy</a>.</p>
-          <div class="form-success" id="formSuccess">Thank you! Your message has been sent. I'll get back to you soon.</div>
+          <div class="form-success" id="formSuccess" role="status" aria-live="polite">
+            <svg class="form-success__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="10.4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M7.6 12.5l3 3 5.8-6.1" fill="none" stroke="currentColor" stroke-width="2.1"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Thank you! Your message has been sent. I&rsquo;ll get back to you soon.</span>
+          </div>
         </form>
       </div>
     </div>
@@ -1474,9 +1481,14 @@ function smoothScrollTo(targetId, event) {
     var success = document.getElementById('formSuccess');
     if (success) {
       success.classList.add('show');
-      success.textContent = 'Thank you! Your message has been sent. I\'ll get back to you soon.';
-      setTimeout(function() { success.classList.remove('show'); }, 6000);
-      // Clean the URL
+      // The redirect lands at the top of the page and the form sits below the
+      // fold, so bring the confirmation into view. No smooth scroll for people
+      // who have asked for reduced motion.
+      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      success.scrollIntoView({ block: 'center', behavior: still ? 'auto' : 'smooth' });
+      // The notice stays until the visitor navigates away: six seconds is long
+      // enough to miss if you look away. Only the query string is cleaned, so a
+      // refresh does not replay it.
       window.history.replaceState({}, document.title, window.location.pathname);
     }
   }

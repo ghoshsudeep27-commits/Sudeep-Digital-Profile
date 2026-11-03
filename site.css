@@ -910,11 +910,14 @@ body::before {
 .form-submit button:hover { transform: translateY(-2px); box-shadow: 0 0 34px rgba(56,200,200,0.6), 0 6px 18px rgba(0,0,0,0.35); }
 .form-submit button svg { width: 16px; height: 16px; }
 .form-success {
-  display: none; text-align: center; padding: 14px; margin-top: 14px;
-  background: rgba(46,204,113,0.08); border: 1px solid rgba(46,204,113,0.3);
-  border-radius: 8px; font-family: var(--font-mono); font-size: 12px; color: var(--green);
+  display: none; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 18px; margin-top: 14px;
+  background: rgba(46,204,113,0.09); border: 1px solid rgba(21,115,71,0.28);
+  border-radius: 8px; font-family: var(--font-mono); font-size: 12px;
+  color: #157347; /* darker than --green: #2ecc71 on this pale ground is 1.9:1 */
 }
-.form-success.show { display: block; animation: fadeScale 0.3s ease-out both; }
+.form-success.show { display: flex; animation: fadeScale 0.3s ease-out both; }
+.form-success__icon { width: 20px; height: 20px; flex: 0 0 20px; color: #157347; }
 
 
 /* ===== Certificate Generator CTA ===== */
