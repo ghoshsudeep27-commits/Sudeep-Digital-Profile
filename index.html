@@ -1953,6 +1953,72 @@ html, body { overflow-x: clip; }
 .post-hero-img { margin-top: 26px; border-radius: 16px; overflow: hidden;
   border: 1px solid var(--border-bright); }
 .post-hero-img img { display: block; width: 100%; height: auto; }
+
+/* ===== Homepage testimonial band — Warm Ivory & Ink =====
+   Scoped under .testi-band so it never collides with the old image-card
+   .testi-card rules above, which are kept for the press/gallery markup. */
+.testi-band { margin: 0 0 8px; }
+.testi-band .testi-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+
+.testi-band .testi-card {
+  position: relative; display: flex; flex-direction: column; min-width: 0;
+  background: #FAF6EF; color: #1F2933;
+  border: 1px solid #E8DFD1; border-radius: 14px;
+  padding: 26px 26px 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.18), 0 14px 30px -18px rgba(0,0,0,.55);
+  transition: border-color .25s, box-shadow .25s, transform .25s;
+}
+.testi-band .testi-card::before { display: none; }
+.testi-band .testi-card:hover {
+  border-color: #A45A2A; transform: translateY(-3px);
+  box-shadow: 0 2px 4px rgba(0,0,0,.20), 0 18px 40px -20px rgba(0,0,0,.60);
+}
+.testi-band .testi-card__mark {
+  font-family: var(--font-display); font-size: 46px; line-height: .7;
+  color: #A45A2A; opacity: .5; display: block; margin: 0 0 8px;
+}
+.testi-band .testi-card blockquote {
+  margin: 0; padding: 0; border: 0;
+  font-family: var(--font-display); font-style: italic;
+  font-size: 17.5px; line-height: 1.55; color: #3A4550;
+}
+.testi-band .testi-card blockquote p { margin: 0; }
+.testi-band .testi-card__meta { margin-top: auto; padding-top: 20px; }
+.testi-band .testi-card__rule { height: 1px; background: #E8DFD1; margin: 0 0 14px; }
+.testi-band .testi-card__name {
+  display: block; font-family: var(--font-body); font-weight: 600;
+  font-size: 14.5px; line-height: 1.35; color: #1F2933; letter-spacing: -.1px;
+}
+.testi-band .testi-card__role { display: block; font-size: 12.5px; line-height: 1.45; color: #646B78; margin-top: 3px; }
+.testi-band .testi-card__org { display: block; font-size: 12.5px; line-height: 1.45; font-weight: 500; color: #A45A2A; margin-top: 2px; }
+.testi-band .testi-card__foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 16px; }
+.testi-band .testi-card__date {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .9px;
+  text-transform: uppercase; color: #8A8172;
+}
+.testi-band .testi-card__src {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .8px; text-transform: uppercase;
+  color: #646B78; background: transparent; border: 1px solid #E8DFD1; border-radius: 100px;
+  padding: 5px 11px; cursor: pointer; transition: color .2s, border-color .2s;
+}
+.testi-band .testi-card__src:hover { color: #A45A2A; border-color: #A45A2A; }
+.testi-band .testi-card__src:focus-visible { outline: 2px solid #A45A2A; outline-offset: 2px; }
+
+.testi-band__link {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 22px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase; text-decoration: none;
+  color: var(--accent); border-bottom: 1px solid transparent; padding-bottom: 3px;
+  transition: border-color .2s, color .2s;
+}
+.testi-band__link:hover { border-bottom-color: var(--accent); color: var(--text-bright); }
+.testi-band__link svg { width: 14px; height: 14px; }
+.testi-band__link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+@media (max-width: 900px) {
+  .testi-band .testi-grid { grid-template-columns: 1fr; }
+  .testi-band .testi-card { padding: 22px 22px 18px; }
+}
 </style>
 
 <!-- ===== JSON-LD Structured Data (Person schema) ===== -->
@@ -2560,6 +2626,69 @@ document.addEventListener('DOMContentLoaded',function(){
 
     
 
+<!-- ===== Testimonials ===== -->
+    <div class="sec-head">
+      <h2 class="sec-head__title">Testimonials</h2>
+      <div class="sec-head__line"></div>
+      <span class="sec-head__tag">In Their Words</span>
+    </div>
+    <p style="font-size:16px; color:var(--text-dim); margin:0 0 22px; max-width:620px;">Three of the fifteen recommendations on my proof page &mdash; from a dental practice, a central university and a state university. Open any card to see the original letter.</p>
+
+    <div class="testi-band">
+      <div class="testi-grid">
+
+        <article class="testi-card">
+          <span class="testi-card__mark" aria-hidden="true">&ldquo;</span>
+          <blockquote><p>Your support, professionalism, and commitment have been truly commendable. The knowledge and insights shared by you have been extremely helpful and inspiring. Your engaging approach and clarity have made a meaningful impact.</p></blockquote>
+          <div class="testi-card__meta">
+            <div class="testi-card__rule"></div>
+            <cite class="testi-card__name">Dr. Sachin Mittal</cite>
+            <span class="testi-card__role">Founder &amp; Chief Dental Surgeon</span>
+            <span class="testi-card__org">Dr. Sachin Mittal Advanced Dentistry</span>
+          </div>
+          <div class="testi-card__foot">
+            <span class="testi-card__date">February 2026</span>
+            <button type="button" class="testi-card__src" data-full="images/testi_14.jpg" aria-label="View the original testimonial from Dr. Sachin Mittal">View original</button>
+          </div>
+        </article>
+
+        <article class="testi-card">
+          <span class="testi-card__mark" aria-hidden="true">&ldquo;</span>
+          <blockquote><p>His unwavering dedication, professional expertise, and commitment have significantly enriched the learning experience of our students and enhanced their employability skills. We highly value his efforts and thank him for the impactful role he played.</p></blockquote>
+          <div class="testi-card__meta">
+            <div class="testi-card__rule"></div>
+            <cite class="testi-card__name">Prof. Divya Malhan</cite>
+            <span class="testi-card__role">Director, Career Counseling &amp; Placement Cell</span>
+            <span class="testi-card__org">Maharshi Dayanand University, Rohtak</span>
+          </div>
+          <div class="testi-card__foot">
+            <span class="testi-card__date">November 2025</span>
+            <button type="button" class="testi-card__src" data-full="images/testi_16.jpg" aria-label="View the original testimonial from Prof. Divya Malhan">View original</button>
+          </div>
+        </article>
+
+        <article class="testi-card">
+          <span class="testi-card__mark" aria-hidden="true">&ldquo;</span>
+          <blockquote><p>Your presentation was well-structured, engaging and tailored to the needs of our students, making it easy for them to grasp the important concepts. This training workshop has equipped participants with the confidence to face the challenges of the job market.</p></blockquote>
+          <div class="testi-card__meta">
+            <div class="testi-card__rule"></div>
+            <cite class="testi-card__name">Dr. Vikas Garg</cite>
+            <span class="testi-card__role">Director, Training Cell</span>
+            <span class="testi-card__org">Central University of Haryana</span>
+          </div>
+          <div class="testi-card__foot">
+            <span class="testi-card__date">September 2024</span>
+            <button type="button" class="testi-card__src" data-full="images/testi_03.jpg" aria-label="View the original testimonial from Dr. Vikas Garg">View original</button>
+          </div>
+        </article>
+
+      </div>
+      <a class="testi-band__link" href="proof.html#s7">Read all 15 testimonials
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    
 <!-- ===== Certificate Display ===== -->
     <div class="sec-head" id="s4">
       <span class="sec-head__num">04</span>
