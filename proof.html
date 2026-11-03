@@ -1858,6 +1858,61 @@ html, body { overflow-x: clip; }
 .post-hero-img { margin-top: 26px; border-radius: 16px; overflow: hidden;
   border: 1px solid var(--border-bright); }
 .post-hero-img img { display: block; width: 100%; height: auto; }
+
+/* ==========================================================================
+   TESTIMONIAL CARD FRAME — "WARM IVORY & INK"
+   Placed after the original .testi-card rules so it wins the cascade.
+   Pairs with the re-rendered images/testi_01.jpg - testi_16.jpg (light cards).
+   ========================================================================== */
+
+/* The card becomes a warm ivory frame instead of a dark panel, so it blends
+   with the new light card artwork instead of boxing it in. */
+.testi-card {
+  background: #FAF6EF;
+  border: 1px solid #E8DFD1;
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(31, 41, 51, .10),
+              0 14px 30px -18px rgba(0, 0, 0, .55);
+}
+
+/* Letterboxing: the 4:3 artwork inside a contained <img> leaves side bars —
+   they must be ivory, not the old dark surface-3. */
+.carousel__slide .testi-card img {
+  background: #FAF6EF;
+  border-radius: 10px;
+}
+
+/* Kill the teal/gold gloss sweep on light cards. mix-blend-mode: screen over
+   a near-white surface does nothing but dull the text. */
+.testi-card::before {
+  display: none;
+}
+
+/* Hover: warm border + warm shadow, no cyan. */
+.testi-card:hover {
+  border-color: #A45A2A;
+  box-shadow: 0 2px 4px rgba(31, 41, 51, .12),
+              0 18px 40px -20px rgba(0, 0, 0, .60);
+  transform: translateY(-3px);
+}
+
+/* The zoom chip sits on top of ivory artwork now, so it inverts: ivory pill,
+   terracotta icon. Keeps its blur for legibility over busy screenshots. */
+.testi-card__zoom {
+  background: rgba(250, 246, 239, .92);
+  border: 1px solid #E8DFD1;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+.testi-card__zoom svg {
+  color: #A45A2A;
+}
+
+/* Lightbox: the enlarged card gets a warm hairline instead of the cyan glow. */
+.lightbox img {
+  border: 1px solid #E8DFD1;
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, .7);
+}
 </style>
 
 <!-- ===== JSON-LD Structured Data (Person schema) ===== -->
