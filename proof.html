@@ -144,8 +144,7 @@ body::before {
   100% { background-position: 250% 0; }
 }
 .gallery-item::before,
-.press-item::before,
-.testi-card::before {
+.press-item::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
   background: linear-gradient(115deg, transparent 40%, rgba(56, 200, 200, 0.32) 50%, rgba(212, 167, 58, 0.22) 54%, transparent 65%);
   background-size: 250% 100%;
@@ -583,25 +582,88 @@ body::before {
 .gallery-item:hover img { transform: scale(1.06); }
 .gallery-item:hover .gallery-item__overlay { opacity: 1; }
 
-/* ===== Testimonials ===== */
-.testi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+/* ===== Testimonials (HTML text cards, Warm Ivory & Ink) ===== */
+.testi-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 22px; }
+.testi-chip {
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--text-dim); background: transparent; border: 1px solid var(--border);
+  border-radius: 100px; padding: 8px 14px; cursor: pointer;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.testi-chip:hover { color: var(--text-bright); border-color: var(--border-bright); }
+.testi-chip[aria-pressed="true"] { background: #FAF6EF; border-color: #FAF6EF; color: #1F2933; }
+.testi-chip__n { opacity: .55; margin-left: 6px; font-weight: 400; }
+.testi-count {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--text-dim); opacity: .75; margin-left: auto;
+}
+.testi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+
 .testi-card {
-  position: relative; border-radius: 10px; overflow: hidden;
-  border: 1px solid var(--border); cursor: pointer;
-  background: var(--surface-2);
-  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  position: relative; display: flex; flex-direction: column; min-width: 0;
+  background: #FAF6EF; color: #1F2933;
+  border: 1px solid #E8DFD1; border-radius: 14px;
+  padding: 26px 26px 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.18), 0 14px 30px -18px rgba(0,0,0,.55);
+  transition: border-color .25s, box-shadow .25s, transform .25s;
 }
-.testi-card img { width: 100%; height: auto; display: block; }
-.testi-card__zoom {
-  position: absolute; top: 8px; right: 8px;
-  width: 32px; height: 32px; border-radius: 8px;
-  background: rgba(10,14,26,0.75); backdrop-filter: blur(4px);
-  display: grid; place-items: center; opacity: 0;
-  transition: opacity 0.25s;
+.testi-card:hover {
+  border-color: #A45A2A; transform: translateY(-3px);
+  box-shadow: 0 2px 4px rgba(0,0,0,.20), 0 18px 40px -20px rgba(0,0,0,.60);
 }
-.testi-card__zoom svg { width: 16px; height: 16px; color: var(--accent); }
-.testi-card:hover { border-color: var(--border-glow); box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 16px rgba(56,200,200,0.1); transform: translateY(-3px); }
-.testi-card:hover .testi-card__zoom { opacity: 1; }
+.testi-card__mark {
+  font-family: var(--font-display); font-size: 46px; line-height: .7;
+  color: #A45A2A; opacity: .5; display: block; margin: 0 0 8px;
+}
+.testi-card blockquote {
+  margin: 0; padding: 0; border: 0;
+  font-family: var(--font-display); font-style: italic;
+  font-size: 17.5px; line-height: 1.55; color: #3A4550;
+}
+.testi-card blockquote p { margin: 0; }
+.testi-card__meta { margin-top: auto; padding-top: 20px; }
+.testi-card__rule { height: 1px; background: #E8DFD1; margin: 0 0 14px; }
+.testi-card__name {
+  display: block; font-family: var(--font-body); font-weight: 600;
+  font-size: 14.5px; line-height: 1.35; color: #1F2933; letter-spacing: -.1px;
+}
+.testi-card__role { display: block; font-size: 12.5px; line-height: 1.45; color: #646B78; margin-top: 3px; }
+.testi-card__org { display: block; font-size: 12.5px; line-height: 1.45; font-weight: 500; color: #A45A2A; margin-top: 2px; }
+.testi-card__foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 16px; }
+.testi-card__date {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .9px;
+  text-transform: uppercase; color: #8A8172;
+}
+.testi-card__src {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .8px; text-transform: uppercase;
+  color: #646B78; background: transparent; border: 1px solid #E8DFD1; border-radius: 100px;
+  padding: 5px 11px; cursor: pointer; transition: color .2s, border-color .2s;
+}
+.testi-card__src:hover { color: #A45A2A; border-color: #A45A2A; }
+.testi-chip:focus-visible, .testi-card__src:focus-visible, .testi-more:focus-visible {
+  outline: 2px solid #A45A2A; outline-offset: 2px;
+}
+
+.testi-more {
+  display: inline-flex; align-items: center; gap: 8px; margin: 24px 0 0;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--accent); background: transparent; border: 1px solid var(--border-bright);
+  border-radius: 100px; padding: 11px 20px; cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.testi-more:hover { background: rgba(56,200,200,.08); border-color: var(--accent); }
+
+.testi-early { margin: 36px 0 0; padding-top: 24px; border-top: 1px solid var(--border); }
+.testi-early__label {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+  letter-spacing: 1.4px; text-transform: uppercase; color: var(--text-dim);
+  margin: 0 0 14px; display: flex; align-items: center; gap: 12px;
+}
+.testi-early__label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.testi-early .testi-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); max-width: 540px; }
+.testi-early .testi-card { background: rgba(250,246,239,.90); }
 
 /* ===== Press ===== */
 .press-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
@@ -854,7 +916,7 @@ body::before {
   padding: 40px; cursor: zoom-out;
 }
 .lightbox.open { display: flex; }
-.lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 12px; border: 1px solid var(--border-glow); box-shadow: 0 0 40px rgba(56,200,200,0.15); }
+.lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 12px; border: 1px solid #E8DFD1; box-shadow: 0 24px 60px -24px rgba(0,0,0,0.70); }
 .lightbox__close {
   position: absolute; top: 20px; right: 20px;
   width: 40px; height: 40px; border-radius: 50%;
@@ -1859,60 +1921,21 @@ html, body { overflow-x: clip; }
   border: 1px solid var(--border-bright); }
 .post-hero-img img { display: block; width: 100%; height: auto; }
 
-/* ==========================================================================
-   TESTIMONIAL CARD FRAME — "WARM IVORY & INK"
-   Placed after the original .testi-card rules so it wins the cascade.
-   Pairs with the re-rendered images/testi_01.jpg - testi_16.jpg (light cards).
-   ========================================================================== */
 
-/* The card becomes a warm ivory frame instead of a dark panel, so it blends
-   with the new light card artwork instead of boxing it in. */
-.testi-card {
-  background: #FAF6EF;
-  border: 1px solid #E8DFD1;
-  border-radius: 14px;
-  box-shadow: 0 1px 2px rgba(31, 41, 51, .10),
-              0 14px 30px -18px rgba(0, 0, 0, .55);
+/* ===== Testimonials: responsive overrides =====
+   Placed last so they beat the generic .testi-grid rule at max-width 860px,
+   which was written for 150px image thumbnails and would cram four text
+   cards into a phone. */
+@media (max-width: 860px) {
+  .testi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .testi-early .testi-grid { grid-template-columns: 1fr; max-width: none; }
 }
-
-/* Letterboxing: the 4:3 artwork inside a contained <img> leaves side bars —
-   they must be ivory, not the old dark surface-3. */
-.carousel__slide .testi-card img {
-  background: #FAF6EF;
-  border-radius: 10px;
+@media (max-width: 600px) {
+  .testi-grid { grid-template-columns: 1fr; }
+  .testi-count { margin-left: 0; width: 100%; }
+  .testi-card { padding: 22px 22px 18px; }
 }
 
-/* Kill the teal/gold gloss sweep on light cards. mix-blend-mode: screen over
-   a near-white surface does nothing but dull the text. */
-.testi-card::before {
-  display: none;
-}
-
-/* Hover: warm border + warm shadow, no cyan. */
-.testi-card:hover {
-  border-color: #A45A2A;
-  box-shadow: 0 2px 4px rgba(31, 41, 51, .12),
-              0 18px 40px -20px rgba(0, 0, 0, .60);
-  transform: translateY(-3px);
-}
-
-/* The zoom chip sits on top of ivory artwork now, so it inverts: ivory pill,
-   terracotta icon. Keeps its blur for legibility over busy screenshots. */
-.testi-card__zoom {
-  background: rgba(250, 246, 239, .92);
-  border: 1px solid #E8DFD1;
-  border-radius: 10px;
-  backdrop-filter: blur(6px);
-}
-.testi-card__zoom svg {
-  color: #A45A2A;
-}
-
-/* Lightbox: the enlarged card gets a warm hairline instead of the cyan glow. */
-.lightbox img {
-  border: 1px solid #E8DFD1;
-  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, .7);
-}
 </style>
 
 <!-- ===== JSON-LD Structured Data (Person schema) ===== -->
@@ -2162,22 +2185,25 @@ html, body { overflow-x: clip; }
       <div class="sec-head__line"></div>
       <span class="sec-head__tag">Empowering Lives</span>
     </div>
-    <p style="font-size:16px; color:var(--text-dim); margin:0 0 20px; max-width:600px;">Empowering lives through impactful training sessions — feedback and recommendations from participants and organizations. Use the arrows or swipe to browse. Click any card to view full size.</p>
-    <div class="carousel carousel--multi" id="carousel-testi">
-      <div class="carousel__viewport">
-        <div class="carousel__track" id="testi-track">
-        </div>
-      </div>
-      <div class="carousel__nav">
-        <button class="carousel__btn" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-        <div class="carousel__dots"></div>
-        <span class="carousel__count"><span class="cur">1</span> / <span class="tot">16</span></span>
-        <button class="carousel__btn" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-      </div>
+    <p style="font-size:16px; color:var(--text-dim); margin:0 0 22px; max-width:620px;">Feedback and recommendations from participants and organisations &mdash; the words themselves, not screenshots of them. Filter by the kind of organisation you are, and open any card to see the original letter.</p>
+
+    <div class="testi-toolbar" role="group" aria-label="Filter testimonials by audience">
+      <button type="button" class="testi-chip" data-seg="all" aria-pressed="true">All<span class="testi-chip__n"></span></button>
+      <button type="button" class="testi-chip" data-seg="education" aria-pressed="false">Colleges &amp; universities<span class="testi-chip__n"></span></button>
+      <button type="button" class="testi-chip" data-seg="corporate" aria-pressed="false">Corporate &amp; industry<span class="testi-chip__n"></span></button>
+      <button type="button" class="testi-chip" data-seg="care" aria-pressed="false">Healthcare &amp; community<span class="testi-chip__n"></span></button>
+      <span class="testi-count" id="testiCount" aria-live="polite"></span>
+    </div>
+
+    <div class="testi-grid" id="testiGrid"></div>
+    <button type="button" class="testi-more" id="testiMore" aria-expanded="false" aria-controls="testiGrid"></button>
+
+    <div class="testi-early" id="testiEarly" hidden>
+      <p class="testi-early__label">Earlier work &middot; 2016</p>
+      <div class="testi-grid" id="testiEarlyGrid"></div>
     </div>
 
     
-
 <!-- ===== Experience Timeline ===== -->
     <div class="sec-head" id="s8">
       <span class="sec-head__num">08</span>
@@ -3434,12 +3460,6 @@ function smoothScrollTo(targetId, event) {
       cardClass: 'gallery-item',
       overlaySvg: '<div class="gallery-item__overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>'
     },
-    'testi-track': {
-      prefix: 'testi_',
-      altPrefix: 'Testimonial',
-      cardClass: 'testi-card',
-      overlaySvg: '<div class="testi-card__zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>'
-    },
     'press-track': {
       prefix: 'press_',
       altPrefix: 'Press clipping',
@@ -3457,7 +3477,7 @@ function smoothScrollTo(targetId, event) {
     // Known image counts per track — build the list directly instead of
     // probing 1..99, which downloaded every image on page load just to
     // detect which existed (and defeated loading="lazy").
-    const knownCounts = { 'train-track': 22, 'testi-track': 16, 'press-track': 24 };
+    const knownCounts = { 'train-track': 22, 'press-track': 24 };
     const count = knownCounts[trackId] || 0;
     const images = [];
     for (let i = 1; i <= count; i++) {
@@ -3479,7 +3499,6 @@ function smoothScrollTo(targetId, event) {
 
   Promise.all([
     buildGallery('train-track', galleryConfig['train-track']),
-    buildGallery('testi-track', galleryConfig['testi-track']),
     buildGallery('press-track', galleryConfig['press-track'])
   ]).then(() => {
     window.dispatchEvent(new Event('galleriesReady'));
@@ -3511,6 +3530,168 @@ window.initLightbox = function() {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 };
 window.initLightbox();
+
+// ===== Testimonials — rendered from data =====
+(function() {
+  const grid = document.getElementById('testiGrid');
+  if (!grid) return;
+
+  // Single source of truth. `sort` is ISO-ish (YYYY-MM) and drives the order;
+  // `date` is what the card shows. `legacy: true` moves a quote to the
+  // "Earlier work" row instead of the main grid.
+  const DATA = [
+    { sort: '2026-02', date: 'February 2026', seg: 'care',
+      name: 'Dr. Sachin Mittal', role: 'Founder & Chief Dental Surgeon',
+      org: 'Dr. Sachin Mittal Advanced Dentistry', img: 'images/testi_14.jpg',
+      q: 'Your support, professionalism, and commitment have been truly commendable. The knowledge and insights shared by you have been extremely helpful and inspiring. Your engaging approach and clarity have made a meaningful impact.' },
+    { sort: '2025-11', date: 'November 2025', seg: 'education',
+      name: 'Prof. Divya Malhan', role: 'Director, Career Counseling & Placement Cell',
+      org: 'Maharshi Dayanand University, Rohtak', img: 'images/testi_16.jpg',
+      q: 'His unwavering dedication, professional expertise, and commitment have significantly enriched the learning experience of our students and enhanced their employability skills. We highly value his efforts and thank him for the impactful role he played.' },
+    { sort: '2025-08', date: 'August 2025', seg: 'care',
+      name: 'Ms. Jyoti Sharma', role: 'Manager',
+      org: 'Prayas Juvenile Aid Centre (JAC) Society', img: 'images/testi_15.jpg',
+      q: 'Your presentation was well-structured, engaging, and tailored to the needs of our students. Your insightful sessions inspired participants to strengthen their employability skills and instilled in them a renewed sense of confidence in navigating the job market.' },
+    { sort: '2025-02', date: 'February 2025', seg: 'education',
+      name: 'Babbar Akali Khalsa College, Garhshankar', role: 'Principal',
+      org: '', img: 'images/testi_10.jpg',
+      q: 'Your sessions were not only insightful but also deeply inspiring for the participants. The engaging way in which you addressed critical topics such as SMART Goal Setting, Time Management, and Effective Presentation Skills provided a clear roadmap for growth.' },
+    { sort: '2024-10', date: 'October 2024', seg: 'education',
+      name: 'Prof. J. S. Laura', role: 'Head, Department of Environmental Science',
+      org: 'Maharshi Dayanand University, Rohtak', img: 'images/testi_01.jpg',
+      q: 'We are grateful for the successful delivery of the training content and sincerely appreciate the manner in which the workshop has been conducted. This integrated training program has enhanced the competency of our students which will be helpful in shaping their career.' },
+    { sort: '2024-09', date: 'September 2024', seg: 'education',
+      name: 'Dr. Vikas Garg', role: 'Director, Training Cell',
+      org: 'Central University of Haryana', img: 'images/testi_03.jpg',
+      q: 'Your presentation was well-structured, engaging and tailored to the needs of our students, making it easy for them to grasp the important concepts. This training workshop has equipped participants with the confidence to face the challenges of the job market.' },
+    { sort: '2024-09', date: 'September 2024', seg: 'education',
+      name: 'Kshitij Kumar Singh', role: 'Head Corporate Relations',
+      org: 'Apeejay Stya University', img: 'images/testi_02.jpg',
+      q: 'Your sessions were insightful, interactive, and truly transformative for our students. Your dedication to empowering young women with essential skills and confidence is commendable, and your contribution will surely play a pivotal role in their future success.' },
+    { sort: '2024-07', date: 'July 2024', seg: 'education',
+      name: 'Shri Sanatan Dharam Girls’ College, Bathinda', role: 'Principal',
+      org: '', img: 'images/testi_12.jpg',
+      q: 'Your presentation was well-structured, engaging and tailored to the needs of our students, making it easy for them to grasp the important concepts. All the sessions have laid an everlasting impact on our students.' },
+    { sort: '2024-01', date: 'January 2024', seg: 'education',
+      name: 'Government ITI (Women)', role: 'Principal’s Office · Deputy Superintendent',
+      org: '', img: 'images/testi_04.jpg',
+      q: 'Your dedication, hard work, and generosity have made a significant impact and this institute is grateful for your support.' },
+    { sort: '2023-12', date: 'December 2023', seg: 'education',
+      name: 'Kalpana Chawla Govt. Polytechnic for Women, Ambala', role: 'Principal',
+      org: '', img: 'images/testi_11.jpg',
+      q: 'The entire training was thoroughly enlightening and informative. The sessions have put an everlasting impact on our students, motivating them to strive for excellence and equipping them with the confidence to face the challenges.' },
+    { sort: '2023-09', date: 'September 2023', seg: 'education',
+      name: 'Hindu Kanya Mahavidyalaya, Jind', role: 'Principal',
+      org: '', img: 'images/testi_05.jpg',
+      q: 'All the sessions have laid an everlasting impact on our students and visible improvements in their personality as well as communication skills can be seen in this one-week training programme.' },
+    { sort: '2023-09', date: 'September 2023', seg: 'education',
+      name: 'Lingaya’s Vidyapeeth, Faridabad', role: 'Office of the Vice Chancellor',
+      org: '', img: 'images/testi_13.jpg',
+      q: 'Your talk on employability was not only informative but also incredibly inspiring for our students. Your expertise and insights provided our students with a fresh perspective and practical knowledge that will prove invaluable as they embark on their professional journeys.' },
+    { sort: '2023-06', date: 'June 2023', seg: 'corporate',
+      name: 'Jasvinder Singh', role: 'CEO',
+      org: 'Words Worth English Language System', img: 'images/testi_06.jpg',
+      q: 'This is to certify that Mr. Sudeep Ghosh has successfully conducted 1 batch of 120 hours in the blended delivery mode for the Spoken English Course. His dedication and training methodology have been commendable.' },
+    { sort: '2021-08', date: 'August 2021', seg: 'corporate',
+      name: 'Midigiworld', role: 'Training Division · Personality Development Program',
+      org: '', img: 'images/testi_07.jpg',
+      q: 'Conducted 48 sessions under the Personality Development module over the span of 2 months, making a significant impact on participants’ professional growth and confidence.' },
+    { sort: '2020-06', date: '2020', seg: 'care',
+      name: 'Akhil', role: 'Participant, Motivational Session',
+      org: 'Apollo Homecare', img: 'images/testi_09.jpg',
+      q: 'Thanks for keeping me motivated and generating a fresh new perspective for life during the covid phase. He has made an immeasurable contribution in doing so. His message was engaging, light, and right in line with what I was looking for.' },
+    { sort: '2016-02', date: 'February 2016', seg: 'corporate', legacy: true,
+      name: 'UltraTech Cement', role: 'Margdarshan Initiative · Skill & Competency Building',
+      org: 'Aditya Birla Group', img: 'images/testi_08.jpg',
+      q: 'Thank you for your contribution in the technical skill and competency building initiative. We are sure of your continued involvement in creating milestones in the Margdarshan journey.' }
+  ];
+
+  // Chip counts are derived from DATA, never hardcoded — add a testimonial and
+  // the numbers follow.
+  document.querySelectorAll('.testi-chip').forEach(chip => {
+    const n = chip.querySelector('.testi-chip__n');
+    if (!n) return;
+    const s2 = chip.dataset.seg;
+    n.textContent = s2 === 'all'
+      ? DATA.filter(t => !t.legacy).length
+      : DATA.filter(t => !t.legacy && t.seg === s2).length;
+  });
+
+  const VISIBLE = 6;
+  let seg = 'all';
+  let expanded = false;
+
+  const main = DATA.filter(t => !t.legacy).sort((a, b) => (a.sort < b.sort ? 1 : -1));
+  const early = DATA.filter(t => t.legacy);
+
+  function cardHTML(t) {
+    const org = t.org ? '<span class="testi-card__org">' + t.org + '</span>' : '';
+    return '<article class="testi-card">'
+      + '<span class="testi-card__mark" aria-hidden="true">&ldquo;</span>'
+      + '<blockquote><p>' + t.q + '</p></blockquote>'
+      + '<div class="testi-card__meta">'
+      +   '<div class="testi-card__rule"></div>'
+      +   '<cite class="testi-card__name">' + t.name + '</cite>'
+      +   '<span class="testi-card__role">' + t.role + '</span>'
+      +   org
+      + '</div>'
+      + '<div class="testi-card__foot">'
+      +   '<span class="testi-card__date">' + t.date + '</span>'
+      +   '<button type="button" class="testi-card__src" data-full="' + t.img + '"'
+      +     ' aria-label="View the original testimonial from ' + t.name.replace(/"/g, '&quot;') + '">View original</button>'
+      + '</div>'
+      + '</article>';
+  }
+
+  const countEl = document.getElementById('testiCount');
+  const moreBtn = document.getElementById('testiMore');
+
+  function render() {
+    const list = main.filter(t => seg === 'all' || t.seg === seg);
+    const shown = expanded ? list : list.slice(0, VISIBLE);
+
+    grid.innerHTML = shown.map(cardHTML).join('');
+    if (countEl) countEl.textContent = 'Showing ' + shown.length + ' of ' + list.length;
+
+    if (moreBtn) {
+      const canExpand = list.length > VISIBLE;
+      moreBtn.hidden = !canExpand;
+      moreBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      moreBtn.textContent = expanded
+        ? 'Show fewer'
+        : 'Show all ' + list.length + ' testimonials';
+    }
+    if (typeof window.initLightbox === 'function') window.initLightbox();
+  }
+
+  document.querySelectorAll('.testi-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      seg = chip.dataset.seg;
+      expanded = false;
+      document.querySelectorAll('.testi-chip').forEach(c => {
+        c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
+      });
+      render();
+    });
+  });
+
+  if (moreBtn) {
+    moreBtn.addEventListener('click', () => {
+      expanded = !expanded;
+      render();
+      if (!expanded) grid.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
+  }
+
+  const earlyGrid = document.getElementById('testiEarlyGrid');
+  const earlyWrap = document.getElementById('testiEarly');
+  if (earlyGrid && early.length) {
+    earlyGrid.innerHTML = early.map(cardHTML).join('');
+    if (earlyWrap) earlyWrap.hidden = false;
+  }
+
+  render();
+})();
 
 // ===== Experience Line Graph Animation Sequence =====
 (function() {
