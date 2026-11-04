@@ -1491,6 +1491,11 @@ function smoothScrollTo(targetId, event) {
   function showNotice() {
     if (!notice || notice.classList.contains('show')) return;
     notice.classList.add('show');
+    // Clear the fields once the confirmation is up. Done here rather than on
+    // unload: an unload hook can disqualify the page from the back/forward
+    // cache, and it would wipe what the visitor typed even when the submission
+    // failed. Clearing at this point only happens when we are showing "sent".
+    if (form) form.reset();
     // The return lands at the top of the page and the form sits below the
     // fold, so bring the confirmation into view. No smooth scroll for people
     // who have asked for reduced motion.
