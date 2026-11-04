@@ -2883,7 +2883,10 @@ renderPrompts();
     var scrimCls = hasText ? 'gsviewer__scrim' : 'gsviewer__scrim gsviewer__scrim--top';
     if(g.type==='image' && g.src){
       mediaWrap.style.display='block';
-      mediaWrap.innerHTML='<img src="'+g.src+'" alt="'+(g.alt||g.greet||'Seasonal greeting from Sudeep Ghosh')+'"><div class="'+scrimCls+'"></div>';
+      // the whole card stays visible; the blurred copy fills the letterbox
+      mediaWrap.innerHTML='<div class="gsviewer__bleed" style="background-image:url('+g.src+')"></div>'
+        + '<img class="gsviewer__fit" src="'+g.src+'" alt="'+(g.alt||g.greet||'Seasonal greeting from Sudeep Ghosh')+'">'
+        + '<div class="'+scrimCls+'"></div>';
       canvas.style.background='transparent';
     } else if(g.type==='video' && g.src){
       mediaWrap.style.display='block';

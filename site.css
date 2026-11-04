@@ -1821,6 +1821,11 @@ html, body { overflow-x: clip; }
 .gsspin.is-off{display:none}
 @keyframes gsspin{to{transform:rotate(360deg)}}
 .gsviewer__media img,.gsviewer__media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* Story images are composed cards, so the whole card must show. The frame is
+   filled with a blurred copy of the same image instead of cropping it. */
+.gsviewer__media img.gsviewer__fit{object-fit:contain;z-index:1}
+.gsviewer__bleed{position:absolute;inset:-48px;z-index:0;background-size:cover;background-position:center;
+  filter:blur(30px) brightness(.5) saturate(1.15);transform:scale(1.06);pointer-events:none}
 .gsviewer__scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(6,9,16,.6) 0%,rgba(6,9,16,.12) 28%,rgba(6,9,16,.82) 100%)}
 .gsviewer__scrim--top{background:linear-gradient(180deg,rgba(6,9,16,.6) 0%,rgba(6,9,16,.06) 24%,rgba(6,9,16,0) 100%)}
 .gsviewer__bars{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:4px;z-index:4}
