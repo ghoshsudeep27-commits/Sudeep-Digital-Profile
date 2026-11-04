@@ -1,0 +1,41 @@
+name: Rebuild stories.json
+
+# Dropping an image into stories/ is all it takes: this rebuilds
+# stories/stories.json from the folder, and the page reads only that file.
+# stories.json itself is excluded so the bot's own commit does not re-trigger.
+
+on:
+  push:
+    paths:
+      - 'stories/**'
+      - '!stories/stories.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rebuild-stories
+  cancel-in-progress: true
+
+jobs:
+  rebuild:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rebuild stories.json from stories/
+        run: python3 .github/scripts/build_stories.py
+
+      - name: Commit if it changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- stories/stories.json; then
+            echo "stories.json already up to date"
+          else
+            git add stories/stories.json
+            git commit -m "Rebuild stories.json from stories/"
+            git push
+          fi

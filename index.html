@@ -2752,6 +2752,11 @@ renderPrompts();
      for a folder listing on every visit, which cost an unauthenticated API call
      (60/hour per IP) on every homepage load.
 
+     You do not normally edit stories.json by hand: dropping a file into the
+     stories/ folder is enough. .github/workflows/stories.yml runs
+     .github/scripts/build_stories.py on that push and rewrites the file, keeping
+     any headline, message or signature you have already customised.
+
      Each entry in stories.json:
        {
          "id":    "diwali-2026",                  unique
