@@ -1,12 +1,49 @@
 {
   "stories": [
     {
-      "id": "story-test",
+      "id": "diwali-light-and-learning",
       "type": "image",
-      "src": "stories/2026-11-04--2026-11-11--Story-Test.jpg",
-      "greet": "Story test",
-      "msg": "Tap Close, or press your phone's back button \u2014 both should return you to the homepage.",
-      "sign": "\u2014 Sudeep",
+      "src": "stories/2026-11-04--2026-11-11--Diwali-Light-and-Learning.jpg",
+      "greet": "Light and Learning",
+      "msg": "",
+      "sign": "",
+      "alt": "Diwali greeting card from human skills.in reading Happy Diwali, with hanging lanterns, a golden frame around the human skills.in logo, an open book and six lit diyas on a teal rangoli.",
+      "from": "2026-11-04",
+      "until": "2026-11-11",
+      "theme": ["#38c8c8", "#d4a73a"]
+    },
+    {
+      "id": "diwali-connection-and-knowledge",
+      "type": "image",
+      "src": "stories/2026-11-04--2026-11-11--Diwali-Connection-and-Knowledge.jpg",
+      "greet": "Connection and Knowledge",
+      "msg": "",
+      "sign": "",
+      "alt": "Diwali greeting card from human skills.in showing a family exchanging sweets in a lamp-lit courtyard with fireworks overhead, rows of diyas and a flower rangoli, captioned May your life be illuminated with connection and knowledge.",
+      "from": "2026-11-04",
+      "until": "2026-11-11",
+      "theme": ["#38c8c8", "#d4a73a"]
+    },
+    {
+      "id": "diwali-inner-lamp",
+      "type": "image",
+      "src": "stories/2026-11-04--2026-11-11--Diwali-Inner-Lamp.jpg",
+      "greet": "The Inner Lamp",
+      "msg": "",
+      "sign": "",
+      "alt": "Diwali greeting card from human skills.in showing Lord Rama, Sita and Lakshmana walking through a lamp-lit Ayodhya as crowds hold diyas, captioned May the inner lamp of your potential and skill be ignited.",
+      "from": "2026-11-04",
+      "until": "2026-11-11",
+      "theme": ["#38c8c8", "#d4a73a"]
+    },
+    {
+      "id": "diwali-blessed-diwali",
+      "type": "image",
+      "src": "stories/2026-11-04--2026-11-11--Diwali-Blessed-Diwali.jpg",
+      "greet": "A Blessed Diwali",
+      "msg": "",
+      "sign": "",
+      "alt": "Diwali greeting card from human skills.in showing Lord Rama, Sita and Lakshmana on a flower-decked chariot before a crowd holding diyas, captioned Human Skills.in wishes you a blessed Diwali.",
       "from": "2026-11-04",
       "until": "2026-11-11",
       "theme": ["#38c8c8", "#d4a73a"]

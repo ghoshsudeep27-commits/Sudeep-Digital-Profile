@@ -2839,7 +2839,7 @@ renderPrompts();
   function prefetchAll(){ if(document.readyState!=='complete') return; computeActive().forEach(prefetchVideo); }
   window.addEventListener('load',function(){ setTimeout(prefetchAll,800); });
   function faceHTML(g){
-    if(g.type==='image' && g.src) return '<img src="'+g.src+'" alt="'+(g.from?('Story from '+g.from):'Client story')+'">';
+    if(g.type==='image' && g.src) return '<img src="'+g.src+'" alt="'+(g.alt||g.greet||'Seasonal greeting from Sudeep Ghosh')+'" loading="lazy" decoding="async">';
     if(g.type==='video' && g.src) return '<video src="'+g.src+'#t=0.1" muted playsinline preload="metadata"></video><span class="gstory__play">\u25B6</span>';
     return g.emoji||'\u2728';
   }
@@ -2883,7 +2883,7 @@ renderPrompts();
     var scrimCls = hasText ? 'gsviewer__scrim' : 'gsviewer__scrim gsviewer__scrim--top';
     if(g.type==='image' && g.src){
       mediaWrap.style.display='block';
-      mediaWrap.innerHTML='<img src="'+g.src+'" alt="'+(g.from?('Story from '+g.from):'Client story')+'"><div class="'+scrimCls+'"></div>';
+      mediaWrap.innerHTML='<img src="'+g.src+'" alt="'+(g.alt||g.greet||'Seasonal greeting from Sudeep Ghosh')+'"><div class="'+scrimCls+'"></div>';
       canvas.style.background='transparent';
     } else if(g.type==='video' && g.src){
       mediaWrap.style.display='block';
