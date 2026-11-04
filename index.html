@@ -428,7 +428,12 @@
         <div class="gsviewer__name" id="gsName">Sudeep Ghosh</div>
         <div class="gsviewer__time" id="gsTime"></div>
       </div>
-      <button class="gsviewer__close" id="gsClose" aria-label="Close">&times;</button>
+      <button class="gsviewer__close" id="gsClose" aria-label="Close the story">
+        <span class="gsviewer__close-label">Close</span>
+        <svg class="gsviewer__close-x" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
     <div class="gsviewer__canvas" id="gsCanvas">
       <div class="gsviewer__emoji" id="gsEmoji"></div>
@@ -2752,11 +2757,6 @@ renderPrompts();
      for a folder listing on every visit, which cost an unauthenticated API call
      (60/hour per IP) on every homepage load.
 
-     You do not normally edit stories.json by hand: dropping a file into the
-     stories/ folder is enough. .github/workflows/stories.yml runs
-     .github/scripts/build_stories.py on that push and rewrites the file, keeping
-     any headline, message or signature you have already customised.
-
      Each entry in stories.json:
        {
          "id":    "diwali-2026",                  unique
@@ -2946,8 +2946,21 @@ renderPrompts();
   function show(i){ idx=(i+active.length)%active.length; seen[active[idx].id]=true; paint(idx); startTimer(); }
   function next(){ stopTimer(); curVideo=null; if(idx===active.length-1){ closeViewer(); } else { show(idx+1); } }
   function prev(){ stopTimer(); curVideo=null; show(idx-1); }
-  function openViewer(i){ active=computeActive(); buildBars(); viewer.classList.add('is-open'); document.body.style.overflow='hidden'; show(i); }
-  function closeViewer(){ stopTimer(); curVideo=null; mediaWrap.innerHTML=''; viewer.classList.remove('is-open'); document.body.style.overflow=''; renderRail(); }
+  var pushed=false;
+  function openViewer(i){
+    active=computeActive(); buildBars(); viewer.classList.add('is-open'); document.body.style.overflow='hidden';
+    // Push a history entry so the phone's back button pops the story instead of
+    // leaving the site. Closing puts the history back where it was.
+    if(!pushed){ try{ history.pushState({gsViewer:1},''); pushed=true; }catch(e){} }
+    show(i);
+  }
+  function closeViewer(fromBack){
+    stopTimer(); curVideo=null; mediaWrap.innerHTML=''; viewer.classList.remove('is-open'); document.body.style.overflow=''; renderRail();
+    if(pushed){ pushed=false; if(!fromBack){ try{ history.back(); }catch(e){} } }
+  }
+  window.addEventListener('popstate',function(){
+    if(viewer.classList.contains('is-open')) closeViewer(true);
+  });
 
   document.getElementById('gsClose').addEventListener('click',closeViewer);
   document.getElementById('gsNext').addEventListener('click',next);

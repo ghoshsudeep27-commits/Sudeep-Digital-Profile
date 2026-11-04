@@ -1832,8 +1832,21 @@ html, body { overflow-x: clip; }
 .gsviewer__who{flex:1;min-width:0}
 .gsviewer__name{font-size:13px;font-weight:600;color:#fff}
 .gsviewer__time{font-family:var(--font-mono);font-size:10.5px;color:rgba(255,255,255,.7)}
-.gsviewer__close{width:34px;height:34px;border-radius:50%;border:0;cursor:pointer;flex:0 0 auto;background:rgba(255,255,255,.14);color:#fff;font-size:18px;line-height:1;display:grid;place-items:center}
-.gsviewer__close:hover{background:rgba(255,255,255,.26)}
+.gsviewer__close{
+  display:inline-flex;align-items:center;gap:7px;flex:0 0 auto;
+  height:36px;padding:0 14px;border-radius:100px;cursor:pointer;
+  background:rgba(6,9,16,.72);border:1px solid rgba(255,255,255,.34);
+  color:#fff;font-family:var(--font-mono);font-size:11px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 2px 10px rgba(0,0,0,.45);
+  transition:background .2s,border-color .2s;
+}
+.gsviewer__close:hover{background:rgba(6,9,16,.9);border-color:#fff}
+.gsviewer__close:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.gsviewer__close-x{width:13px;height:13px;flex:0 0 13px}
+/* keep the pill clear of the notch on phones */
+@media (max-width:520px){.gsviewer__top{top:calc(22px + env(safe-area-inset-top,0px))}}
 .gsviewer__canvas{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:84px 30px 40px}
 .gsviewer__canvas--media{justify-content:flex-end;padding:84px 26px 44px}
 .gsviewer__emoji{font-size:64px;line-height:1;margin-bottom:18px}
