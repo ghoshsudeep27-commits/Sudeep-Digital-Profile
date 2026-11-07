@@ -865,6 +865,12 @@ body::before {
 .contact-btn--yellow { color: #1a1400; background: #F5C518; box-shadow: 0 0 24px rgba(245,197,24,0.45), 0 4px 14px rgba(0,0,0,0.3); }
 .contact-btn--yellow:hover { background: #FFD53D; box-shadow: 0 0 34px rgba(245,197,24,0.7), 0 6px 18px rgba(0,0,0,0.35); }
 
+.contact-btn--linkedin { color: #ffffff; background: #0A66C2; box-shadow: 0 0 24px rgba(10,102,194,0.45), 0 4px 14px rgba(0,0,0,0.3); }
+.contact-btn--linkedin:hover { background: #0B5CAB; box-shadow: 0 0 34px rgba(10,102,194,0.7), 0 6px 18px rgba(0,0,0,0.35); }
+.contact-btn--email { color: #ffffff; background: #1E8E3E; box-shadow: 0 0 24px rgba(30,142,62,0.45), 0 4px 14px rgba(0,0,0,0.3); }
+.contact-btn--email:hover { background: #23A047; box-shadow: 0 0 34px rgba(30,142,62,0.7), 0 6px 18px rgba(0,0,0,0.35); }
+
+
 
 .contact-hint { font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; margin: 0 auto 0; }
 
