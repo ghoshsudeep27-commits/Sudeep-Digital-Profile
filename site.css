@@ -862,6 +862,10 @@ body::before {
 .contact-btn--rose { color: var(--text-bright); background: var(--accent-rose); box-shadow: 0 0 24px rgba(224,112,160,0.4), 0 4px 14px rgba(0,0,0,0.3); }
 .contact-btn--rose:hover { box-shadow: 0 0 34px rgba(224,112,160,0.6), 0 6px 18px rgba(0,0,0,0.35); }
 
+.contact-btn--yellow { color: #1a1400; background: #F5C518; box-shadow: 0 0 24px rgba(245,197,24,0.45), 0 4px 14px rgba(0,0,0,0.3); }
+.contact-btn--yellow:hover { background: #FFD53D; box-shadow: 0 0 34px rgba(245,197,24,0.7), 0 6px 18px rgba(0,0,0,0.35); }
+
+
 .contact-hint { font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; margin: 0 auto 0; }
 
 /* ===== Contact Form ===== */
