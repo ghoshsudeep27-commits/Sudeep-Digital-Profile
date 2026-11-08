@@ -696,6 +696,9 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
 .hs-step__d{font-size:12.5px;line-height:1.55;color:#8b9bb4;margin:0}
 @media (max-width:720px){.hs-steps{gap:10px;margin-top:20px}.hs-step{padding:13px}}
 
+.hs-swipe{display:none;text-align:center;margin:8px 0 0;font-family:var(--font-mono);
+  font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:#8b9bb4}
+
 @media (max-width:760px){
   /* toolbar: let the buttons wrap instead of running off-screen */
   .upload-zone{flex-wrap:wrap !important; gap:9px !important; justify-content:flex-start !important}
@@ -709,7 +712,9 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
   .verdict-bar{flex-direction:column !important; align-items:flex-start !important; gap:12px !important}
   .verdict-detail{flex:1 1 100% !important; max-width:100% !important}
   /* charts get more vertical room */
-  #chartWrap{height:480px !important}
+  /* taller plot on a phone so the bars are not squashed */
+  #chartWrap{height:520px !important}
+
   /* tighten the intro so the tool is reachable sooner */
   .hs-intro{padding:22px 16px 2px !important}
   .hs-intro p{font-size:14.5px !important}
@@ -825,7 +830,8 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
   <div class="panel">
     <h2>Pareto Chart</h2>
     <div class="sub">Bars = defect count · Line = cumulative %. Auto-sorted descending; 80% threshold highlighted.</div>
-    <div id="chartWrap"><canvas id="chart"></canvas></div>
+    <div id="chartWrap"><canvas id="chart"></canvas>
+      <p class="hs-swipe">Swipe the chart to see every category</p></div>
     <div class="legend">
       <span><i style="background:linear-gradient(180deg,#e070a0,#5b8def)"></i>Defect Count</span>
       <span><i style="background:var(--cyan)"></i>Cumulative %</span>
@@ -895,7 +901,7 @@ function drawChart(P, prog){
   const {w,h} = resizeCanvas();
   ctx.clearRect(0,0,w,h);
   const narrow = w < 560;
-  const pad={l: narrow?38:54, r: narrow?40:54, t:24, b: narrow?86:70};
+  const pad={l: narrow?46:54, r: narrow?44:54, t:24, b: narrow?88:70};
   const cw=w-pad.l-pad.r, ch=h-pad.t-pad.b;
   const bars=P.bars; const n=bars.length;
   if(n===0) return;
@@ -967,7 +973,9 @@ function drawChart(P, prog){
     ctx.fillStyle = isInSet?'#e8edff':'rgba(139,149,184,.8)';
     ctx.font = (isInSet?'bold ':'') + (narrow?9:10) + 'px Segoe UI';
     ctx.textAlign='right'; ctx.textBaseline='middle';
-    let lab = b.label; const maxLab = narrow?9:14;
+    let lab = b.label;
+    if(narrow){ lab = String(lab).split(/\s+/)[0]; }
+    const maxLab = narrow?10:14;
     if(lab.length>maxLab) lab=lab.slice(0,maxLab-1)+'…';
     ctx.fillText(lab, 0, 0);
     ctx.restore();
