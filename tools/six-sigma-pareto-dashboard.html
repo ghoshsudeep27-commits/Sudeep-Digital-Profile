@@ -372,6 +372,83 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
   background: linear-gradient(115deg, transparent 38%, rgba(56,200,200,0.06) 46%, rgba(212,167,58,0.045) 50%, rgba(91,141,239,0.05) 54%, transparent 62%);
   background-size: 300% 300%; animation: shimmerDrift 16s linear infinite; }
 .shimmer-bg::after{ animation-duration: 22s; animation-direction: reverse; opacity: 0.7; }
+/* ===== Back to top ===== */
+.back-top{
+  position: fixed; bottom: 28px; right: 28px;
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 18px; border-radius: 14px;
+  background: var(--surface-2); border: 1px solid var(--border-glow);
+  cursor: pointer; z-index: 500;
+  opacity: 0; transform: translateY(16px); pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s, background 0.2s;
+  color: var(--accent);
+  font-family: var(--font-body); font-size: 13px; font-weight: 600;
+  white-space: nowrap;
+}
+.back-top.visible{ opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-top:hover{ box-shadow: 0 0 20px rgba(56,200,200,0.3); background: var(--surface-3); }
+.back-top svg{ width: 18px; height: 18px; flex-shrink: 0; }
+.back-top__label{ line-height: 1; }
+.back-top svg{ width: 16px; height: 16px; }
+}
+
+/* ===== Enhanced Mobile TOC Drawer + FAB ===== */
+/* ===== Enhanced Mobile TOC Drawer + FAB ===== */
+.toc-fab{
+  display: flex;
+  position: fixed; bottom: 80px; left: 16px; z-index: 400;
+  width: auto; height: 48px; padding: 0 18px; gap: 9px; border-radius: 24px;
+  background: var(--surface-2); border: 1px solid var(--border-glow);
+  color: var(--accent); cursor: pointer;
+  align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  opacity: 0; transform: translateY(16px); pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.toc-fab.visible{ opacity: 1; transform: translateY(0); pointer-events: auto; }
+.toc-fab:hover{ background: var(--surface-3); box-shadow: 0 0 20px rgba(56,200,200,0.3); }
+.toc-fab__label{ font-family: var(--font-mono); font-size: 11.5px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; white-space: nowrap; }
+.toc-fab svg{ width: 22px; height: 22px; flex: 0 0 auto; }
+.toc-fab__badge{
+  position: absolute; top: -4px; right: -4px;
+  min-width: 18px; height: 18px; border-radius: 9px;
+  background: var(--accent); color: var(--bg);
+  font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+  display: grid; place-items: center; padding: 0 4px;
+  box-shadow: 0 0 8px rgba(56,200,200,0.5);
+}
+/* Mobile drawer backdrop */
+.toc-backdrop{
+  display: none; position: fixed; inset: 0; z-index: 350;
+  background: rgba(5,8,15,0.6); backdrop-filter: blur(2px);
+  opacity: 0; transition: opacity 0.3s;
+}
+.toc-backdrop.show{ display: block; opacity: 1; }
+
+
+@media (max-width: 1000px) {
+  /* .toc-fab already display:flex by default */
+  /* Convert mobile TOC into a slide-in drawer from the left */
+  .toc {
+    position: fixed !important; top: 0; left: 0; bottom: 0;
+    width: 300px; max-width: 85vw; max-height: 100vh;
+    z-index: 450 !important; transform: translateX(-100%) !important;
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1) !important;
+    border-right: 1px solid var(--border-glow);
+    border-bottom: none; margin: 0; padding: 20px 16px;
+    overflow-y: auto; border-radius: 0;
+    background: var(--bg-2) !important;
+    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+  }
+  .toc.expanded { transform: translateX(0) !important; }
+  .toc-brand { display: flex; margin-bottom: 16px; }
+  .toc-toggle { display: none; }
+  .toc-links-wrap {
+    max-height: none !important; opacity: 1 !important; overflow: visible;
+    margin-top: 0; padding-top: 0; border-top: none;
+  }
+  .toc-foot { margin-top: 20px; }
+}
 /* ===== Footer ===== */
 .site-foot{
   margin-top: 64px; padding: 28px 0 0; border-top: 1px solid var(--border);
@@ -444,6 +521,55 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
 .nav-link.active{ color: var(--text-bright); border-bottom-color: var(--accent); background: rgba(56,200,200,0.06); }
 .top-nav__toggle{ display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
 .top-nav__toggle span{ width: 24px; height: 2px; background: var(--accent); border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
+/* ===== FAB Drawer (enlarged + animated links) ===== */
+.section-drawer{
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: 320px; max-width: 85vw; max-height: 100vh;
+  z-index: 450; transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  background: var(--bg-2);
+  border-right: 1px solid var(--border-glow);
+  padding: 24px 20px; overflow-y: auto; border-radius: 0;
+}
+.section-drawer.expanded{ transform: translateX(0); box-shadow: 4px 0 40px rgba(0,0,0,0.4); }
+.section-drawer__brand{ display: flex; align-items: center; gap: 10px; margin-bottom: 22px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+.section-drawer__title{ font-family: var(--font-mono); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim); padding: 0 0 12px; margin-bottom: 8px; }
+/* Enlarged + animated drawer links */
+.section-drawer a{
+  display: flex; align-items: center; gap: 10px;
+  font-size: 17px; color: var(--text-dim); text-decoration: none;
+  padding: 10px 14px; border-radius: 8px; border-left: 3px solid transparent;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  line-height: 1.3; font-weight: 500;
+  position: relative; overflow: hidden;
+  margin-bottom: 2px;
+}
+.section-drawer a .num{
+  font-family: var(--font-mono); font-size: 13px; color: var(--accent);
+  opacity: 0.6; flex-shrink: 0;
+  transition: opacity 0.25s, transform 0.25s;
+}
+.section-drawer a::before{
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0;
+  background: linear-gradient(90deg, rgba(56,200,200,0.12), transparent);
+  transition: width 0.3s ease;
+}
+.section-drawer a:hover{
+  color: var(--text-bright); border-left-color: var(--accent);
+  padding-left: 18px; font-size: 18px;
+}
+.section-drawer a:hover::before{ width: 100%; }
+.section-drawer a:hover .num{ opacity: 1; transform: scale(1.2); }
+.section-drawer a.active{
+  color: var(--text-bright); border-left-color: var(--accent);
+  background: rgba(56,200,200,0.08);
+}
+.section-drawer a.active .num{ opacity: 1; }
+/* Subtle entrance animation for drawer links */
+.section-drawer.expanded a{
+  animation: drawerLinkSlide 0.4s ease-out both;
+  animation-delay: calc(var(--di, 0) * 0.03s);
+}
 .top-nav__toggle{ display: flex; }
 .top-nav__links.mobile-open{
     display: flex; flex-direction: column;
@@ -454,6 +580,16 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
 .top-nav__toggle.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
 .top-nav__toggle.open span:nth-child(2){ opacity: 0; }
 .top-nav__toggle.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+.section-drawer a{ font-size: 16px; }
+}
+
+/* FAB permanently visible */
+.toc-fab{
+  display: flex !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
+}
 .brand-badge{display:grid;place-items:center;border-radius:10px;background:#f4f7f8;overflow:hidden;box-shadow:0 0 0 1px rgba(56,200,200,.35), 0 0 14px rgba(56,200,200,.22);transition:transform .3s ease, box-shadow .3s ease;}
 .brand-badge{display:grid;place-items:center;border-radius:10px;background:#f4f7f8;overflow:hidden;box-shadow:0 0 0 1px rgba(56,200,200,.35), 0 0 14px rgba(56,200,200,.22);transition:transform .3s ease, box-shadow .3s ease;}
 }
@@ -536,7 +672,7 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
     <a href="../faq.html" class="nav-link"><span class="nav-num">04</span> FAQ</a>
     <a href="../free-resources.html" class="nav-link active"><span class="nav-num">05</span> Resources</a>
     <a href="../contact.html" class="nav-link"><span class="nav-num">06</span> Contact</a>
-        <a href="blog.html" class="nav-link nav-link--hot"><span class="nav-num">07</span> Insights</a>
+        <a href="../blog.html" class="nav-link nav-link--hot"><span class="nav-num">07</span> Insights</a>
   </div>
   <button class="top-nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -996,5 +1132,934 @@ render(DEMO, 'Demo dataset · 10 defect categories');
       <a class="site-foot__privacy" href="../privacy.html" aria-label="Read our Privacy Policy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>Privacy Policy</a>
       <div class="site-foot__pulse"><span class="dot"></span> Open to Collaborations</div>
     </footer>
+<!-- ===== Mobile TOC FAB + Drawer Backdrop ===== -->
+<button class="toc-fab" id="tocFab" aria-label="Open section navigation">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+  </svg>
+  <span class="toc-fab__label">Explore more</span>
+  <span class="toc-fab__badge" id="tocFabBadge">01</span>
+</button>
+<div class="toc-backdrop" id="tocBackdrop"></div>
+
+<!-- ===== FAB Section Drawer (ALL 14 sections) ===== -->
+<div class="section-drawer" id="sectionDrawer">
+  <a class="section-drawer__brand" href="../index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:10px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border);">
+    <span class="brand-badge brand-badge--drawer"><img src="../images/logo-mark.png" alt="Human Skills by Sudeep Ghosh" width="36" height="36"></span>
+    <div class="toc-brand__name">Human Skills by Sudeep Ghosh<span>Trainer · Coach</span></div>
+  </a>
+  <div class="section-drawer__title">All Sections</div>
+      <a href="../index.html#s1" data-section="s1" data-cross-page="1"><span class="num">01</span> Overview</a>
+      <a href="../index.html#s2" data-section="s2" data-cross-page="1"><span class="num">02</span> Mission</a>
+      <a href="../index.html#s3" data-section="s3" data-cross-page="1"><span class="num">03</span> Training Topics</a>
+      <a href="../index.html#s4" data-section="s4" data-cross-page="1"><span class="num">04</span> Certificate</a>
+      <a href="../index.html#s5" data-section="s5" data-cross-page="1"><span class="num">05</span> Photo Gallery</a>
+      <a href="../proof.html#s6" data-section="s6" data-cross-page="1"><span class="num">06</span> Press & Media</a>
+      <a href="../proof.html#s7" data-section="s7" data-cross-page="1"><span class="num">07</span> Testimonials</a>
+      <a href="../proof.html#s8" data-section="s8" data-cross-page="1"><span class="num">08</span> Experience</a>
+      <a href="../proof.html#s9" data-section="s9" data-cross-page="1"><span class="num">09</span> Credentials</a>
+      <a href="../training.html#s10" data-section="s10" data-cross-page="1"><span class="num">10</span> Training & Dev</a>
+      <a href="#s11" class="toc-faq" data-section="s11"><span class="num">11</span> FAQ <span class="new-badge">NEW</span></a>
+      <a href="../contact.html#s12" data-section="s12" data-cross-page="1"><span class="num">12</span> Connect</a>
+      <a href="../free-resources.html#s13" data-section="s13" data-cross-page="1"><span class="num">13</span> Sigma Tools <span class="new-badge">NEW</span></a>
+      <a href="../free-resources.html#s14" data-section="s14" data-cross-page="1"><span class="num">14</span> Prompt Library <span class="new-badge">NEW</span></a>
+  <div class="toc-foot"><span class="dot"></span>Available for Training</div>
+</div>
+<!-- ===== Back to Top ===== -->
+<button class="back-top" id="backTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+  <span class="back-top__label">Back to Top</span>
+</button>
+
+<script>
+
+// ===== Top Nav Mobile Toggle =====
+(function() {
+  var toggle = document.getElementById('navToggle');
+  var links = document.querySelector('.top-nav__links');
+  if (!toggle || !links) return;
+  toggle.addEventListener('click', function() {
+    links.classList.toggle('mobile-open');
+    toggle.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', links.classList.contains('mobile-open'));
+  });
+})();
+
+// ===== FAB Section Drawer (ALL 14 sections, cross-page nav) =====
+(function() {
+  var fab = document.getElementById('tocFab');
+  var drawer = document.getElementById('sectionDrawer');
+  var backdrop = document.getElementById('tocBackdrop');
+  var badge = document.getElementById('tocFabBadge');
+  if (!fab || !drawer) return;
+
+  function openDrawer() {
+    drawer.classList.add('expanded');
+    if (backdrop) backdrop.classList.add('show');
+  }
+  function closeDrawer() {
+    drawer.classList.remove('expanded');
+    if (backdrop) backdrop.classList.remove('show');
+  }
+  fab.addEventListener('click', openDrawer);
+  if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+  // FAB is permanently visible — no scroll trigger needed
+
+  // Drawer link clicks: same-page = smooth scroll, cross-page = navigate
+  var drawerLinks = drawer.querySelectorAll('a[data-section]');
+  drawerLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var sid = link.getAttribute('data-section');
+      var isCrossPage = link.getAttribute('data-cross-page');
+      closeDrawer();
+      if (isCrossPage) {
+        // Navigate to the other page
+        var href = link.getAttribute('href');
+        window.location.href = href;
+      } else {
+        // Same page — smooth scroll to section
+        if (sid && typeof smoothScrollTo === 'function') {
+          var el = document.getElementById(sid);
+          if (el) {
+            void el.offsetHeight;
+            requestAnimationFrame(function() { smoothScrollTo(sid); });
+            history.replaceState(null, '', '#' + sid);
+          }
+        }
+      }
+    });
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && drawer.classList.contains('expanded')) closeDrawer();
+  });
+
+  // Update badge with active section (via scroll spy)
+  var allDrawerLinks = drawer.querySelectorAll('a[data-section]');
+  allDrawerLinks.forEach(function(link) {
+    var mo = new MutationObserver(function() {
+      if (link.classList.contains('active') && badge) {
+        var num = link.querySelector('.num');
+        if (num) badge.textContent = num.textContent;
+      }
+    });
+    mo.observe(link, { attributes: true, attributeFilter: ['class'] });
+  });
+})();
+
+
+// ===== TOC Collapsible Toggle =====
+function toggleTOC(e){
+  if(e&&e.preventDefault)e.preventDefault();
+  var toc=document.getElementById('toc');
+  if(!toc)return;
+  toc.classList.toggle('expanded');
+  var btn=document.getElementById('tocToggle');
+  if(btn)btn.setAttribute('aria-expanded',toc.classList.contains('expanded'));
+}
+
+
+// ===== Scroll Spy (TOC) =====
+(function() {
+  const toc = document.getElementById('toc') || document.getElementById('sectionDrawer');
+  if (!toc) return;
+  const links = toc.querySelectorAll('a');
+  const sections = [];
+  links.forEach(link => {
+    const id = link.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) sections.push({ id, el, link });
+  });
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const match = sections.find(s => s.el === entry.target);
+        if (match) {
+          match.link.classList.add('active');
+          if (window.innerWidth <= 1000 && toc.classList.contains('expanded')) {
+            match.link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px' });
+  sections.forEach(s => observer.observe(s.el));
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const id = link.getAttribute('href').slice(1);
+      // Close drawer FIRST so layout stabilizes before scrolling
+      var tocEl=document.getElementById('toc');
+      var backdrop=document.getElementById('tocBackdrop');
+      if(tocEl)tocEl.classList.remove('expanded');
+      if(backdrop)backdrop.classList.remove('show');
+      var btn=document.getElementById('tocToggle');
+      if(btn)btn.setAttribute('aria-expanded','false');
+      // Use smoothScrollTo which accounts for the sticky clock bar offset
+      smoothScrollTo(id, e);
+      history.replaceState(null, '', '#' + id);
+    });
+  });
+})();
+
+// ===== Count-Up Animation =====
+(function() {
+  const counters = document.querySelectorAll('[data-count]');
+  if (!counters.length) return;
+  const animateCount = (el) => {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1200;
+    const start = performance.now();
+    const step = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.round(eased * target);
+      el.textContent = value + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const countObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        countObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => countObserver.observe(c));
+})();
+
+// ===== Smooth Scroll Helper =====
+// Robust scroll that accounts for the sticky clock bar and is immune to layout shifts.
+
+// ===== FAQ Accordion =====
+function toggleFAQ(btn){
+  var item=btn.parentElement;
+  var wasOpen=item.classList.contains('open');
+  // Close all other FAQ items (accordion behavior - only one open at a time)
+  document.querySelectorAll('.faq-item').forEach(function(it){
+    it.classList.remove('open');
+    var b=it.querySelector('.faq-q'); if(b)b.setAttribute('aria-expanded','false');
+    var a=it.querySelector('.faq-a'); if(a)a.style.maxHeight='';
+  });
+  // Reopen this one if it was previously closed
+  if(!wasOpen){
+    var a=item.querySelector('.faq-a');
+    if(a){a.style.maxHeight=(a.scrollHeight+24)+'px';}
+    item.classList.add('open');btn.setAttribute('aria-expanded','true');
+  }
+}
+function smoothScrollTo(targetId, event) {
+  if (event && event.preventDefault) event.preventDefault();
+  var el = document.getElementById(targetId);
+  if (!el) return;
+  var bar = document.querySelector('.clock-bar');
+  var offset = bar ? bar.offsetHeight + 20 : 0;
+  // Force the browser to render the target element (in case content-visibility
+  // is hiding its real dimensions), then scroll on the next frame when layout
+  // has settled.
+  function doScroll() {
+    var targetY = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
+  }
+  // Force layout recalc by reading offsetHeight
+  void el.offsetHeight;
+  requestAnimationFrame(doScroll);
+}
+
+
+// ===== Scroll Progress Bar =====
+(function() {
+  const bar = document.getElementById('scrollProgress');
+  function updateProgress() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+})();
+
+// ===== Back to Top =====
+(function() {
+  const btn = document.getElementById('backTop');
+  if (!btn) return;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+
+</script>
+<!-- Shared gallery builder + lightbox: one copy, used by every page -->
+<script src="gallery.js"></script>
+<script>
+
+// ===== Experience Line Graph Animation Sequence =====
+(function() {
+  var graph = document.querySelector('.exp-graph');
+  if (!graph) return;
+
+  var triggered = false;
+  function triggerSequence() {
+    if (triggered) return;
+    triggered = true;
+    // Phase 1: line starts drawing (0s)
+    graph.classList.add('exp-graph--active');
+    // Phase 2: after line finishes drawing (3s) + area fades (1s), show dots
+    setTimeout(function() {
+      var milestones = graph.querySelectorAll('.exp-milestone');
+      milestones.forEach(function(m, i) {
+        var dot = m.querySelector('.exp-milestone__dot');
+        var pulse = m.querySelector('.exp-milestone__pulse');
+        var ring = m.querySelector('.exp-milestone__ring');
+        var labels = m.querySelectorAll('.exp-milestone__role, .exp-milestone__org, .exp-milestone__year, .exp-milestone__label-bg');
+        // Stagger each milestone by 0.15s
+        var delay = i * 150;
+        setTimeout(function() {
+          if (dot) { dot.style.animationDelay = '0s, 0.6s'; dot.style.opacity = ''; }
+          if (pulse) { pulse.style.animationDelay = '0s, 0.5s'; }
+          if (ring) { ring.style.animationDelay = '0s'; }
+          labels.forEach(function(l) { l.style.animationDelay = '0.1s'; });
+        }, delay);
+      });
+      graph.classList.add('exp-graph--dots-visible');
+    }, 4000);
+  }
+
+  // Use IntersectionObserver to trigger when graph is visible
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting && e.intersectionRatio > 0.25) {
+          triggerSequence();
+          io.unobserve(graph);
+        }
+      });
+    }, { threshold: [0.25] });
+    io.observe(graph);
+  } else {
+    // Fallback: trigger on load
+    triggerSequence();
+  }
+})();
+
+// ===== Carousel (testimonials, training photos, press) =====
+(function() {
+  if (!document.querySelector('.carousel')) return;
+  function initCarousel(carousel) {
+    const track = carousel.querySelector('.carousel__track');
+    const slides = Array.from(carousel.querySelectorAll('.carousel__slide'));
+    const dotsContainer = carousel.querySelector('.carousel__dots');
+    const countEl = carousel.querySelector('.carousel__count .cur');
+    const total = slides.length;
+    let current = 0;
+
+    function itemsPerView() {
+      const w = window.innerWidth;
+      if (w <= 600) return 1;
+      if (w <= 860) return 2;
+      return 3;
+    }
+
+    function maxIndex() {
+      return Math.max(0, total - itemsPerView());
+    }
+
+    function update() {
+      const ipv = itemsPerView();
+      const max = maxIndex();
+      if (current > max) current = max;
+      const slidePercent = 100 / ipv;
+      track.style.transform = `translateX(-${current * slidePercent}%)`;
+      // Update dots
+      dotsContainer.innerHTML = '';
+      const dotCount = max + 1;
+      for (let i = 0; i < dotCount; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'carousel__dot' + (i === current ? ' active' : '');
+        dot.addEventListener('click', () => { current = i; update(); });
+        dotsContainer.appendChild(dot);
+      }
+      // Update counter
+      countEl.textContent = current + 1;
+      const totEl = carousel.querySelector('.carousel__count .tot');
+      if (totEl) totEl.textContent = total;
+      // Update button states
+      const prev = carousel.querySelector('[data-dir="-1"]');
+      const next = carousel.querySelector('[data-dir="1"]');
+      if (prev) prev.disabled = current === 0;
+      if (next) next.disabled = current >= max;
+    }
+
+    carousel.querySelectorAll('.carousel__btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dir = parseInt(btn.dataset.dir, 10);
+        const max = maxIndex();
+        current = Math.max(0, Math.min(max, current + dir));
+        update();
+      });
+    });
+
+    // Swipe support (touch)
+    let startX = 0, isDragging = false, startTransform = 0;
+    const viewport = carousel.querySelector('.carousel__viewport');
+    viewport.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX; isDragging = true;
+    }, { passive: true });
+    viewport.addEventListener('touchend', e => {
+      if (!isDragging) return;
+      isDragging = false;
+      const diff = e.changedTouches[0].clientX - startX;
+      if (Math.abs(diff) > 40) {
+        const max = maxIndex();
+        current = Math.max(0, Math.min(max, current + (diff < 0 ? 1 : -1)));
+        update();
+      }
+    }, { passive: true });
+
+    // Mouse drag support
+    let mouseDown = false, mouseStartX = 0;
+    viewport.addEventListener('mousedown', e => {
+      mouseDown = true; mouseStartX = e.clientX; startX = e.clientX;
+      viewport.style.cursor = 'grabbing';
+    });
+    viewport.addEventListener('mouseup', e => {
+      if (!mouseDown) return;
+      mouseDown = false; viewport.style.cursor = '';
+      const diff = e.clientX - mouseStartX;
+      if (Math.abs(diff) > 50) {
+        const max = maxIndex();
+        current = Math.max(0, Math.min(max, current + (diff < 0 ? 1 : -1)));
+        update();
+      }
+    });
+    viewport.addEventListener('mouseleave', () => {
+      if (mouseDown) { mouseDown = false; viewport.style.cursor = ''; }
+    });
+
+    // Recompute on resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(update, 150);
+    });
+
+    update();
+  }
+
+  window.addEventListener('galleriesReady', function() {
+    document.querySelectorAll('.carousel').forEach(initCarousel);
+  });
+})();
+
+// ===== Info Popup (description modal) =====
+(function() {
+  const overlay = document.getElementById('popupOverlay');
+  if (!overlay) return;
+  const modal = document.getElementById('popupModal');
+  const content = document.getElementById('popupContent');
+  const closeBtn = document.getElementById('popupClose');
+  const store = document.getElementById('popupStore');
+
+  function openPopup(id) {
+    const source = store.querySelector('#popup-' + id);
+    if (!source) return;
+    content.innerHTML = source.innerHTML;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePopup() {
+    overlay.classList.remove('open');
+    content.innerHTML = '';
+    document.body.style.overflow = '';
+  }
+
+  // Wire up all clickable cards
+  document.querySelectorAll('[data-popup-id]').forEach(el => {
+    el.addEventListener('click', e => {
+      // Don't interfere with links inside cards
+      if (e.target.closest('a')) return;
+      openPopup(el.dataset.popupId);
+    });
+  });
+
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay || e.target === closeBtn) closePopup();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closePopup();
+  });
+})();
+
+// ===== Contact Form (Standard HTML Submit) =====
+// Formspree handles CAPTCHA and redirects back after submission.
+// No AJAX — the form submits natively, Formspree shows CAPTCHA if needed,
+// then redirects back to this page with a _success query parameter.
+(function() {
+  // Check for Formspree success redirect
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('_success') === '1') {
+    var success = document.getElementById('formSuccess');
+    if (success) {
+      success.classList.add('show');
+      success.textContent = 'Thank you! Your message has been sent. I\'ll get back to you soon.';
+      setTimeout(function() { success.classList.remove('show'); }, 6000);
+      // Clean the URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }
+})();
+
+// ===== Copy Email to Clipboard =====
+function copyEmail(el) {
+  var label = el.querySelector('.contact-btn__label');
+  var email = el.getAttribute('data-email');
+  var origText = label.textContent;
+  
+  // Show feedback
+  label.textContent = 'Copied!';
+  label.style.color = '#ffffff';
+  label.style.fontWeight = '700';
+  el.style.backgroundColor = '#2ecc71';
+  el.style.color = '#ffffff';
+  
+  // Copy to clipboard
+  var ta = document.createElement('textarea');
+  ta.value = email;
+  ta.style.position = 'fixed';
+  ta.style.top = '-9999px';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+  
+  // Revert after 2.5 seconds
+  setTimeout(function() {
+    label.textContent = origText;
+    label.style.color = '';
+    label.style.fontWeight = '';
+    el.style.backgroundColor = '';
+    el.style.color = '';
+  }, 2500);
+}
+
+
+// ===== Six Sigma Calculator Logic =====
+function erfinv(x){if(x>=1)return Infinity;if(x<=-1)return -Infinity;var a=0.147;var ln=Math.log(1-x*x);var t=2/(Math.PI*a)+ln/2;var r=Math.sqrt(Math.max(0,t*t-ln/a))-t;return Math.sign(x)*Math.sqrt(r);}
+function dpmoToSigma(dpmo){var p=dpmo/1000000;if(p>=1)return 0;if(p<=0)return 6;var z=Math.SQRT2*erfinv(1-2*p);return z+1.5;}
+function fmt(n){return Number.isInteger(n)?n.toLocaleString('en-IN'):n.toFixed(2);}
+function updateGauge(markerId,sigma){var el=document.getElementById(markerId);if(!el)return;var pct=Math.max(0,Math.min(100,(sigma/6)*100));el.style.left=pct+'%';}
+
+// DPMO
+function calcDpmo(){var u=parseFloat(document.getElementById('dpmo-units').value)||0;var o=parseFloat(document.getElementById('dpmo-opp').value)||0;var d=parseFloat(document.getElementById('dpmo-defects').value)||0;if(u<=0||o<=0){document.getElementById('dpmo-result').textContent='—';document.getElementById('dpmo-sigma').innerHTML='—';document.getElementById('dpmo-yield').textContent='';return;}var dpmo=(d*1000000)/(u*o);var sigma=dpmoToSigma(dpmo);var yld=((u-d)/u)*100;document.getElementById('dpmo-result').textContent=fmt(Math.round(dpmo));document.getElementById('dpmo-sigma').innerHTML='&sigma; &asymp; '+sigma.toFixed(2);document.getElementById('dpmo-yield').textContent='Yield &asymp; '+yld.toFixed(2)+'%';updateGauge('dpmo-gauge',sigma);}
+
+// Cp/Cpk
+function calcCpk(){var usl=parseFloat(document.getElementById('cpk-usl').value);var lsl=parseFloat(document.getElementById('cpk-lsl').value);var mean=parseFloat(document.getElementById('cpk-mean').value);var std=parseFloat(document.getElementById('cpk-std').value);if(!std||std<=0){document.getElementById('cpk-result').textContent='—';return;}var cp=(usl-lsl)/(6*std);var cpu=(usl-mean)/(3*std);var cpl=(mean-lsl)/(3*std);var cpk=Math.min(cpu,cpl);var sigma=3*cpk+1.5;document.getElementById('cpk-result').textContent=cpk.toFixed(2);document.getElementById('cpk-cp').textContent='Cp = '+cp.toFixed(2)+' · Cpu = '+cpu.toFixed(2)+' · Cpl = '+cpl.toFixed(2);document.getElementById('cpk-sigma').textContent='Sigma \u2248 '+sigma.toFixed(2);}
+
+// Yield
+function calcYield(){var total=parseFloat(document.getElementById('yield-total').value)||0;var def=parseFloat(document.getElementById('yield-defective').value)||0;if(total<=0){document.getElementById('yield-result').textContent='—';return;}var y=((total-def)/total)*100;var dpmo=(def/total)*1000000;var sigma=dpmoToSigma(dpmo);document.getElementById('yield-result').textContent=y.toFixed(2)+'%';document.getElementById('yield-dpmo').textContent='DPMO = '+fmt(Math.round(dpmo));document.getElementById('yield-sigma').textContent='Sigma \u2248 '+sigma.toFixed(2);}
+
+// RTY
+function calcRty(){var inputs=document.querySelectorAll('.rty-input');var rty=1;var valid=true;inputs.forEach(function(inp){var v=parseFloat(inp.value);if(isNaN(v)||v<0||v>100){valid=false;}else{rty*=(v/100);}});if(!valid){document.getElementById('rty-result').textContent='—';return;}var dpmo=(1-rty)*1000000;var sigma=dpmoToSigma(dpmo);document.getElementById('rty-result').textContent=(rty*100).toFixed(2)+'%';document.getElementById('rty-dpmo').textContent='DPMO = '+fmt(Math.round(dpmo));document.getElementById('rty-sigma').textContent='Sigma \u2248 '+sigma.toFixed(2);}
+
+// Calc tabs
+document.querySelectorAll('.calc-tab').forEach(function(tab){tab.addEventListener('click',function(){document.querySelectorAll('.calc-tab').forEach(function(t){t.classList.remove('active');});document.querySelectorAll('.calc-panel').forEach(function(p){p.classList.remove('active');});tab.classList.add('active');document.getElementById('calc-'+tab.dataset.calc).classList.add('active');});});
+
+// RTY add/remove
+var _rtyAddBtn=document.getElementById('rty-add');if(_rtyAddBtn)_rtyAddBtn.addEventListener('click',function(){var container=document.getElementById('rty-steps');var count=container.children.length+1;var row=document.createElement('div');row.className='rty-row';row.innerHTML='<label>'+count+'</label><input type="number" class="rty-input" value="95" step="0.01" min="0" max="100"><div class="rty-del" title="Remove">&times;</div>';container.appendChild(row);row.querySelector('.rty-del').addEventListener('click',function(){row.remove();renumberRty();calcRty();});row.querySelector('.rty-input').addEventListener('input',calcRty);calcRty();});
+function renumberRty(){document.querySelectorAll('#rty-steps .rty-row').forEach(function(row,idx){row.querySelector('label').textContent=idx+1;});}
+document.querySelectorAll('.rty-del').forEach(function(btn){btn.addEventListener('click',function(){btn.closest('.rty-row').remove();renumberRty();calcRty();});});
+
+// Input listeners
+['dpmo-units','dpmo-opp','dpmo-defects'].forEach(function(id){var _el=document.getElementById(id);if(_el)_el.addEventListener('input',calcDpmo);});
+['cpk-usl','cpk-lsl','cpk-mean','cpk-std'].forEach(function(id){var _el=document.getElementById(id);if(_el)_el.addEventListener('input',calcCpk);});
+['yield-total','yield-defective'].forEach(function(id){var _el=document.getElementById(id);if(_el)_el.addEventListener('input',calcYield);});
+document.querySelectorAll('.rty-input').forEach(function(inp){inp.addEventListener('input',calcRty);});
+
+// Initial calc
+if(document.getElementById('dpmo-units')){calcDpmo();calcCpk();calcYield();calcRty();}
+
+// ===== Prompt Library =====
+if(!document.getElementById('promptGrid')){/* skip prompt library */}
+else {
+var PROMPTS=[
+{cat:'ss',title:'DMAIC Problem Solver',desc:'Structures a process improvement project using the five DMAIC phases.',snippet:'Act as a Six Sigma Black Belt. I have a process problem: [describe problem].\\n\\nTake me through the DMAIC phases:\\n1. Define — what is the problem, who is the customer, what is the CTQ?\\n2. Measure — what data should I collect, what is the current baseline?\\n3. Analyze — what are the likely root causes? Suggest tools (fishbone, 5-Why, Pareto).\\n4. Improve — propose 3 solutions, rank by impact vs effort.\\n5. Control — what control plan and monitoring metrics should I set up?'},
+{cat:'ss',title:'Root Cause Investigator',desc:'Applies 5-Why and fishbone analysis to drill down to the true root cause.',snippet:'I have a quality issue: [describe defect or problem].\\n\\n1. Run a Five Whys analysis, going deeper each time.\\n2. After the 5th why, identify the root cause.\\n3. Build a fishbone (Ishikawa) diagram with branches: Man, Machine, Method, Material, Measurement, Environment.\\n4. For each branch, list 2-3 potential causes.\\n5. Identify which causes are most likely and suggest verification methods.'},
+{cat:'ss',title:'Control Chart Analyzer',desc:'Helps interpret statistical process control charts and identify special-cause variation.',snippet:'Here is my process data (subgroup means and ranges): [paste data].\\n\\n1. Calculate the center line (X-bar and R-bar).\\n2. Calculate the Upper and Lower Control Limits (UCL, LCL) using A2, D3, D4 constants for subgroup size n=[n].\\n3. Identify any points outside control limits.\\n4. Check for patterns: runs of 7+ points on one side, trends, cycles.\\n5. Tell me if the process is in statistical control and what actions to take.'},
+{cat:'ss',title:'Sigma Level Benchmark',desc:'Converts process metrics into a sigma level and benchmarks against industry standards.',snippet:'My process data:\\n- Units produced: [number]\\n- Defect opportunities per unit: [number]\\n- Defects found: [number]\\n\\n1. Calculate DPMO.\\n2. Convert to sigma level (with 1.5 sigma shift).\\n3. Compare to World Class (6 sigma / 3.4 DPMO).\\n4. Tell me how much improvement I need to reach the next sigma level.\\n5. Suggest the top 3 DMAIC tools for getting there.'},
+{cat:'comm',title:'Diplomatic Feedback Drafter',desc:'Turns blunt criticism into constructive, specific, and motivating feedback.',snippet:'Act as a communication coach. Rewrite this feedback to be specific, kind, and actionable. Keep the core message but frame it so the recipient feels motivated, not attacked:\\n\\n[Paste your feedback]\\n\\nStructure: (1) What went well, (2) What to improve, (3) Suggested next step.'},
+{cat:'comm',title:'Professional Email Rewriter',desc:'Transforms casual or rambling drafts into clear, polished professional emails.',snippet:'Rewrite this email to be professional, concise, and warm. Keep it under 120 words. Maintain the key request but improve clarity and tone:\\n\\n[Paste your email draft]\\n\\nAudience: [Manager / Client / Colleague / External partner]'},
+{cat:'comm',title:'Difficult Conversation Planner',desc:'Prepares you for a tough workplace conversation with a structured, empathetic approach.',snippet:'Help me prepare for a difficult conversation. Here is the situation:\\n[Describe the situation and the person]\\n\\nGenerate: (1) My main goal for the conversation, (2) Three opening lines that are firm but empathetic, (3) Anticipated objections and how to respond, (4) A closing that preserves the relationship.'},
+{cat:'comm',title:'Stakeholder Update Generator',desc:'Creates a concise, structured status update for senior stakeholders.',snippet:'Create a stakeholder update for my project. Here is the current status:\\n\\nProject: [name]\\nPhase: [phase]\\nProgress: [what is done]\\nRisks: [what could go wrong]\\nNext steps: [what is planned]\\n\\nFormat: (1) One-line summary, (2) Progress this week, (3) Risks and mitigations, (4) Decisions needed.\\nKeep it under 150 words. Tone: confident, factual, no jargon.'},
+{cat:'think',title:'Devil\'s Advocate Analyst',desc:'Forces you to examine the strongest counterarguments before committing to a decision.',snippet:'Present the three strongest arguments AGAINST the following position. For each, rate how much it weakens the original case (1-10) and explain why:\\n\\n[Your position or decision]\\n\\nThen tell me: What evidence would change my mind? What am I assuming that might be wrong?'},
+{cat:'think',title:'Five Whys Explorer',desc:'Drills down to root causes by iteratively questioning the surface-level problem.',snippet:'I have a problem: [Describe the problem]\\n\\nRun a Five Whys analysis. Ask "why" five times, each time going deeper. After the fifth why, identify the root cause and suggest two corrective actions: one quick fix and one systemic fix.'},
+{cat:'think',title:'Decision Matrix Builder',desc:'Structures a complex decision into weighted criteria so the best option becomes clear.',snippet:'I need to decide between these options:\\n[Option A] vs [Option B] vs [Option C]\\n\\nBuild a decision matrix:\\n1. List the 5 most important criteria for this decision\\n2. Weight each criterion (1-5)\\n3. Score each option on each criterion (1-10)\\n4. Calculate weighted totals\\n5. Identify the winner and explain why\\n6. Flag any criteria I might be missing'},
+{cat:'mgmt',title:'1-on-1 Meeting Architect',desc:'Generates a structured agenda for a productive one-on-one with your report.',snippet:'Create a 30-minute 1-on-1 agenda for my reportee.\\n\\nTheir name: [Name]\\nRecent wins: [Describe]\\nKnown blockers: [Describe]\\nTheir current goal: [Describe]\\n\\nStructure: (1) Check-in 5min — suggest 2 open questions, (2) Progress review 10min, (3) Blockers & support 10min, (4) Action items 5min. End with one question I should ask that I probably will not think of.'},
+{cat:'mgmt',title:'Delegation Planner',desc:'Helps you delegate effectively by clarifying what, to whom, and how much autonomy to give.',snippet:'I want to delegate this task: [Describe task]\\nTo this team member: [Name, role, experience level]\\n\\nHelp me plan:\\n1. What the outcome should look like (success criteria)\\n2. What context they need to succeed\\n3. How much autonomy to give (tell / sell / consult / agree)\\n4. Checkpoints — when and how to follow up\\n5. The exact opening line to assign this task without sounding controlling'},
+{cat:'mgmt',title:'Team Conflict Diagnostic',desc:'Analyses a team conflict and suggests a structured intervention path.',snippet:'Two team members are in conflict. Here is what I know:\\n\\nPerson A: [Role, perspective, what they want]\\nPerson B: [Role, perspective, what they want]\\nThe conflict: [Describe]\\n\\nAnalyse: (1) Is this task, relationship, or process conflict? (2) What are each person\\u2019s underlying interests? (3) Suggest a mediation structure. (4) Draft ground rules. (5) What outcome should I aim for vs avoid?'},
+{cat:'mgmt',title:'Performance Review Helper',desc:'Structures a balanced, evidence-based performance review conversation.',snippet:'Help me prepare a performance review for: [Name, Role]\\n\\nKey achievements this period: [List]\\nAreas of concern: [List]\\n\\nGenerate:\\n1. Opening that sets a constructive tone\\n2. Strengths to highlight with specific examples\\n3. Growth areas framed as opportunities (not criticism)\\n4. Two SMART goals for the next period\\n5. A closing that affirms their value to the team'},
+{cat:'career',title:'Career Path Mapper',desc:'Maps a realistic 3-year trajectory from your current role to your target role.',snippet:'I am currently a [current role] with [years] of experience. My target role is [dream role].\\n\\nMap a 3-year career path:\\n1. Skills gap analysis — what I have vs what I need\\n2. Year 1 milestones (skill-building, projects, visibility)\\n3. Year 2 milestones (stretch assignments, network, portfolio)\\n4. Year 3 milestones (positioning, applications, transition)\\n5. Quarterly checkpoint for the first year\\n6. One thing that could derail this plan and how to mitigate it'},
+{cat:'career',title:'Interview Simulator',desc:'Generates role-specific interview questions and coaches you through answering them.',snippet:'I am preparing for an interview for the role of [target role] at [type of company].\\n\\n1. Generate 8 likely interview questions (behavioural, technical, situational)\\n2. For each, tell me what the interviewer is really evaluating\\n3. For the top 3, suggest a STAR-framework answer structure\\n4. Give me one question to ask the interviewer that signals strategic thinking\\n5. Flag one question that will likely trip me up and how to handle it'},
+{cat:'mind',title:'Mindfulness Session Designer',desc:'Creates a guided mindfulness exercise tailored to a specific stress scenario.',snippet:'Create a 5-minute guided mindfulness exercise for this situation:\\n[Describe the stress scenario — e.g. before a big presentation, after a difficult meeting, during a busy workday]\\n\\nStructure:\\n1. Centering breath (1 min)\\n2. Body scan (1.5 min)\\n3. Cognitive reframing (1.5 min)\\n4. Re-engagement (1 min)\\n\\nUse calming, non-clinical language. No jargon. Address the specific stressor directly.'},
+{cat:'mind',title:'Stress Journal Analyzer',desc:'Helps identify patterns in what triggers your stress and what helps you recover.',snippet:'Here are my stress journal entries from this week:\\n[Paste entries — what happened, how you felt, what you did]\\n\\nAnalyse:\\n1. What are the top 3 recurring triggers?\\n2. What coping strategies worked best?\\n3. What patterns do you see in timing (morning vs afternoon, specific days)?\\n4. Suggest two micro-habits I can build into my day to address the top trigger.\\n5. What is one boundary I should consider setting?'},
+{cat:'body',title:'Presence & Grooming Coach',desc:'Provides guidance on body language and professional presentation for specific scenarios.',snippet:'I have an important [meeting / presentation / interview / networking event] tomorrow.\\nMy role: [Your role]\\nAudience: [Who will be there]\\n\\nGive me specific guidance on:\\n1. Posture and stance — how to stand/sit with authority\\n2. Hand positioning — what to do with my hands\\n3. Eye contact — how much, with whom, cultural considerations\\n4. Grooming checklist for this specific context\\n5. Three things to avoid that would undermine my presence'},
+{cat:'body',title:'Virtual Presence Optimizer',desc:'Body language and setup tips specifically for video calls and online meetings.',snippet:'I have an important video call: [Describe — meeting type, participants, purpose]\\n\\nAdvise me on:\\n1. Camera positioning and lighting\\n2. Background — what is professional and what to avoid\\n3. Eye contact through the camera vs looking at screen\\n4. Hand gestures on camera — what reads well, what does not\\n5. Energy management — how to stay engaged for a long virtual session\\n6. One thing most people get wrong on video calls'},
+{cat:'health',title:'Compassionate Response Drafter',desc:'Helps craft empathetic communication for sensitive patient or family interactions.',snippet:'I need to communicate with a patient/family member about: [Describe the situation — e.g. a difficult diagnosis, a treatment change, a delay]\\n\\nThe patient context: [Age, condition, emotional state]\\n\\nHelp me draft:\\n1. An opening that shows empathy before delivering information\\n2. The key information in plain language (no jargon)\\n3. Anticipated questions or emotional reactions\\n4. A closing that offers support and next steps\\n5. What body language to use during this conversation'},
+{cat:'health',title:'Patient Education Simplifier',desc:'Converts medical or procedural information into language a patient can easily understand.',snippet:'Here is medical/clinical information I need to explain to a patient:\\n[Paste the information]\\n\\nThe patient is a [age]-year-old with [education level / health literacy level].\\n\\n1. Simplify this into language a 12-year-old could understand.\\n2. Break it into 3-4 key points.\\n3. Use an analogy to explain the core concept.\\n4. List 2-3 questions the patient will likely ask and suggested answers.\\n5. What is the one thing they must absolutely remember?'},
+{cat:'teach',title:'Online Lesson Architect',desc:'Structures an in-person training topic into an engaging online learning experience.',snippet:'I teach [topic] as an in-person session. I need to convert it to an online format.\\n\\nDuration: [minutes]\\nAudience: [Describe learners]\\n\\nHelp me restructure:\\n1. Break the content into 5-7 minute micro-modules\\n2. For each module, suggest one interactive element (poll, quiz, discussion prompt, breakout)\\n3. Identify where engagement will drop and how to counter it\\n4. Suggest pre-work and post-session reinforcement\\n5. How to assess learning without a physical classroom'},
+{cat:'teach',title:'Engagement Booster',desc:'Generates interactive activities to re-engage learners during a virtual session.',snippet:'My online training session is [duration] long and covers [topic]. The audience is [describe].\\n\\nI am losing their attention around the [time] mark.\\n\\nSuggest 5 quick engagement activities (under 3 minutes each) that fit this topic:\\n1. A poll question\\n2. A chat-based activity\\n3. A breakout room prompt\\n4. A quick reflection exercise\\n5. An energiser or icebreaker\\n\\nFor each, explain why it works for this audience.'},
+{cat:'health',title:'Empathetic Listener Guide',desc:'Provides a framework for active listening in emotionally charged healthcare conversations.',snippet:'I am about to have a conversation with a [patient/family member/colleague] who is [emotional state — angry, anxious, grieving, frustrated].\\n\\nThe situation: [Describe]\\n\\nGive me a framework for this conversation:\\n1. How to open without escalating\\n2. Three active listening techniques to use\\n3. How to validate their emotion without agreeing with inaccurate facts\\n4. Phrases to avoid that would sound dismissive\\n5. How to gently redirect to solutions\\n6. A closing that preserves trust'}
+];
+
+var promptGrid=document.getElementById('promptGrid');
+var promptSearch=document.getElementById('promptSearch');
+var promptFilters=document.getElementById('promptFilters');
+var promptCount=document.getElementById('promptCount');
+var promptNoResults=document.getElementById('promptNoResults');
+var promptToast=document.getElementById('promptToast')||createToast();
+var activeCat='all';
+var searchTerm='';
+
+function createToast(){var t=document.createElement('div');t.className='prompt-toast';t.id='promptToast';document.body.appendChild(t);return t;}
+
+var catNames={ss:'Six Sigma',comm:'Communication',think:'Critical Thinking',mgmt:'Management',career:'Career Planning',mind:'Mindfulness',body:'Body Language',health:'Healthcare',teach:'Teaching Online'};
+
+function renderPrompts(){
+  promptGrid.innerHTML='';
+  var visible=0;
+  PROMPTS.forEach(function(p,idx){
+    var catMatch=activeCat==='all'||p.cat===activeCat;
+    var text=(p.title+' '+p.desc+' '+p.snippet+' '+p.cat).toLowerCase();
+    var searchMatch=!searchTerm||text.indexOf(searchTerm)>=0;
+    if(catMatch&&searchMatch){
+      var card=document.createElement('div');
+      card.className='prompt-card';
+      card.innerHTML='<div class="prompt-card__cat cat-'+p.cat+'">'+(catNames[p.cat]||p.cat)+'</div>'+
+        '<h4>'+p.title+'</h4>'+
+        '<p>'+p.desc+'</p>'+
+        '<div class="prompt-card__snippet">'+p.snippet.replace(/\\n/g,'<br>')+'</div>'+
+        '<div class="prompt-card__footer">'+
+        '<span class="prompt-card__copy">Copy prompt</span>'+
+        '<span class="prompt-card__expand">Expand</span></div>';
+      promptGrid.appendChild(card);
+      visible++;
+    }
+  });
+  promptCount.textContent=visible===PROMPTS.length?'Showing all '+visible+' prompts':'Showing '+visible+' of '+PROMPTS.length+' prompts';
+  promptNoResults.classList.toggle('show',visible===0);
+}
+
+// Search
+promptSearch.addEventListener('input',function(){searchTerm=promptSearch.value.trim().toLowerCase();renderPrompts();});
+document.getElementById('promptSearchBtn').addEventListener('click',function(){searchTerm=promptSearch.value.trim().toLowerCase();renderPrompts();});
+
+// Filters
+promptFilters.addEventListener('click',function(e){
+  if(!e.target.classList.contains('prompt-chip'))return;
+  promptFilters.querySelectorAll('.prompt-chip').forEach(function(c){c.classList.remove('active');});
+  e.target.classList.add('active');
+  activeCat=e.target.dataset.cat;
+  renderPrompts();
+});
+
+// Expand + Copy (event delegation)
+promptGrid.addEventListener('click',function(e){
+  var card=e.target.closest('.prompt-card');
+  if(!card)return;
+  if(e.target.classList.contains('prompt-card__expand')){
+    card.classList.toggle('expanded');
+    e.target.textContent=card.classList.contains('expanded')?'Collapse':'Expand';
+  }
+  if(e.target.classList.contains('prompt-card__copy')){
+    var snippet=card.querySelector('.prompt-card__snippet').textContent;
+    if(navigator.clipboard){navigator.clipboard.writeText(snippet).then(function(){showCopied(e.target);}).catch(function(){fallbackCopy(snippet,e.target);});}
+    else{fallbackCopy(snippet,e.target);}
+  }
+});
+
+function fallbackCopy(text,btn){var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.top='-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');showCopied(btn);}catch(e){}document.body.removeChild(ta);}
+function showCopied(btn){var orig=btn.textContent;btn.classList.add('copied');btn.textContent='Copied!';promptToast.classList.add('show');setTimeout(function(){btn.classList.remove('copied');btn.textContent=orig;promptToast.classList.remove('show');},2000);}
+
+renderPrompts();
+}
+
+
+
+// ===== Floating Tools Banner (scroll-triggered) =====
+(function(){
+  var banner=document.getElementById('toolsBanner');
+  if(!banner)return;
+  var heroSection=document.getElementById('s1')||document.querySelector('.hero');
+  var shown=false;
+  var dismissed=false;
+  function checkScroll(){
+    if(dismissed)return;
+    if(!heroSection)return;
+    var rect=heroSection.getBoundingClientRect();
+    // Show banner when hero is scrolled past (bottom of hero above viewport center)
+    if(rect.bottom<window.innerHeight*0.3 && !shown){
+      shown=true;
+      banner.classList.add('show');
+      // Auto-hide after 15 seconds
+      setTimeout(function(){
+        if(shown&&!dismissed){banner.classList.remove('show');}
+      },15000);
+    }
+    // Hide when scrolled back to hero
+    if(rect.bottom>window.innerHeight*0.5 && shown){
+      shown=false;
+      banner.classList.remove('show');
+    }
+  }
+  window.addEventListener('scroll',checkScroll,{passive:true});
+  // Check on load
+  setTimeout(checkScroll,500);
+})();
+
+
+</script>
+
+<script>
+
+// ===== Top Nav Mobile Toggle =====
+(function() {
+  var toggle = document.getElementById('navToggle');
+  var links = document.querySelector('.top-nav__links');
+  if (!toggle || !links) return;
+  toggle.addEventListener('click', function() {
+    links.classList.toggle('mobile-open');
+    toggle.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', links.classList.contains('mobile-open'));
+  });
+})();
+
+// ===== FAB Section Drawer (ALL 14 sections, cross-page nav) =====
+(function() {
+  var fab = document.getElementById('tocFab');
+  var drawer = document.getElementById('sectionDrawer');
+  var backdrop = document.getElementById('tocBackdrop');
+  var badge = document.getElementById('tocFabBadge');
+  if (!fab || !drawer) return;
+
+  function openDrawer() {
+    drawer.classList.add('expanded');
+    if (backdrop) backdrop.classList.add('show');
+  }
+  function closeDrawer() {
+    drawer.classList.remove('expanded');
+    if (backdrop) backdrop.classList.remove('show');
+  }
+  fab.addEventListener('click', openDrawer);
+  if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+  // FAB is permanently visible — no scroll trigger needed
+
+  // Drawer link clicks: same-page = smooth scroll, cross-page = navigate
+  var drawerLinks = drawer.querySelectorAll('a[data-section]');
+  drawerLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var sid = link.getAttribute('data-section');
+      var isCrossPage = link.getAttribute('data-cross-page');
+      closeDrawer();
+      if (isCrossPage) {
+        // Navigate to the other page
+        var href = link.getAttribute('href');
+        window.location.href = href;
+      } else {
+        // Same page — smooth scroll to section
+        if (sid && typeof smoothScrollTo === 'function') {
+          var el = document.getElementById(sid);
+          if (el) {
+            void el.offsetHeight;
+            requestAnimationFrame(function() { smoothScrollTo(sid); });
+            history.replaceState(null, '', '#' + sid);
+          }
+        }
+      }
+    });
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && drawer.classList.contains('expanded')) closeDrawer();
+  });
+
+  // Update badge with active section (via scroll spy)
+  var allDrawerLinks = drawer.querySelectorAll('a[data-section]');
+  allDrawerLinks.forEach(function(link) {
+    var mo = new MutationObserver(function() {
+      if (link.classList.contains('active') && badge) {
+        var num = link.querySelector('.num');
+        if (num) badge.textContent = num.textContent;
+      }
+    });
+    mo.observe(link, { attributes: true, attributeFilter: ['class'] });
+  });
+})();
+
+
+// ===== TOC Collapsible Toggle =====
+function toggleTOC(e){
+  if(e&&e.preventDefault)e.preventDefault();
+  var toc=document.getElementById('toc');
+  if(!toc)return;
+  toc.classList.toggle('expanded');
+  var btn=document.getElementById('tocToggle');
+  if(btn)btn.setAttribute('aria-expanded',toc.classList.contains('expanded'));
+}
+
+
+// ===== Scroll Spy (TOC) =====
+(function() {
+  const toc = document.getElementById('toc') || document.getElementById('sectionDrawer');
+  if (!toc) return;
+  const links = toc.querySelectorAll('a');
+  const sections = [];
+  links.forEach(link => {
+    const id = link.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) sections.push({ id, el, link });
+  });
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const match = sections.find(s => s.el === entry.target);
+        if (match) {
+          match.link.classList.add('active');
+          if (window.innerWidth <= 1000 && toc.classList.contains('expanded')) {
+            match.link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px' });
+  sections.forEach(s => observer.observe(s.el));
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const id = link.getAttribute('href').slice(1);
+      // Close drawer FIRST so layout stabilizes before scrolling
+      var tocEl=document.getElementById('toc');
+      var backdrop=document.getElementById('tocBackdrop');
+      if(tocEl)tocEl.classList.remove('expanded');
+      if(backdrop)backdrop.classList.remove('show');
+      var btn=document.getElementById('tocToggle');
+      if(btn)btn.setAttribute('aria-expanded','false');
+      // Use smoothScrollTo which accounts for the sticky clock bar offset
+      smoothScrollTo(id, e);
+      history.replaceState(null, '', '#' + id);
+    });
+  });
+})();
+
+// ===== Count-Up Animation =====
+(function() {
+  const counters = document.querySelectorAll('[data-count]');
+  if (!counters.length) return;
+  const animateCount = (el) => {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1200;
+    const start = performance.now();
+    const step = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.round(eased * target);
+      el.textContent = value + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const countObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        countObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => countObserver.observe(c));
+})();
+
+// ===== Smooth Scroll Helper =====
+// Robust scroll that accounts for the sticky clock bar and is immune to layout shifts.
+
+// ===== FAQ Accordion =====
+function toggleFAQ(btn){
+  var item=btn.parentElement;
+  var wasOpen=item.classList.contains('open');
+  // Close all other FAQ items (accordion behavior - only one open at a time)
+  document.querySelectorAll('.faq-item').forEach(function(it){
+    it.classList.remove('open');
+    var b=it.querySelector('.faq-q'); if(b)b.setAttribute('aria-expanded','false');
+    var a=it.querySelector('.faq-a'); if(a)a.style.maxHeight='';
+  });
+  // Reopen this one if it was previously closed
+  if(!wasOpen){
+    var a=item.querySelector('.faq-a');
+    if(a){a.style.maxHeight=(a.scrollHeight+24)+'px';}
+    item.classList.add('open');btn.setAttribute('aria-expanded','true');
+  }
+}
+function smoothScrollTo(targetId, event) {
+  if (event && event.preventDefault) event.preventDefault();
+  var el = document.getElementById(targetId);
+  if (!el) return;
+  var bar = document.querySelector('.clock-bar');
+  var offset = bar ? bar.offsetHeight + 20 : 0;
+  // Force the browser to render the target element (in case content-visibility
+  // is hiding its real dimensions), then scroll on the next frame when layout
+  // has settled.
+  function doScroll() {
+    var targetY = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
+  }
+  // Force layout recalc by reading offsetHeight
+  void el.offsetHeight;
+  requestAnimationFrame(doScroll);
+}
+
+
+// ===== Scroll Progress Bar =====
+(function() {
+  const bar = document.getElementById('scrollProgress');
+  function updateProgress() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+})();
+
+// ===== Back to Top =====
+(function() {
+  const btn = document.getElementById('backTop');
+  if (!btn) return;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) btn.classList.add('visible');
+    else btn.classList.remove('visible');
+  });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+
+</script>
 </body>
 </html>
