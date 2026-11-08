@@ -386,6 +386,14 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
 }
 </style>
 <style>
+.hs-note{position:relative;z-index:4;display:flex;gap:12px;align-items:flex-start;max-width:74ch;
+  margin:22px 0 0;padding:15px 18px;border-radius:12px;
+  border:1px solid rgba(56,200,200,.28);background:rgba(56,200,200,.06);
+  font-size:13.5px;line-height:1.6;color:#a8b8cc}
+.hs-note strong{color:#e4ecf5;font-weight:600}
+.hs-note__ico{width:17px;height:17px;flex:0 0 17px;color:#38c8c8;margin-top:2px}
+.hs-note__sub{display:block;margin-top:8px;font-size:12.5px;color:#8b9bb4}
+@media (max-width:720px){.hs-note{padding:13px 14px;font-size:13px}}
 /* --- clock bar centred, as on the homepage --- */
 .clock-bar{justify-content:center !important;text-align:center;width:100%}
 @media (max-width:900px){.clock-bar{flex-wrap:wrap;justify-content:center !important;
@@ -736,6 +744,14 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
 <div class="hs-intro">
   <h1>Process capability, <em>calculated instantly</em></h1>
   <p>Cp and Cpk tell you whether a process can meet specification — but the arithmetic is where most teams stall. This calculator takes your data and returns the indices, PPM and yield, with a plain-language read on whether the process is capable or merely marginal. Used in <strong>Six Sigma workshops for manufacturing, clinical and operations teams</strong> across <strong>Delhi NCR and India</strong>.</p>
+  <div class="hs-note">
+  <svg class="hs-note__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+  <div>
+    <strong>Your data stays on your device.</strong> The file you upload is read and calculated in your browser only &mdash; it is never sent to a server, never stored, and never seen by me. Close the tab and it is gone.
+    <span class="hs-note__sub">Results depend on the data you enter. This is a teaching tool, not a substitute for your validated quality software or your quality system&rsquo;s records.</span>
+  </div>
+</div>
+
   <a class="hs-back" href="../free-resources.html">&larr; Back to free resources</a>
 </div>
 
