@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3SXHN4B877"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3SXHN4B877');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pareto Analysis Calculator for Quality Teams | Human Skills by Sudeep Ghosh</title>
@@ -709,7 +717,7 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
   <div class="hs-note">
   <svg class="hs-note__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
   <div>
-    <strong>Your data stays on your device.</strong> The file you upload is read and calculated in your browser only &mdash; it is never sent to a server, never stored, and never seen by me. Close the tab and it is gone.
+    <strong>Your data stays on your device.</strong> The file you upload is read and calculated in your browser only &mdash; it is never sent to a server, never stored, and never seen by me. Close the tab and it is gone. I count page views with Google Analytics, never your data.
     <span class="hs-note__sub">Results depend on the data you enter. This is a teaching tool, not a substitute for your validated quality software or your quality system&rsquo;s records.</span>
   </div>
 </div>
@@ -727,7 +735,7 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
     </div>
     <div class="upload-zone">
       <label class="btn-upload" for="fileInput">⬆ Upload Excel</label>
-      <input type="file" id="fileInput" accept=".xlsx,.xls,.csv">
+      <input type="file" id="fileInput" data-tool-upload accept=".xlsx,.xls,.csv">
       <div>
         <div class="hint">Drop your defect data file</div>
         <div id="fileName">No file loaded — demo data showing</div>
@@ -1151,6 +1159,20 @@ function showToast(msg){
 
 /* ---------- Boot ---------- */
 render(DEMO, 'Demo dataset · 10 defect categories');
+</script>
+
+<script>
+document.addEventListener('change', function(e){
+  var el = e.target;
+  if (!el || el.id !== 'fileInput') return;
+  if (typeof gtag !== 'function') return;
+  var f = el.files && el.files[0];
+  gtag('event', 'tool_used', {
+    tool: document.title.split('|')[0].trim(),
+    file_type: f ? (f.name.split('.').pop() || '').toLowerCase() : 'unknown',
+    file_size_kb: f ? Math.round(f.size / 1024) : 0
+  });
+});
 </script>
 
 <footer class="site-foot">
