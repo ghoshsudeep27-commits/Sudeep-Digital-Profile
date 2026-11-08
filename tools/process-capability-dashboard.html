@@ -734,6 +734,9 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
 .hs-step__d{font-size:12.5px;line-height:1.55;color:#8b9bb4;margin:0}
 @media (max-width:720px){.hs-steps{gap:10px;margin-top:20px}.hs-step{padding:13px}}
 
+.hs-swipe{display:none;text-align:center;margin:8px 0 0;font-family:var(--font-mono);
+  font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:#8b9bb4}
+
 @media (max-width:760px){
   /* toolbar: let the buttons wrap instead of running off-screen */
   .upload-zone{flex-wrap:wrap !important; gap:9px !important; justify-content:flex-start !important}
@@ -747,7 +750,9 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
   .verdict-bar{flex-direction:column !important; align-items:flex-start !important; gap:12px !important}
   .verdict-detail{flex:1 1 100% !important; max-width:100% !important}
   /* charts get more vertical room */
-  #chartWrap{height:480px !important}
+  /* taller plot on a phone so the bars are not squashed */
+  #chartWrap{height:520px !important}
+
   /* tighten the intro so the tool is reachable sooner */
   .hs-intro{padding:22px 16px 2px !important}
   .hs-intro p{font-size:14.5px !important}
@@ -865,7 +870,8 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
   <div class="panel">
     <h2>Histogram & Normal Distribution</h2>
     <div class="sub">Frequency bars with fitted normal curve · LSL / USL / Target lines overlaid · spec window shaded.</div>
-    <div id="chartWrap"><canvas id="chart"></canvas></div>
+    <div id="chartWrap"><canvas id="chart"></canvas>
+      <p class="hs-swipe">Swipe the chart to see every category</p></div>
     <div class="legend">
       <span><i style="background:linear-gradient(180deg,#e070a0,#5b8def)"></i>Frequency</span>
       <span><i style="background:var(--cyan)"></i>Normal Curve</span>
