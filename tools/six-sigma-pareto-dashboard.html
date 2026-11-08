@@ -757,6 +757,24 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
   .brand h1{font-size:20px !important}
 }
 
+.hs-explain{position:relative;z-index:4;max-width:78ch;margin:34px auto 0;padding:0 4px}
+.hs-explain h2{font-family:'Space Grotesk',system-ui,sans-serif;font-size:20px;font-weight:600;
+  letter-spacing:-.3px;color:#f4f8ff;margin:30px 0 10px}
+.hs-explain h2:first-child{margin-top:0}
+.hs-explain h3{font-family:'Space Grotesk',system-ui,sans-serif;font-size:15.5px;font-weight:600;
+  color:#dbe6f5;margin:22px 0 8px}
+.hs-explain p{font-size:15px;line-height:1.72;color:#a8b8cc;margin:0 0 14px}
+.hs-explain p strong{color:#e4ecf5;font-weight:600}
+.hs-explain ul{margin:0 0 14px;padding-left:20px}
+.hs-explain li{font-size:15px;line-height:1.72;color:#a8b8cc;margin-bottom:7px}
+.hs-explain code{font-family:'JetBrains Mono',monospace;font-size:13px;color:#7fe0e0;
+  background:rgba(56,200,200,.09);padding:2px 6px;border-radius:5px}
+.hs-explain a{color:#5fd0d0;text-decoration:none;border-bottom:1px solid rgba(56,200,200,.35)}
+.hs-explain a:hover{color:#a8f0f0}
+.hs-explain .hs-explain__note{font-size:13.5px;color:#8b9bb4;border-left:2px solid rgba(56,200,200,.4);
+  padding-left:14px;margin:18px 0 0}
+@media (max-width:760px){.hs-explain h2{font-size:18px}.hs-explain p,.hs-explain li{font-size:14.5px;line-height:1.68}}
+
 </style>
 </head>
 <body>
@@ -1560,6 +1578,49 @@ document.addEventListener('click', function(e){
   setTimeout(paint, 400);
 })();
 </script>
+
+<div class="hs-explain">
+  <h2>What a Pareto chart actually shows</h2>
+  <p>A Pareto chart ranks causes from most to least frequent, then overlays a running total on a second axis.
+  The bars answer <strong>how often</strong> each defect occurs; the line answers <strong>how much of the problem
+  has been accounted for so far</strong>. The finding is never the tallest bar. It is where the line crosses
+  80 per cent, because that tells you how few causes are producing most of the loss. In a typical garment or
+  assembly defect sheet, four or five categories out of twenty carry 80 per cent of the rejects.</p>
+
+  <h2>Why the 80/20 rule works in defect analysis</h2>
+  <p>Joseph Juran named the principle after Vilfredo Pareto, who observed that a small share of causes produces a
+  large share of effects. Most processes behave this way: a long tail of rare causes, and a short head of common
+  ones. The practical consequence is that fixing the head changes the defect rate, while fixing the tail changes
+  the paperwork. This is why the Pareto is the first chart in the Measure phase of DMAIC — before you can improve
+  a process you have to know which few causes are worth the effort.</p>
+
+  <h3>Preparing your data</h3>
+  <p>Two columns are enough: a defect name and a count. Any number of categories works, and the order does not
+  matter because the dashboard sorts descending automatically. Three things break the analysis more often than
+  anything else — merged cells that swallow the header row, a subtotal row sitting inside the data range and
+  being counted as a category, and overlapping categories such as "stitching" and "stitching gap" recording the
+  same defect twice.</p>
+
+  <h2>How to read the result</h2>
+  <p>The categories that reach 80 per cent are the <strong>vital few</strong>; everything after them is the useful
+  many. Two readings matter more than the bar heights. First, how many categories you needed to reach 80 per cent:
+  if three of twelve do it, you have a dominant cause worth attacking. Second, whether the line is steep or flat:
+  a flat line means no single cause dominates, which is itself a finding, because it points to a system problem
+  rather than a defect problem.</p>
+
+  <h2>Where a Pareto analysis stops</h2>
+  <p>A Pareto counts frequency, not consequence. A rare defect that causes a customer return or a recall outranks
+  a common one that causes a re-stitch, and the chart cannot know that. When the decision carries money or safety,
+  weight the categories by cost, scrap value or risk before choosing where to act. The chart also assumes your
+  categories are mutually exclusive and recorded consistently — if two supervisors classify the same defect
+  differently, the ranking is measuring their habits as much as the process.</p>
+
+  <h2>Pareto analysis in Six Sigma training</h2>
+  <p>This dashboard is the tool used in the <a href="../six-sigma-ai-training.html">Six Sigma + AI workshops</a>
+  run for manufacturing, clinical and operations teams across Delhi NCR and India. Participants bring their own
+  defect data and leave with a ranked list rather than a worked example from a textbook.</p>
+</div>
+
 <script>
 document.addEventListener('change', function(e){
   var el = e.target;
