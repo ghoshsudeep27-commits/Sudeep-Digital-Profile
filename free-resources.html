@@ -312,6 +312,45 @@ body:has(.tools-banner.show) .back-top { bottom: 72px; }
   ]
 }
 </script>
+
+<style>
+.hs-tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin:0 0 30px}
+.hs-tool{
+  position:relative;display:flex;flex-direction:column;text-decoration:none;
+  padding:22px 24px 20px;border-radius:14px;border:1px solid var(--border);
+  background:var(--surface);overflow:hidden;
+  transition:transform .22s cubic-bezier(.2,.7,.3,1),border-color .22s ease,box-shadow .22s ease;
+}
+.hs-tool::before{
+  content:'';position:absolute;left:0;right:0;top:0;height:3px;
+  background:var(--hs-accent,#0e7373);opacity:.9;transform:scaleX(0);transform-origin:left;
+  transition:transform .28s cubic-bezier(.2,.7,.3,1);
+}
+.hs-tool:hover{transform:translateY(-4px);border-color:var(--hs-accent,#0e7373);
+  box-shadow:0 12px 28px rgba(13,21,32,.12)}
+.hs-tool:hover::before{transform:scaleX(1)}
+.hs-tool__icon{
+  display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;
+  border-radius:10px;margin-bottom:14px;transition:transform .22s ease;
+}
+.hs-tool__icon svg{width:19px;height:19px}
+.hs-tool:hover .hs-tool__icon{transform:translateY(-2px) scale(1.04)}
+.hs-tool__kicker{font-family:var(--font-mono);font-size:10px;letter-spacing:1.8px;text-transform:uppercase}
+.hs-tool__title{display:block;margin:8px 0 8px;font-size:19px;font-weight:600;color:var(--text-bright);letter-spacing:-.2px}
+.hs-tool__text{display:block;font-size:14px;line-height:1.6;color:var(--text-dim)}
+.hs-tool__row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.hs-tool__cta{
+  display:inline-flex;align-items:center;gap:7px;color:#fff;font-family:var(--font-mono);
+  font-size:11px;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;
+  padding:10px 16px;border-radius:999px;transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;
+}
+.hs-tool:hover .hs-tool__cta{transform:translateX(2px);box-shadow:0 6px 16px rgba(13,21,32,.22);filter:brightness(1.06)}
+.hs-tool__free{font-family:var(--font-mono);font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:var(--text-dim);opacity:.85}
+@media (prefers-reduced-motion: reduce){
+  .hs-tool,.hs-tool::before,.hs-tool__icon,.hs-tool__cta{transition:none}
+  .hs-tool:hover{transform:none}
+}
+</style>
 </head>
 <body>
 <!-- ===== Scroll Progress Bar ===== -->
@@ -381,24 +420,32 @@ body:has(.tools-banner.show) .back-top { bottom: 72px; }
       </div>
     </div>
 
-        <div class="sec-head">
+            <div class="sec-head">
       <span class="sec-head__num">02</span>
       <h2 class="sec-head__title">Interactive tools from the sessions</h2>
       <div class="sec-head__line"></div>
       <span class="sec-head__tag">Try them</span>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:0 0 30px">
-      <a href="tools/six-sigma-pareto-dashboard.html" style="display:block;text-decoration:none;padding:22px 24px;border-radius:14px;border:1px solid var(--border);background:var(--surface)">
-        <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--accent)">Quality tool</div>
-        <h3 style="margin:10px 0 8px;font-size:19px;color:var(--text-bright)">Pareto analysis dashboard</h3>
-        <p style="margin:0;font-size:14px;line-height:1.6;color:var(--text-dim)">Upload defect data and get the 80/20 vital few, the cumulative curve and where the threshold actually falls.</p>
-        <span style="display:inline-block;margin-top:14px;font-family:var(--font-mono);font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent)">Open the tool &rarr;</span>
+    <div class="hs-tools">
+      <a class="hs-tool" style="--hs-accent:#0e7373" href="tools/six-sigma-pareto-dashboard.html">
+        <span class="hs-tool__icon" style="color:#0e7373;background:rgba(14,115,115,.10)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+        <span class="hs-tool__kicker" style="color:#0e7373">Quality tool</span>
+        <span class="hs-tool__title">Pareto analysis dashboard</span>
+        <span class="hs-tool__text">Upload defect data and get the 80/20 vital few, the cumulative curve and where the threshold actually falls.</span>
+        <span class="hs-tool__row">
+          <span class="hs-tool__cta" style="background:#0e7373">Open the tool &rarr;</span>
+          <span class="hs-tool__free">Free &middot; no signup</span>
+        </span>
       </a>
-      <a href="tools/process-capability-dashboard.html" style="display:block;text-decoration:none;padding:22px 24px;border-radius:14px;border:1px solid var(--border);background:var(--surface)">
-        <div style="font-family:var(--font-mono);font-size:10.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--accent)">Quality tool</div>
-        <h3 style="margin:10px 0 8px;font-size:19px;color:var(--text-bright)">Process capability calculator</h3>
-        <p style="margin:0;font-size:14px;line-height:1.6;color:var(--text-dim)">Cp, Cpk, PPM and yield from your process data, with a plain-language read on whether it is capable.</p>
-        <span style="display:inline-block;margin-top:14px;font-family:var(--font-mono);font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--accent)">Open the tool &rarr;</span>
+      <a class="hs-tool" style="--hs-accent:#8a6516" href="tools/process-capability-dashboard.html">
+        <span class="hs-tool__icon" style="color:#8a6516;background:rgba(138,101,22,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 17a9 9 0 1 1 17 0"/><path d="M12 17l4.2-5"/><circle cx="12" cy="17" r="1.6"/></svg></span>
+        <span class="hs-tool__kicker" style="color:#8a6516">Quality tool</span>
+        <span class="hs-tool__title">Process capability calculator</span>
+        <span class="hs-tool__text">Cp, Cpk, PPM and yield from your process data, with a plain-language read on whether it is capable.</span>
+        <span class="hs-tool__row">
+          <span class="hs-tool__cta" style="background:#8a6516">Open the tool &rarr;</span>
+          <span class="hs-tool__free">Free &middot; no signup</span>
+        </span>
       </a>
     </div>
 
