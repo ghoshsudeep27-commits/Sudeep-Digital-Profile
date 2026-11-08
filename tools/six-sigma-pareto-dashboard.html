@@ -348,6 +348,18 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
 }
 </style>
 <style>
+/* --- responsive nav for the tool pages --- */
+@media (max-width:900px){
+  .top-nav{position:relative;flex-wrap:nowrap}
+  .top-nav__toggle{display:flex !important}
+  .top-nav__links{display:none !important;position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;background:rgba(10,14,26,.985);
+    border-bottom:1px solid rgba(120,200,220,.22);padding:8px 16px 12px;z-index:400;
+    box-shadow:0 18px 40px rgba(0,0,0,.45)}
+  .top-nav__links.mobile-open{display:flex !important}
+  .top-nav__links .nav-link{padding:12px 4px;border-bottom:1px solid rgba(120,200,220,.08)}
+}
+@media (min-width:901px){.top-nav__toggle{display:none !important}}
 :root{--bg:#0a0e1a;--bg-2:#0d1220;--surface:#111726;--border:rgba(120,200,220,.10);--border-bright:rgba(120,200,220,.22);--text:#e4ecf5;--text-dim:#a8b8cc;--text-bright:#f4f8ff;--accent:#38c8c8;--accent-2:#d4a73a;--accent-3:#5b8def;--font-body:'Space Grotesk',sans-serif;--font-mono:'JetBrains Mono',monospace;--font-display:'Instrument Serif',Georgia,serif}
 /* Keep hero always rendered for above-the-fold performance */
 .hero, .hero *, .clock-bar, .scroll-progress{
@@ -1133,38 +1145,6 @@ render(DEMO, 'Demo dataset · 10 defect categories');
       <div class="site-foot__pulse"><span class="dot"></span> Open to Collaborations</div>
     </footer>
 <!-- ===== Mobile TOC FAB + Drawer Backdrop ===== -->
-<button class="toc-fab" id="tocFab" aria-label="Open section navigation">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-  </svg>
-  <span class="toc-fab__label">Explore more</span>
-  <span class="toc-fab__badge" id="tocFabBadge">01</span>
-</button>
-<div class="toc-backdrop" id="tocBackdrop"></div>
-
-<!-- ===== FAB Section Drawer (ALL 14 sections) ===== -->
-<div class="section-drawer" id="sectionDrawer">
-  <a class="section-drawer__brand" href="../index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:10px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border);">
-    <span class="brand-badge brand-badge--drawer"><img src="../images/logo-mark.png" alt="Human Skills by Sudeep Ghosh" width="36" height="36"></span>
-    <div class="toc-brand__name">Human Skills by Sudeep Ghosh<span>Trainer · Coach</span></div>
-  </a>
-  <div class="section-drawer__title">All Sections</div>
-      <a href="../index.html#s1" data-section="s1" data-cross-page="1"><span class="num">01</span> Overview</a>
-      <a href="../index.html#s2" data-section="s2" data-cross-page="1"><span class="num">02</span> Mission</a>
-      <a href="../index.html#s3" data-section="s3" data-cross-page="1"><span class="num">03</span> Training Topics</a>
-      <a href="../index.html#s4" data-section="s4" data-cross-page="1"><span class="num">04</span> Certificate</a>
-      <a href="../index.html#s5" data-section="s5" data-cross-page="1"><span class="num">05</span> Photo Gallery</a>
-      <a href="../proof.html#s6" data-section="s6" data-cross-page="1"><span class="num">06</span> Press & Media</a>
-      <a href="../proof.html#s7" data-section="s7" data-cross-page="1"><span class="num">07</span> Testimonials</a>
-      <a href="../proof.html#s8" data-section="s8" data-cross-page="1"><span class="num">08</span> Experience</a>
-      <a href="../proof.html#s9" data-section="s9" data-cross-page="1"><span class="num">09</span> Credentials</a>
-      <a href="../training.html#s10" data-section="s10" data-cross-page="1"><span class="num">10</span> Training & Dev</a>
-      <a href="#s11" class="toc-faq" data-section="s11"><span class="num">11</span> FAQ <span class="new-badge">NEW</span></a>
-      <a href="../contact.html#s12" data-section="s12" data-cross-page="1"><span class="num">12</span> Connect</a>
-      <a href="../free-resources.html#s13" data-section="s13" data-cross-page="1"><span class="num">13</span> Sigma Tools <span class="new-badge">NEW</span></a>
-      <a href="../free-resources.html#s14" data-section="s14" data-cross-page="1"><span class="num">14</span> Prompt Library <span class="new-badge">NEW</span></a>
-  <div class="toc-foot"><span class="dot"></span>Available for Training</div>
-</div>
 <!-- ===== Back to Top ===== -->
 <button class="back-top" id="backTop" aria-label="Back to top">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
