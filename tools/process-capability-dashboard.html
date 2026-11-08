@@ -795,6 +795,24 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
   .brand h1{font-size:20px !important}
 }
 
+.hs-explain{position:relative;z-index:4;max-width:78ch;margin:34px auto 0;padding:0 4px}
+.hs-explain h2{font-family:'Space Grotesk',system-ui,sans-serif;font-size:20px;font-weight:600;
+  letter-spacing:-.3px;color:#f4f8ff;margin:30px 0 10px}
+.hs-explain h2:first-child{margin-top:0}
+.hs-explain h3{font-family:'Space Grotesk',system-ui,sans-serif;font-size:15.5px;font-weight:600;
+  color:#dbe6f5;margin:22px 0 8px}
+.hs-explain p{font-size:15px;line-height:1.72;color:#a8b8cc;margin:0 0 14px}
+.hs-explain p strong{color:#e4ecf5;font-weight:600}
+.hs-explain ul{margin:0 0 14px;padding-left:20px}
+.hs-explain li{font-size:15px;line-height:1.72;color:#a8b8cc;margin-bottom:7px}
+.hs-explain code{font-family:'JetBrains Mono',monospace;font-size:13px;color:#7fe0e0;
+  background:rgba(56,200,200,.09);padding:2px 6px;border-radius:5px}
+.hs-explain a{color:#5fd0d0;text-decoration:none;border-bottom:1px solid rgba(56,200,200,.35)}
+.hs-explain a:hover{color:#a8f0f0}
+.hs-explain .hs-explain__note{font-size:13.5px;color:#8b9bb4;border-left:2px solid rgba(56,200,200,.4);
+  padding-left:14px;margin:18px 0 0}
+@media (max-width:760px){.hs-explain h2{font-size:18px}.hs-explain p,.hs-explain li{font-size:14.5px;line-height:1.68}}
+
 </style>
 </head>
 <body>
@@ -2003,6 +2021,56 @@ document.addEventListener('click', function(e){
   setTimeout(paint, 400);
 })();
 </script>
+
+<div class="hs-explain">
+  <h2>What Cpk actually measures</h2>
+  <p>Cpk compares the spread of a process with the width of its specification, after allowing for how far the
+  process mean sits from the centre. A process can be perfectly consistent and still fail, because it is
+  consistent in the wrong place — that is the case Cpk catches and a simple average never will. It is expressed
+  as a single number, and it is the number most customers and drawing notes actually ask for.</p>
+
+  <h3>How Cpk is calculated</h3>
+  <p>Two indices sit behind every capability report. <strong>Cp</strong> is the specification width divided by
+  six standard deviations, <code>Cp = (USL - LSL) / 6&sigma;</code>. It tells you what the process could achieve
+  if it were perfectly centred. <strong>Cpk</strong> is the distance from the mean to the nearer specification
+  limit, divided by three standard deviations,
+  <code>Cpk = min[(USL - &mu;) / 3&sigma;, (&mu; - LSL) / 3&sigma;]</code>. Where &mu; is the process mean,
+  &sigma; its standard deviation, USL the upper specification limit and LSL the lower.</p>
+
+  <h2>Cp versus Cpk, and why the gap matters</h2>
+  <p>Cp is potential; Cpk is reality. When the two numbers are close, the process is centred and the only lever
+  is spread. When Cpk is much lower than Cp, the spread is acceptable but the process is running off-centre, and
+  the cheapest improvement is usually to move the mean rather than to reduce variation. A Cp of 1.60 with a Cpk
+  of 0.95 describes a capable process being run badly.</p>
+
+  <h2>What counts as a good Cpk</h2>
+  <p>1.33 is the common benchmark for an existing process, and 1.67 is generally treated as world class. Below
+  1.00 the process is producing defects outside specification and improvement is not optional. These bands are
+  conventions rather than laws — a safety-critical characteristic often demands more, and a cosmetic one may
+  tolerate less — so the specification and the customer decide, not the tool.</p>
+
+  <h2>How many measurements you need</h2>
+  <p>Thirty is the usual floor for a Cpk you can defend in a meeting; below that the number swings wildly from a
+  handful of readings. The dashboard will calculate from five, and it says plainly when the sample is too small,
+  because a Cpk quoted from six measurements has caused more bad decisions than almost any other statistic in
+  quality. Where the data allows it, a hundred or more readings gives an estimate stable enough to track over
+  months.</p>
+
+  <h2>Capability needs a stable process first</h2>
+  <p>Every capability index assumes the process is in statistical control — that its variation comes from common
+  causes rather than a drifting machine, a new operator or a changed raw material. Calculating Cpk on an unstable
+  process produces a number that describes the moment it was calculated and nothing more. The order is always
+  control chart first, capability second. This dashboard does not draw a control chart, and it cannot know whether
+  your process was stable when the readings were taken.</p>
+
+  <h2>Where capability analysis is used</h2>
+  <p>Manufacturing uses it to qualify a process before handover and to monitor it afterwards; clinical and
+  laboratory teams use it for turnaround times and measurement precision; service operations use it for
+  response times against a promised window. It is taught in the
+  <a href="../six-sigma-ai-training.html">Six Sigma + AI workshops</a> run across Delhi NCR and India, always on
+  the team's own data rather than a sample dataset.</p>
+</div>
+
 <script>
 document.addEventListener('change', function(e){
   var el = e.target;
