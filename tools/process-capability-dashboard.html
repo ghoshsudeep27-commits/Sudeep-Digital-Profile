@@ -385,22 +385,201 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
   .hs-cta{margin:28px 16px 40px;padding:18px}
 }
 </style>
+<style>
+:root{--bg:#0a0e1a;--bg-2:#0d1220;--surface:#111726;--border:rgba(120,200,220,.10);--border-bright:rgba(120,200,220,.22);--text:#e4ecf5;--text-dim:#a8b8cc;--text-bright:#f4f8ff;--accent:#38c8c8;--accent-2:#d4a73a;--accent-3:#5b8def;--font-body:'Space Grotesk',sans-serif;--font-mono:'JetBrains Mono',monospace;--font-display:'Instrument Serif',Georgia,serif}
+/* Keep hero always rendered for above-the-fold performance */
+.hero, .hero *, .clock-bar, .scroll-progress{
+  content-visibility: visible;
+}
+/* ===== Scroll Progress Bar ===== */
+.scroll-progress{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  z-index: 1200;
+  box-shadow: 0 0 8px rgba(56, 200, 200, 0.5), 0 0 2px rgba(212, 167, 58, 0.4);
+  transition: width 0.05s linear;
+  border-radius: 0 2px 2px 0;
+}
+/* ===== Animated background shimmer (whole page) ===== */
+.shimmer-bg{ position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
+.shimmer-bg::before, .shimmer-bg::after{ content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: linear-gradient(115deg, transparent 38%, rgba(56,200,200,0.06) 46%, rgba(212,167,58,0.045) 50%, rgba(91,141,239,0.05) 54%, transparent 62%);
+  background-size: 300% 300%; animation: shimmerDrift 16s linear infinite; }
+.shimmer-bg::after{ animation-duration: 22s; animation-direction: reverse; opacity: 0.7; }
+/* ===== Footer ===== */
+.site-foot{
+  margin-top: 64px; padding: 28px 0 0; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.site-foot__text{ font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; }
+.site-foot__pulse{ display: flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; }
+.site-foot__pulse .dot{ width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: blink 2.4s ease-in-out infinite; }
+}
+
+
+/* ===== Live Clock Bar ===== */
+.clock-bar{
+  position: sticky; top: 0; z-index: 300;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 8px 20px;
+  background: rgba(10,14,26,0.85);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: 13px;
+  color: var(--text-bright); letter-spacing: 1px;
+  white-space: nowrap; overflow: hidden;
+}
+.clock-bar__sep{ color: var(--text-dim); opacity: 0.5; }
+.clock-bar__day{ color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 0 1 auto; }
+.clock-bar__date{ color: var(--text); }
+.clock-bar__time{ color: var(--accent-2); font-weight: 600; }
+.clock-bar__tz{ color: var(--text-dim); font-size: 13px; }
+.clock-bar__email{ color: var(--accent-2); font-weight: 600; text-decoration: none; letter-spacing: .2px; flex: 0 0 auto; }
+.clock-bar__email:hover{ text-decoration: underline; }
+
+@media (max-width: 700px) { .clock-bar__email--alt, .clock-bar__sep--alt { display: none; } }
+
+@media (max-width: 600px) {
+  .clock-bar { font-size: 11px; gap: 6px; padding: 7px 12px; }
+  .clock-bar__day { font-size: 10px; }
+  .clock-bar__tz { display: none; }
+}
+/* ===== Top Navigation Bar ===== */
+.top-nav{
+  position: sticky; top: 0; z-index: 300;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 22px;
+  background: rgba(10,14,26,0.95);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.top-nav__brand{ display: flex; align-items: center; gap: 10px; }
+.top-nav__mark{
+  width: 34px; height: 34px; border-radius: 9px;
+  background: linear-gradient(135deg, rgba(56,200,200,0.18), rgba(91,141,239,0.12));
+  border: 1px solid var(--border-glow);
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-size: 19px; color: var(--accent);
+  box-shadow: var(--glow-teal);
+}
+.top-nav__name{ font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 1px; color: var(--text); line-height: 1.25; }
+.top-nav__name span{ display:block; color: var(--text-dim); font-weight: 400; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+.top-nav__links{ display: flex; align-items: center; gap: 4px; }
+.nav-link{
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  color: var(--text-dim); text-decoration: none;
+  padding: 8px 14px; border-radius: 8px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.18s, background 0.18s, border-color 0.18s;
+}
+.nav-num{ font-family: var(--font-mono); font-size: 10px; color: var(--accent); opacity: 0.7; }
+.nav-link:hover{ color: var(--text); background: var(--surface); }
+.nav-link.active{ color: var(--text-bright); border-bottom-color: var(--accent); background: rgba(56,200,200,0.06); }
+.top-nav__toggle{ display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+.top-nav__toggle span{ width: 24px; height: 2px; background: var(--accent); border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
+.top-nav__toggle{ display: flex; }
+.top-nav__links.mobile-open{
+    display: flex; flex-direction: column;
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--bg-2); border-bottom: 1px solid var(--border);
+    padding: 12px; gap: 4px;
+  }
+.top-nav__toggle.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.top-nav__toggle.open span:nth-child(2){ opacity: 0; }
+.top-nav__toggle.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+.brand-badge{display:grid;place-items:center;border-radius:10px;background:#f4f7f8;overflow:hidden;box-shadow:0 0 0 1px rgba(56,200,200,.35), 0 0 14px rgba(56,200,200,.22);transition:transform .3s ease, box-shadow .3s ease;}
+.brand-badge{display:grid;place-items:center;border-radius:10px;background:#f4f7f8;overflow:hidden;box-shadow:0 0 0 1px rgba(56,200,200,.35), 0 0 14px rgba(56,200,200,.22);transition:transform .3s ease, box-shadow .3s ease;}
+}
+.top-nav__brand:hover .brand-svg, .section-drawer__brand:hover .brand-svg{ transform: scale(1.12) rotate(5deg); animation: brandSvgGlow 1s ease-in-out infinite; }
+.brand-badge--nav{width:34px;height:34px;}
+.brand-badge--nav img{width:30px;height:30px;display:block;}
+.brand-badge--drawer{width:40px;height:40px;}
+.brand-badge--drawer img{width:36px;height:36px;display:block;}
+.top-nav__brand:hover .brand-badge, .section-drawer__brand:hover .brand-badge{transform:scale(1.08) rotate(4deg);box-shadow:0 0 0 1px rgba(56,200,200,.55), 0 0 20px rgba(56,200,200,.35);}
+.top-nav__mark, .toc-brand__mark{ display: none !important; }
+/* footer link (dark footer, all pages) */
+.site-foot__resume{
+  font-family: var(--font-mono); font-size: 12px; color: var(--accent);
+  letter-spacing: 1px; text-transform: uppercase; text-decoration: none;
+  border-bottom: 1px dashed rgba(56,200,200,.4); padding-bottom: 2px;
+  transition: color .2s, border-color .2s;
+}
+.site-foot__downloads{ display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.site-foot__dl{
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .8px;
+  text-transform: uppercase; text-decoration: none; white-space: nowrap;
+  color: #0a0e1a; background: linear-gradient(135deg, #e8c558, #d4a73a);
+  padding: 9px 16px; border-radius: 7px;
+  box-shadow: 0 3px 14px rgba(212,167,58,.3);
+  transition: transform .15s, box-shadow .15s;
+}
+.site-foot__dl:hover{ transform: translateY(-2px); box-shadow: 0 6px 22px rgba(212,167,58,.5); color: #0a0e1a; }
+
+@media (max-width: 640px) { .site-foot__dl { font-size: 10px; padding: 7px 12px; } }
+.site-foot__resume:hover{ color: var(--text-bright); border-bottom-color: var(--text-bright); }
+/* Footer privacy button — clearly visible on every page */
+.site-foot__privacy{
+  display: inline-flex; align-items: center; gap: 8px; margin-left: auto;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .8px;
+  text-transform: uppercase; text-decoration: none; white-space: nowrap;
+  color: #0a0e1a; background: linear-gradient(135deg, #4fd6d6, #2bb6b6);
+  padding: 9px 16px; border-radius: 7px;
+  box-shadow: 0 3px 14px rgba(56,200,200,.35);
+  transition: transform .15s, box-shadow .15s;
+}
+.site-foot__privacy:hover{ transform: translateY(-2px); box-shadow: 0 6px 22px rgba(56,200,200,.55); color: #0a0e1a; }
+.site-foot__privacy svg{ width: 13px; height: 13px; flex: none; }
+
+@media (max-width: 640px) { .site-foot__privacy { font-size: 10px; padding: 7px 12px; } }
+/* ===== Blog ===== */
+.nav-link--hot{ position: relative; color: var(--accent) !important; border: 1px solid rgba(56,200,200,.45);
+  border-radius: 999px; padding: 6px 13px !important; animation: hotPulse 2.8s ease-in-out infinite; }
+.nav-link--hot .nav-num{ color: var(--accent-2) !important; }
+/* Footer privacy link - was rendering as a browser-default blue link */
+.site-foot__text a{ color: var(--text-dim); text-decoration: none; }
+.site-foot__text a:hover{ color: var(--accent); }
+</style>
 </head>
 <body>
-<div class="hs-bar">
-  <div class="hs-id">
-    <div class="hs-mark"><div class="hs-mark__img" role="img" aria-label="Human Skills by Sudeep Ghosh"></div></div>
-    <div class="hs-txt">
-      <div class="hs-name">Human Skills by Sudeep Ghosh</div>
-      <div class="hs-role">AI &amp; Human Skills Trainer</div>
-    </div>
-  </div>
-  <div class="hs-contact">
-    <a class="hs-chip" href="tel:+917698709916"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 2 2 0 0 1-.1-2.9l1.3-1.3a2 2 0 0 1 2.1-.4 12.8 12.8 0 0 0 3.8.9 2 2 0 0 1 1.8 2z"/></svg>+91 76987 09916</a>
-    <a class="hs-chip" href="mailto:info@humanskills.in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>info@humanskills.in</a>
-    <a class="hs-chip" href="https://humanskills.in" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"/></svg>humanskills.in</a>
-  </div>
+
+<!-- ===== Scroll Progress Bar ===== -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<div class="shimmer-bg" aria-hidden="true"></div>
+
+<!-- ===== Live Clock Bar ===== -->
+<div class="clock-bar" id="contactBar">
+  <span class="clock-bar__day">Human Skills by Sudeep Ghosh</span>
+  <span class="clock-bar__sep">|</span>
+  <a class="clock-bar__email" href="mailto:info@humanskills.in">info@humanskills.in</a>
+  <span class="clock-bar__sep clock-bar__sep--alt">|</span>
+  <a class="clock-bar__email clock-bar__email--alt" href="mailto:training@humanskills.in">training@humanskills.in</a>
 </div>
+
+<!-- ===== Top Navigation Bar ===== -->
+<nav class="top-nav" id="topNav">
+  <a class="top-nav__brand" href="../index.html" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:10px;">
+    <span class="brand-badge brand-badge--nav"><img src="../images/logo-mark.png" alt="Human Skills by Sudeep Ghosh" width="30" height="30"></span>
+    <div class="top-nav__name">Human Skills by Sudeep Ghosh<span>Trainer · Coach</span></div>
+  </a>
+  <div class="top-nav__links">
+    <a href="../index.html" class="nav-link"><span class="nav-num">01</span> About</a>
+    <a href="../proof.html" class="nav-link"><span class="nav-num">02</span> Testimonials &amp; Credentials</a>
+    <a href="../training.html" class="nav-link"><span class="nav-num">03</span> Training Record</a>
+    <a href="../faq.html" class="nav-link"><span class="nav-num">04</span> FAQ</a>
+    <a href="../free-resources.html" class="nav-link active"><span class="nav-num">05</span> Resources</a>
+    <a href="../contact.html" class="nav-link"><span class="nav-num">06</span> Contact</a>
+        <a href="blog.html" class="nav-link nav-link--hot"><span class="nav-num">07</span> Insights</a>
+  </div>
+  <button class="top-nav__toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 <div class="wrap">
 <div class="hs-intro">
   <h1>Process capability, <em>calculated instantly</em></h1>
@@ -1265,15 +1444,17 @@ function render(D, note){
 
 render(CURRENT, 'Demo data loaded — 100 measurements');
 </script>
-<div class="hs-cta">
-  <div>
-    <div class="hs-cta__t">Want this taught to your team?</div>
-    <div class="hs-cta__s">Six Sigma + AI workshops for quality, manufacturing and clinical teams — on-site in Delhi NCR or online.</div>
-  </div>
-  <div class="hs-cta__links">
-    <a href="../six-sigma-ai-training.html">See the workshop</a>
-    <a class="ghost" href="../contact.html">Get in touch</a>
-  </div>
-</div>
+
+<footer class="site-foot">
+      <h2 class="site-foot__text" style="margin:0 0 4px">Human Skills by Sudeep Ghosh</h2>
+      <div class="site-foot__text">© 2026. All rights reserved.</div>
+      <div class="site-foot__downloads">
+      <a class="site-foot__dl" href="../index.html#resume-download" onclick="if(window.gtag)gtag('event','resume_cta',{cta_placement:'footer'});">Executive Resume (PDF)</a>
+      <a class="site-foot__dl" href="../proof.html#sampler-download" onclick="if(window.gtag)gtag('event','sampler_cta',{cta_placement:'footer'});">Workshop Curriculum Sampler</a>
+      <a class="site-foot__dl" href="../index.html#checklist-download" onclick="if(window.gtag)gtag('event','checklist_cta',{cta_placement:'footer'});">AI-Readiness Checklist</a>
+    </div>
+      <a class="site-foot__privacy" href="../privacy.html" aria-label="Read our Privacy Policy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>Privacy Policy</a>
+      <div class="site-foot__pulse"><span class="dot"></span> Open to Collaborations</div>
+    </footer>
 </body>
 </html>
