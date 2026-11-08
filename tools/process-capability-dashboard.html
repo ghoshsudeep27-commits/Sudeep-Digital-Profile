@@ -723,6 +723,17 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
 /* Footer privacy link - was rendering as a browser-default blue link */
 .site-foot__text a{ color: var(--text-dim); text-decoration: none; }
 .site-foot__text a:hover{ color: var(--accent); }
+.hs-steps{position:relative;z-index:4;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:14px;max-width:1000px;margin:26px 0 0}
+.hs-step{padding:16px 16px 15px;border-radius:12px;
+  border:1px solid rgba(120,200,220,.16);background:rgba(17,23,38,.55)}
+.hs-step__n{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;
+  border-radius:50%;background:rgba(56,200,200,.14);border:1px solid rgba(56,200,200,.45);
+  color:#7fe0e0;font-family:var(--font-mono);font-size:11px;font-weight:700;margin-bottom:10px}
+.hs-step__t{font-size:14px;font-weight:600;color:#e4ecf5;margin:0 0 5px;letter-spacing:-.1px}
+.hs-step__d{font-size:12.5px;line-height:1.55;color:#8b9bb4;margin:0}
+@media (max-width:720px){.hs-steps{gap:10px;margin-top:20px}.hs-step{padding:13px}}
+
 </style>
 </head>
 <body>
@@ -770,6 +781,13 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
     <strong>Your data stays on your device.</strong> The file you upload is read and calculated in your browser only &mdash; it is never sent to a server, never stored, and never seen by me. Close the tab and it is gone. I count page views with Google Analytics, never your data.
     <span class="hs-note__sub">Results depend on the data you enter. This is a teaching tool, not a substitute for your validated quality software or your quality system&rsquo;s records. Below about 30 measurements, treat Cpk as indicative rather than a verdict — small samples swing widely, and a handful of readings can look capable or hopeless by chance.</span>
   </div>
+</div>
+
+  <div class="hs-steps">
+  <div class="hs-step"><div class="hs-step__n">1</div><div class="hs-step__t">Upload your measurements</div><p class="hs-step__d">Spec limits come from your sheet, or type them in on the page.</p></div>
+  <div class="hs-step"><div class="hs-step__n">2</div><div class="hs-step__t">Check the sample</div><p class="hs-step__d">n and the LSL / USL shown should match what you entered.</p></div>
+  <div class="hs-step"><div class="hs-step__n">3</div><div class="hs-step__t">Read the Cpk</div><p class="hs-step__d">1.33 or above is capable; below 1.00 the process is not.</p></div>
+  <div class="hs-step"><div class="hs-step__n">4</div><div class="hs-step__t">Take it away</div><p class="hs-step__d">Download the CSV summary, or the chart as a PNG.</p></div>
 </div>
 
   <a class="hs-back" href="../free-resources.html">&larr; Back to free resources</a>
