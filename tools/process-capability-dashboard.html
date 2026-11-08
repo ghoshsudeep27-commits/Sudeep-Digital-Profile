@@ -1656,6 +1656,10 @@ render(CURRENT, 'Demo data loaded — 100 measurements');
 
 
 
+
+
+
+
 <script>
 /* ===== Export helpers: branded CSV + watermarked PNG, all client-side ===== */
 (function(){
@@ -1705,7 +1709,7 @@ render(CURRENT, 'Demo data loaded — 100 measurements');
   window.hsExportPNG = function(canvasId, name){
     var c = document.getElementById(canvasId) || document.querySelector('canvas');
     if (!c) return;
-    var STRIP = Math.round(c.width * 0.075);          // footer band height, scales with resolution
+    var STRIP = Math.round(c.width * 0.095);          // footer band height, scales with resolution
     var out = document.createElement('canvas');
     out.width = c.width;
     out.height = c.height + STRIP;
@@ -1716,48 +1720,88 @@ render(CURRENT, 'Demo data loaded — 100 measurements');
     x.fillRect(0, 0, out.width, c.height);
     x.drawImage(c, 0, 0);
 
-    // ---- branded footer strip ----
+    // ---- branded footer strip with pills ----
     var y0 = c.height;
     x.fillStyle = '#0d1220';
     x.fillRect(0, y0, out.width, STRIP);
     x.fillStyle = '#38c8c8';
-    x.fillRect(0, y0, out.width, Math.max(2, Math.round(STRIP * 0.035)));
+    x.fillRect(0, y0, out.width, Math.max(2, Math.round(STRIP * 0.03)));
 
-    var scale = out.width / 1200;                      // keep proportions at any resolution
+    var scale = out.width / 1200;
     var pad = Math.round(26 * scale);
     var cy = y0 + STRIP / 2;
-    var textX = pad;
 
+    function roundRect(cx, ry, w, h, r){
+      cx.beginPath();
+      cx.moveTo(ry + r, ry === 0 ? 0 : 0);
+      cx.closePath();
+      cx.beginPath();
+      cx.moveTo(ry, ry);                       // placeholder, replaced below
+      cx.closePath();
+    }
+    function pill(cx, px, py, w, h, fill){
+      var r = h / 2;
+      cx.beginPath();
+      cx.moveTo(px + r, py);
+      cx.lineTo(px + w - r, py);
+      cx.quadraticCurveTo(px + w, py, px + w, py + r);
+      cx.lineTo(px + w, py + h - r);
+      cx.quadraticCurveTo(px + w, py + h, px + w - r, py + h);
+      cx.lineTo(px + r, py + h);
+      cx.quadraticCurveTo(px, py + h, px, py + h - r);
+      cx.lineTo(px, py + r);
+      cx.quadraticCurveTo(px, py, px + r, py);
+      cx.closePath();
+      cx.fillStyle = fill;
+      cx.fill();
+    }
+
+    var logoSize = Math.round(STRIP * 0.56);
+    var textX = pad;
     try {
       if (logo.complete && logo.naturalWidth) {
-        var d = Math.round(STRIP * 0.62);
-        var ly = cy - d / 2;
         x.save();
         x.beginPath();
-        x.arc(pad + d / 2, cy, d / 2, 0, Math.PI * 2);
+        x.arc(pad + logoSize / 2, cy, logoSize / 2, 0, Math.PI * 2);
         x.closePath();
         x.clip();
-        x.drawImage(logo, pad, ly, d, d);
+        x.drawImage(logo, pad, cy - logoSize / 2, logoSize, logoSize);
         x.restore();
-        textX = pad + d + Math.round(14 * scale);
+        textX = pad + logoSize + Math.round(14 * scale);
       }
-    } catch (err) { /* logo failed: keep the text-only footer */ }
+    } catch (err) { /* logo failed: keep the text footer */ }
 
-    x.textBaseline = 'alphabetic';
-    x.fillStyle = '#f4f8ff';
-    x.font = '600 ' + Math.round(15 * scale) + 'px "Space Grotesk", system-ui, sans-serif';
-    x.fillText(BRAND.name, textX, cy - Math.round(3 * scale));
-
-    x.fillStyle = '#a8b8cc';
-    x.font = Math.round(11.5 * scale) + 'px "JetBrains Mono", ui-monospace, monospace';
-    x.fillText(BRAND.siteShort + '  ·  ' + BRAND.phone + '  ·  ' + BRAND.email,
-               textX, cy + Math.round(15 * scale));
-
-    x.textAlign = 'right';
-    x.fillStyle = '#8b9bb4';
-    x.font = Math.round(11 * scale) + 'px "JetBrains Mono", ui-monospace, monospace';
-    x.fillText('Downloaded ' + hsStamp(), out.width - pad, cy + Math.round(4 * scale));
+    // name
+    var nameSize = Math.round(15 * scale);
     x.textAlign = 'left';
+    x.textBaseline = 'middle';
+    x.fillStyle = '#f4f8ff';
+    x.font = '600 ' + nameSize + 'px "Space Grotesk", system-ui, sans-serif';
+    x.fillText(BRAND.name, textX, cy - Math.round(13 * scale));
+
+    // pills
+    var pillH = Math.round(23 * scale);
+    var padX = Math.round(13 * scale);
+    var pillFont = Math.round(11 * scale) + 'px "JetBrains Mono", ui-monospace, monospace';
+    x.font = pillFont;
+
+    var contactTxt = BRAND.siteShort + '  ·  ' + BRAND.phone + '  ·  ' + BRAND.email;
+    var wContact = x.measureText(contactTxt).width + padX * 2;
+    var contactY = cy + Math.round(2 * scale);
+    pill(x, textX, contactY, wContact, pillH, '#F5C518');
+    x.fillStyle = '#1a1400';
+    x.fillText(contactTxt, textX + padX, contactY + pillH / 2 + Math.round(0.5 * scale));
+
+    var dateTxt = 'Downloaded ' + hsStamp();
+    var wDate = x.measureText(dateTxt).width + padX * 2;
+    var dateX = out.width - pad - wDate;
+    var dateY = cy - pillH / 2;
+    pill(x, dateX, dateY, wDate, pillH, '#38c8c8');
+    x.fillStyle = '#08222a';
+    x.fillText(dateTxt, dateX + padX, dateY + pillH / 2 + Math.round(0.5 * scale));
+
+    x.textAlign = 'left';
+    x.textBaseline = 'alphabetic';
 
     var a = document.createElement('a');
     a.href = out.toDataURL('image/png');
