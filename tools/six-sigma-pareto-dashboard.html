@@ -775,6 +775,33 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
   padding-left:14px;margin:18px 0 0}
 @media (max-width:760px){.hs-explain h2{font-size:18px}.hs-explain p,.hs-explain li{font-size:14.5px;line-height:1.68}}
 
+.hs-video{position:relative;z-index:4;display:flex;gap:22px;align-items:center;flex-wrap:wrap;
+  max-width:1000px;margin:30px 0 0;padding:18px;border-radius:16px;
+  border:1px solid rgba(120,200,220,.18);background:rgba(17,23,38,.55)}
+.hs-video__frame{position:relative;flex:0 0 232px;width:232px;aspect-ratio:9/16;border-radius:12px;
+  overflow:hidden;background:linear-gradient(160deg,#13203a,#0a0e1a);cursor:pointer;
+  border:1px solid rgba(120,200,220,.25)}
+.hs-video__frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92}
+.hs-video__frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.hs-video__play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(10,14,26,.72);border:2px solid #38c8c8;color:#38c8c8;
+  transition:transform .2s ease,background .2s ease}
+.hs-video__frame:hover .hs-video__play{transform:translate(-50%,-50%) scale(1.07);background:rgba(56,200,200,.18)}
+.hs-video__play svg{width:22px;height:22px;margin-left:3px}
+.hs-video__txt{flex:1 1 260px;min-width:0}
+.hs-video__kicker{font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:#d4a73a;margin:0 0 8px}
+.hs-video__title{font-size:19px;font-weight:600;color:#f4f8ff;margin:0 0 8px;letter-spacing:-.2px}
+.hs-video__desc{font-size:14px;line-height:1.6;color:#a8b8cc;margin:0}
+.hs-video__note{font-family:var(--font-mono);font-size:10px;letter-spacing:1.1px;text-transform:uppercase;
+  color:#6f7f96;margin:12px 0 0}
+@media (max-width:760px){
+  .hs-video{gap:16px;padding:14px;justify-content:center}
+  .hs-video__frame{flex:0 0 190px;width:190px}
+  .hs-video__txt{flex:1 1 100%;text-align:center}
+}
+
 </style>
 </head>
 <body>
@@ -829,6 +856,19 @@ h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-.3px}
   <div class="hs-step"><div class="hs-step__n">2</div><div class="hs-step__t">Check what was read</div><p class="hs-step__d">The category count and total defects should match your sheet.</p></div>
   <div class="hs-step"><div class="hs-step__n">3</div><div class="hs-step__t">Read the vital few</div><p class="hs-step__d">Bars past the 80% line are where the defect load actually sits.</p></div>
   <div class="hs-step"><div class="hs-step__n">4</div><div class="hs-step__t">Take it away</div><p class="hs-step__d">Download the CSV for the numbers, or the chart as a PNG.</p></div>
+</div>
+
+  <div class="hs-video">
+  <div class="hs-video__frame" data-video="nkhLWFULrsU" data-title="Watch: using the Pareto dashboard" role="button" tabindex="0" aria-label="Play video: Watch: using the Pareto dashboard">
+    <img src="https://i.ytimg.com/vi/nkhLWFULrsU/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+    <span class="hs-video__play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+  </div>
+  <div class="hs-video__txt">
+    <p class="hs-video__kicker">Video tutorial &middot; 60 seconds</p>
+    <p class="hs-video__title">Watch: using the Pareto dashboard</p>
+    <p class="hs-video__desc">Sixty seconds, start to finish — upload a defect sheet, read the 80/20 line, download the chart.</p>
+    <p class="hs-video__note">Loads only when you press play</p>
+  </div>
 </div>
 
   <a class="hs-back" href="../free-resources.html">&larr; Back to free resources</a>
@@ -1621,6 +1661,23 @@ document.addEventListener('click', function(e){
   defect data and leave with a ranked list rather than a worked example from a textbook.</p>
 </div>
 
+
+<script>
+document.addEventListener('click', function(e){
+  var frame = e.target.closest ? e.target.closest('.hs-video__frame') : null;
+  if (!frame || frame.dataset.loaded) return;
+  var id = frame.getAttribute('data-video');
+  if (!id) return;
+  frame.dataset.loaded = '1';
+  var f = document.createElement('iframe');
+  f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+  f.title = frame.getAttribute('data-title') || 'Video tutorial';
+  f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+  f.allowFullscreen = true;
+  frame.innerHTML = '';
+  frame.appendChild(f);
+});
+</script>
 <script>
 document.addEventListener('change', function(e){
   var el = e.target;
