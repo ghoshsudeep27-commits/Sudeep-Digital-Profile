@@ -81,6 +81,20 @@ def markdown_to_html(md):
                 buf.append(inline(lines[i][2:])); i += 1
             out.append("  <blockquote><p>" + " ".join(buf) + "</p></blockquote>")
             continue
+        elif ln.strip().startswith("|"):
+            rows = []
+            while i < len(lines) and lines[i].strip().startswith("|"):
+                rows.append([c.strip() for c in lines[i].strip().strip("|").split("|")])
+                i += 1
+            # drop the |---|---| separator row
+            rows = [r for r in rows if not all(re.fullmatch(r":?-{2,}:?", c) for c in r if c)]
+            if rows:
+                head, body = rows[0], rows[1:]
+                th = "".join("<th>%s</th>" % inline(c) for c in head)
+                trs = "\n".join("      <tr>" + "".join("<td>%s</td>" % inline(c) for c in r) + "</tr>" for r in body)
+                out.append('  <div class="post-table-wrap">\n    <table class="post-table">\n      <thead><tr>'
+                           + th + '</tr></thead>\n      <tbody>\n' + trs + '\n      </tbody>\n    </table>\n  </div>')
+            continue
         elif re.match(r"^[-*]\s+", ln):
             items = []
             while i < len(lines):
