@@ -49,7 +49,13 @@ def read_front_matter(path):
 def inline(t):
     """Bold, italic and links inside a line of text."""
     t = html.escape(t, quote=False)
-    t = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r'<a href="\2">\1</a>', t)
+    def _link(m):
+        label, url = m.group(1), m.group(2)
+        # external sources open in a new tab so readers stay on the article
+        if re.match(r"^https?://", url):
+            return '<a href="%s" target="_blank" rel="noopener">%s</a>' % (url, label)
+        return '<a href="%s">%s</a>' % (url, label)
+    t = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", _link, t)
     t = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", t)
     t = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<em>\1</em>", t)
     return t
