@@ -157,12 +157,12 @@ Everything else — the slides, the activities, the venue — is detail.
 
 All figures are published asking prices or provider estimates, checked November 2026. None is audited transaction data.
 
-- KnowledgeHut — Corporate Training Pricing India: Cost, Models & Factors (2026).
-- Bodhih — How Much Does Corporate Training Cost in India? 2026 Guide, updated 5 November 2026.
-- BYLD Group — 2026 pricing guide, as cited by Bodhih.
-- Bija Training — published starting rates, services page (2026).
-- The Thought Bulb — published team building pricing (2026).
-- Mindela — Corporate AI Training Cost in 2026: India, GCC and US pricing.
+- KnowledgeHut — [Corporate Training Pricing India: Cost, Models & Factors (2026)](https://www.knowledgehut.com/blog/enterprise/corporate-training-pricing-india).
+- Bodhih — [How Much Does Corporate Training Cost in India? 2026 Guide](https://bodhih.com/corporate-training-cost-in-india), updated 5 November 2026.
+- BYLD Group — [2026 pricing guide](https://byldgroup.com/), as cited by Bodhih.
+- Bija Training — [published starting rates, services page (2026)](https://bijatraining.com/services.html).
+- The Thought Bulb — [published team building pricing (2026)](https://www.thethoughtbulb.com/pricing).
+- Mindela — [Corporate AI Training Cost in 2026: India, GCC and US pricing](https://mindela.in/blog/corporate-ai-training-cost-india-gcc-us).
 - Mettl — State of Workplace Learning and Development 2018, survey of 1,500+ Indian L&D professionals.
 
 ## About the author
