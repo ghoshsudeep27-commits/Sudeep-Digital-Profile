@@ -4,7 +4,7 @@ seo_title: Five questions every leader should ask themselves monthly
 seo_description: Prabir Jha's five questions every manager should ask monthly - multiply, reflect, confront, empower, listen - and how to actually run the review.
 category: Human Skills
 date: 2026-11-12
-slug: prabir-jha-five-questions-leaders-ask-themselves
+slug: five-leadership-questions-every-leader-should-ask
 image: images/blog/prabir-jha-five-questions.jpg
 excerpt: Most leaders review the numbers every month. Almost none review themselves. Five questions that cost an hour and can save you money, talent, ideas and reputation.
 ---
