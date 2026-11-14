@@ -2080,3 +2080,15 @@ html, body { overflow-x: clip; }
   .clock-bar { flex-wrap: wrap; row-gap: 2px; }
   .clock-bar__tel { order: -1; }
 }
+
+/* eight nav items: tighten spacing so the last pill is not clipped */
+@media (max-width: 1680px) {
+  .top-nav__links { gap: 2px; }
+  .top-nav__links .nav-link { padding-left: 8px; padding-right: 8px; font-size: 12.5px; letter-spacing: .2px; }
+  .top-nav__links .nav-num { font-size: 9.5px; }
+  .nav-link--cta { padding-left: 12px !important; padding-right: 12px !important; }
+}
+@media (max-width: 1280px) {
+  .top-nav__links .nav-link { font-size: 11.5px; padding-left: 6px; padding-right: 6px; }
+  .top-nav__name { font-size: 13px; }
+}
