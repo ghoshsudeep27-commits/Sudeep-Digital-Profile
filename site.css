@@ -2071,3 +2071,12 @@ html, body { overflow-x: clip; }
   background:rgba(56,200,200,.10);color:#eaf6f6 !important}
 .nav-link--cta:hover{background:rgba(56,200,200,.20);border-color:#38c8c8}
 .nav-link--cta .nav-num{color:#38c8c8}
+
+/* phone in the clock bar — click-to-call on mobile, visible number on desktop */
+.clock-bar__tel { color: var(--text-bright, #e4ecf5); font-weight: 700; text-decoration: none;
+  letter-spacing: .3px; flex: 0 0 auto; white-space: nowrap; }
+.clock-bar__tel:hover { color: var(--accent); }
+@media (max-width: 760px) {
+  .clock-bar { flex-wrap: wrap; row-gap: 2px; }
+  .clock-bar__tel { order: -1; }
+}
