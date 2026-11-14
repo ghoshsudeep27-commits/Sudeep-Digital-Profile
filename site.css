@@ -2065,3 +2065,9 @@ html, body { overflow-x: clip; }
   .light-zone .steps-row--tinted .step__title { margin-top: 0; font-size: 15px; }
   .light-zone .steps-row--tinted .step__text { grid-column: 2; font-size: 13px; margin-top: 4px; }
 }
+
+
+.nav-link--cta{border:1px solid rgba(56,200,200,.55);border-radius:100px;padding:5px 14px;
+  background:rgba(56,200,200,.10);color:#eaf6f6 !important}
+.nav-link--cta:hover{background:rgba(56,200,200,.20);border-color:#38c8c8}
+.nav-link--cta .nav-num{color:#38c8c8}
