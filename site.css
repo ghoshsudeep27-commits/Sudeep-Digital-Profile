@@ -2096,3 +2096,10 @@ html, body { overflow-x: clip; }
 .clock-bar__lang { color: var(--accent); font-weight: 700; text-decoration: none; flex: 0 0 auto;
   white-space: nowrap; border-bottom: 1px solid rgba(56,200,200,.45); padding-bottom: 1px; }
 .clock-bar__lang:hover { color: #fff; border-bottom-color: #fff; }
+
+/* PDF download card: stack on phones so the text is not squeezed to one word per line */
+@media (max-width: 720px) {
+  .pdf-card { grid-template-columns: 1fr !important; gap: 16px !important; padding: 16px !important; }
+  .pdf-card__thumb { max-width: 150px; margin: 0 auto; }
+  .pdf-card__body h2 { font-size: 17px !important; }
+}
