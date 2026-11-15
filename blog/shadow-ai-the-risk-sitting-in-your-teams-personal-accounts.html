@@ -2305,4 +2305,19 @@ if (typeof smoothScrollTo !== 'function') {
 })();
 </script>
 
+<style>
+@media (max-width:520px){
+  .top-nav__brand{gap:8px}
+  .top-nav__name{font-size:10.5px !important;letter-spacing:.4px !important;white-space:nowrap}
+  .top-nav__name span{font-size:8.5px !important;letter-spacing:1px !important}
+}
+@media (max-width:400px){ .top-nav__name span{display:none !important} }
+.hs-fab{width:56px !important;height:56px !important;display:block !important}
+.hs-fab__toggle{position:relative !important}
+.hs-fab__item{position:absolute !important;top:2px !important;right:0 !important;width:52px !important;height:52px !important;
+  opacity:0 !important;pointer-events:none !important;transform:scale(.85) !important}
+.hs-fab__item--call{right:64px !important}
+.hs-fab__item--wa{right:126px !important}
+.hs-fab.open .hs-fab__item{opacity:1 !important;pointer-events:auto !important;transform:none !important}
+</style>
 </body></html>
