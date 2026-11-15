@@ -2092,3 +2092,7 @@ html, body { overflow-x: clip; }
   .top-nav__links .nav-link { font-size: 11.5px; padding-left: 6px; padding-right: 6px; }
   .top-nav__name { font-size: 13px; }
 }
+
+.clock-bar__lang { color: var(--accent); font-weight: 700; text-decoration: none; flex: 0 0 auto;
+  white-space: nowrap; border-bottom: 1px solid rgba(56,200,200,.45); padding-bottom: 1px; }
+.clock-bar__lang:hover { color: #fff; border-bottom-color: #fff; }
