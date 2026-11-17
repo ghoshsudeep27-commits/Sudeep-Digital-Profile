@@ -1263,7 +1263,7 @@ function smoothScrollTo(targetId, event) {
   let popupsRequest = null;
   function loadPopups() {
     if (popupsRequest) return popupsRequest;
-    popupsRequest = fetch('popups.html', { cache: 'force-cache' })
+    popupsRequest = fetch('popups.html?v=20261118', { cache: 'force-cache' })
       .then(r => (r.ok ? r.text() : ''))
       .then(html => { store.innerHTML = html; return true; })
       .catch(() => false);
