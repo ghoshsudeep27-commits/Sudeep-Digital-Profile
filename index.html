@@ -676,7 +676,38 @@ document.addEventListener('DOMContentLoaded',function(){
 
 
     <div style="margin:26px 0 4px;padding:16px 18px;border:1px solid var(--border);border-radius:10px;background:#fff;">
-      <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--accent-2);margin:0 0 12px;">Where to go next</div>
+      <style>
+.next-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:2px;}
+.next-links a{position:relative;overflow:hidden;display:flex;align-items:center;gap:10px;
+  padding:12px 14px;border-radius:9px;font-size:14.5px;font-weight:600;line-height:1.35;
+  text-decoration:none;color:var(--text-bright);border:1px solid rgba(0,0,0,.06);
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease;}
+.next-links a .nl-arrow{font-size:15px;line-height:1;transition:transform .18s ease;}
+.next-links a::after{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);}
+.next-links a:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(10,30,50,.13);}
+.next-links a:hover::after{animation:nlSweep .7s ease;}
+.next-links a:hover .nl-arrow{transform:translateX(4px);}
+@keyframes nlSweep{from{left:-120%}to{left:130%}}
+@media (prefers-reduced-motion:reduce){.next-links a:hover::after{animation:none}}
+</style>
+<div style="margin:26px 0 4px;padding:18px 20px;border:1px solid var(--border);border-radius:12px;
+     background:linear-gradient(135deg,#fbfdff,#eef6f7);">
+  <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:1.6px;text-transform:uppercase;
+       color:var(--accent-2);margin:0 0 14px;">Where to go next</div>
+  <div class="next-links">
+    <a href="corporate-training.html" style="background:rgba(91,141,239,.10);border-left:3px solid #5b8def;">
+      <span class="nl-arrow" style="color:#3f6fd8;">&rarr;</span>Corporate training, all 13 programmes</a>
+    <a href="soft-skills-training.html" style="background:rgba(14,115,115,.10);border-left:3px solid #0e7373;">
+      <span class="nl-arrow" style="color:#0e7373;">&rarr;</span>Soft skills for teams</a>
+    <a href="six-sigma-ai-training.html" style="background:rgba(184,134,11,.12);border-left:3px solid #b8860b;">
+      <span class="nl-arrow" style="color:#b8860b;">&rarr;</span>Six Sigma + AI for manufacturing</a>
+    <a href="mindfulness-meditation.html" style="background:rgba(63,160,106,.12);border-left:3px solid #3fa06a;">
+      <span class="nl-arrow" style="color:#3fa06a;">&rarr;</span>Mindfulness &amp; meditation</a>
+    <a href="blog/how-to-choose-a-soft-skills-trainer.html" style="background:rgba(207,90,146,.10);border-left:3px solid #cf5a92;">
+      <span class="nl-arrow" style="color:#cf5a92;">&rarr;</span>How to choose a trainer</a>
+  </div>
+</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px 22px;">
         <a href="corporate-training.html" style="display:flex;align-items:baseline;gap:7px;font-size:14.5px;line-height:1.45;color:var(--accent);text-decoration:none;padding:3px 0;"><span style="color:var(--accent-2);font-size:12px;">&rarr;</span>Corporate training, all 13 programmes</a>
         <a href="soft-skills-training.html" style="display:flex;align-items:baseline;gap:7px;font-size:14.5px;line-height:1.45;color:var(--accent);text-decoration:none;padding:3px 0;"><span style="color:var(--accent-2);font-size:12px;">&rarr;</span>Soft skills for teams</a>
