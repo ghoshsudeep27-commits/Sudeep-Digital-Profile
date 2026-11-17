@@ -400,7 +400,7 @@
     </section>
 
 <!-- ===== LIGHT CONTENT ZONE (blend theme) ===== -->
-<div class="light-zone">
+<div class="light-zone light-zone--tight">
     <!-- ===== Stats accent band (dark strip in the light flow) ===== -->
     <section id="clientsStrip" aria-label="Clients and organisations" style="position:relative;padding:18px 0 16px;border-bottom:1px solid var(--border);">
   <div style="display:flex;align-items:center;gap:12px;margin:0 0 12px;">
@@ -427,6 +427,28 @@
       <button type="button" id="clientsNext" aria-label="Scroll clients right" style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(14,115,115,.25);background:#fff;color:#0e7373;cursor:pointer;font-size:15px;line-height:1;">&#8250;</button>
     </div>
   </div>
+
+  <style>
+  /* homepage: pull the clients strip up under the hero */
+  .light-zone--tight{padding-top:22px}
+  @media (max-width:760px){.light-zone--tight{padding-top:12px}}
+  /* colourful client pills */
+  #clientsRail span:nth-child(1){background:#FDE9E4 !important;border-color:#E8A78F !important;color:#8A3A1B !important}
+  #clientsRail span:nth-child(2){background:#E4F1FB !important;border-color:#8FBFE0 !important;color:#14486B !important}
+  #clientsRail span:nth-child(3){background:#E8F5EC !important;border-color:#8FCBA3 !important;color:#1C5637 !important}
+  #clientsRail span:nth-child(4){background:#FFF3D6 !important;border-color:#E0C173 !important;color:#6B4E0B !important}
+  #clientsRail span:nth-child(5){background:#EDE9FB !important;border-color:#B2A6E0 !important;color:#3B2F73 !important}
+  #clientsRail span:nth-child(6){background:#E6F6F5 !important;border-color:#87C9C6 !important;color:#0E5F5E !important}
+  #clientsRail span:nth-child(7){background:#FDECF3 !important;border-color:#E5A2BE !important;color:#7A2447 !important}
+  #clientsRail span:nth-child(8){background:#EFF3E4 !important;border-color:#B5C583 !important;color:#4A5720 !important}
+  #clientsRail span:nth-child(9){background:#E9F1FF !important;border-color:#9BB6E8 !important;color:#1E3A6E !important}
+  #clientsRail span:nth-child(10){background:#FFF0E6 !important;border-color:#EBB183 !important;color:#7A3F14 !important}
+  #clientsRail span:nth-child(11){background:#E8F7F0 !important;border-color:#8DD3B4 !important;color:#14543C !important}
+  /* colourful scroll buttons */
+  #clientsPrev{background:#0e7373 !important;border-color:#0e7373 !important;color:#fff !important;box-shadow:0 2px 8px rgba(14,115,115,.35)}
+  #clientsNext{background:#c9a227 !important;border-color:#c9a227 !important;color:#fff !important;box-shadow:0 2px 8px rgba(201,162,39,.35)}
+  #clientsPrev:hover,#clientsNext:hover{filter:brightness(1.1)}
+  </style>
   <style>#clientsRail::-webkit-scrollbar{display:none}
     @media (max-width:760px){#clientsArrows{display:none}}</style>
   <script>
