@@ -542,6 +542,19 @@
         <button class="track-tab" data-track="mind" role="tab" aria-selected="false">Mindfulness &amp; Wellbeing <span class="track-tab__n">1</span><span class="track-tab__chev" aria-hidden="true">&#9662;</span></button>
 </div>
 <style>
+/* programme filter tabs: keep five on one line, scroll sideways on phones */
+.track-tabs { gap: 6px !important; margin: 6px 0 16px !important; }
+.track-tab { padding: 7px 11px !important; font-size: 10px !important; letter-spacing: .2px !important; }
+.track-tab__n { font-size: 9px !important; }
+.track-tab__chev { font-size: 8px !important; }
+@media (max-width: 900px) {
+  .track-tabs { flex-wrap: nowrap !important; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px; scrollbar-width: none; }
+  .track-tabs::-webkit-scrollbar { display: none; }
+  .track-tab { flex: 0 0 auto; }
+}
+</style>
+<style>
 .track-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 18px;}
 .track-tab{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;
   padding:9px 14px;border-radius:8px;border:none;background:linear-gradient(135deg,#4fd6d6,#2bb6b6);color:#0a0e1a;
