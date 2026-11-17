@@ -402,7 +402,54 @@
 <!-- ===== LIGHT CONTENT ZONE (blend theme) ===== -->
 <div class="light-zone">
     <!-- ===== Stats accent band (dark strip in the light flow) ===== -->
-    <div class="stats-band" aria-label="Career highlights">
+    <section id="clientsStrip" aria-label="Clients and organisations" style="position:relative;padding:18px 0 16px;border-bottom:1px solid var(--border);">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 12px;">
+    <span style="display:inline-block;width:22px;height:3px;border-radius:2px;background:#c9a227;"></span>
+    <span style="font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#0e7373;">Clients &amp; organisations</span>
+    <span style="font-size:12.5px;color:var(--text-dim);">Teams trained, and organisations worked with</span>
+  </div>
+  <div style="position:relative;">
+    <div id="clientsRail" style="display:flex;gap:9px;overflow-x:auto;scroll-behavior:smooth;padding:2px 2px 6px;scrollbar-width:none;-ms-overflow-style:none;">
+      <span style="flex:0 0 auto;display:inline-flex;align-items:center;padding:8px 15px;border-radius:100px;background:#fff;border:1px solid rgba(14,115,115,.20);font-size:13.5px;font-weight:600;color:#0f2a33;line-height:1.3;white-space:nowrap;">Dr. Reddy&#39;s Laboratories</span>
+      <span style="flex:0 0 auto;display:inline-flex;align-items:center;padding:8px 15px;border-radius:100px;background:#fff;border:1px solid rgba(14,115,115,.20);font-size:13.5px;font-weight:600;color:#0f2a33;line-height:1.3;white-space:nowrap;">UltraTech Cement</span>
+      <span style="flex:0 0 auto;display:inline-flex;align-items:center;padding:8px 15px;border-radius:100px;background:#fff;border:1px solid rgba(14,115,115,.20);font-size:13.5px;font-weight:600;color:#0f2a33;line-height:1.3;white-space:nowrap;">Shree Cement</span>
+      <span style="flex:0 0 auto;display:inline-flex;align-items:center;padding:8px 15px;border-radius:100px;background:#fff;border:1px solid rgba(14,115,115,.20);font-size:13.5px;font-weight:600;color:#0f2a33;line-height:1.3;white-space:nowrap;">Apollo Home Healthcare</span>
+      <span style="flex:0 0 auto;display:inline-flex;align-items:center;padding:8px 15px;border-radius:100px;background:#fff;border:1px solid rgba(14,115,115,.20);font-size:13.5px;font-weight:600;color:#0f2a33;line-height:1.3;white-space:nowrap;">Mahindra Pride Classroom · Naandi Foundation</span>
+      <span style="flex:0 0 auto;display:inline-flex;align-items:center;padding:8px 15px;border-radius:100px;background:#fff;border:1px solid rgba(14,115,115,.20);font-size:13.5px;font-weight:600;color:#0f2a33;line-height:1.3;white-space:nowrap;">AIDIAS Consulting Group</span>
+      <span style="flex:0 0 auto;display:inline-flex;align-items:center;padding:8px 15px;border-radius:100px;background:#fff;border:1px solid rgba(14,115,115,.20);font-size:13.5px;font-weight:600;color:#0f2a33;line-height:1.3;white-space:nowrap;">Wordsworth English Language Lab</span>
+      <span style="flex:0 0 auto;display:inline-flex;align-items:center;padding:8px 15px;border-radius:100px;background:#fff;border:1px solid rgba(14,115,115,.20);font-size:13.5px;font-weight:600;color:#0f2a33;line-height:1.3;white-space:nowrap;">MIDIGIWORLD</span>
+      <span style="flex:0 0 auto;display:inline-flex;align-items:center;padding:8px 15px;border-radius:100px;background:#fff;border:1px solid rgba(14,115,115,.20);font-size:13.5px;font-weight:600;color:#0f2a33;line-height:1.3;white-space:nowrap;">Advanced Dentistry</span>
+    </div>
+    <div id="clientsArrows" style="position:absolute;right:0;top:-4px;display:flex;gap:6px;">
+      <button type="button" id="clientsPrev" aria-label="Scroll clients left" style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(14,115,115,.25);background:#fff;color:#0e7373;cursor:pointer;font-size:15px;line-height:1;">&#8249;</button>
+      <button type="button" id="clientsNext" aria-label="Scroll clients right" style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(14,115,115,.25);background:#fff;color:#0e7373;cursor:pointer;font-size:15px;line-height:1;">&#8250;</button>
+    </div>
+  </div>
+  <style>#clientsRail::-webkit-scrollbar{display:none}
+    @media (max-width:760px){#clientsArrows{display:none}}</style>
+  <script>
+  (function(){
+    var rail=document.getElementById('clientsRail');
+    if(!rail) return;
+    var step=260;
+    function upd(){
+      var wrap=document.getElementById('clientsArrows');
+      if(!wrap) return;
+      var over=rail.scrollWidth>rail.clientWidth+4;
+      wrap.style.display = over ? 'flex' : 'none';
+      document.getElementById('clientsPrev').style.opacity = rail.scrollLeft>4 ? 1 : .35;
+      document.getElementById('clientsNext').style.opacity = (rail.scrollLeft+rail.clientWidth<rail.scrollWidth-4) ? 1 : .35;
+    }
+    document.getElementById('clientsPrev').addEventListener('click',function(){rail.scrollLeft-=step;setTimeout(upd,320);});
+    document.getElementById('clientsNext').addEventListener('click',function(){rail.scrollLeft+=step;setTimeout(upd,320);});
+    rail.addEventListener('scroll',upd);
+    window.addEventListener('resize',upd);
+    upd();
+  })();
+  </script>
+</section>
+
+<div class="stats-band" aria-label="Career highlights">
       <div class="stats-band__item"><div class="stats-band__value stats-band__value--gold">2700+</div><div class="stats-band__label">Learners Trained</div></div>
       <div class="stats-band__item"><div class="stats-band__value stats-band__value--teal">60+</div><div class="stats-band__label">Workshops Conducted</div></div>
       <div class="stats-band__item"><div class="stats-band__value">1000+</div><div class="stats-band__label">Hours of Training</div></div>
@@ -799,23 +846,7 @@ document.addEventListener('DOMContentLoaded',function(){
     </div>
 
     <!-- ===== Certificate Display ===== -->
-    <div style="margin:30px 0 6px;padding:18px 20px;border:1px solid var(--border);border-radius:12px;background:#fff;">
-        <div style="font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#0e7373;margin:0 0 6px;display:flex;align-items:center;gap:9px;">
-          <span style="display:inline-block;width:22px;height:3px;border-radius:2px;background:#c9a227;"></span>Clients &amp; organisations</div>
-        <p style="margin:0 0 14px;font-size:13.5px;line-height:1.6;color:var(--text-dim);">
-          Teams trained, and organisations worked with. Names only &mdash; client logos are not reproduced.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;">
-          <span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:100px;background:rgba(14,115,115,.06);border:1px solid rgba(14,115,115,.18);font-size:13.5px;font-weight:600;color:var(--text-bright);line-height:1.3;">Dr. Reddy&#39;s Laboratories</span>
-          <span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:100px;background:rgba(14,115,115,.06);border:1px solid rgba(14,115,115,.18);font-size:13.5px;font-weight:600;color:var(--text-bright);line-height:1.3;">UltraTech Cement</span>
-          <span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:100px;background:rgba(14,115,115,.06);border:1px solid rgba(14,115,115,.18);font-size:13.5px;font-weight:600;color:var(--text-bright);line-height:1.3;">Shree Cement</span>
-          <span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:100px;background:rgba(14,115,115,.06);border:1px solid rgba(14,115,115,.18);font-size:13.5px;font-weight:600;color:var(--text-bright);line-height:1.3;">Apollo Home Healthcare</span>
-          <span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:100px;background:rgba(14,115,115,.06);border:1px solid rgba(14,115,115,.18);font-size:13.5px;font-weight:600;color:var(--text-bright);line-height:1.3;">Mahindra Pride Classroom · Naandi Foundation</span>
-          <span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:100px;background:rgba(14,115,115,.06);border:1px solid rgba(14,115,115,.18);font-size:13.5px;font-weight:600;color:var(--text-bright);line-height:1.3;">AIDIAS Consulting Group</span>
-          <span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:100px;background:rgba(14,115,115,.06);border:1px solid rgba(14,115,115,.18);font-size:13.5px;font-weight:600;color:var(--text-bright);line-height:1.3;">Wordsworth English Language Lab</span>
-          <span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:100px;background:rgba(14,115,115,.06);border:1px solid rgba(14,115,115,.18);font-size:13.5px;font-weight:600;color:var(--text-bright);line-height:1.3;">MIDIGIWORLD</span>
-          <span style="display:inline-flex;align-items:center;padding:7px 14px;border-radius:100px;background:rgba(14,115,115,.06);border:1px solid rgba(14,115,115,.18);font-size:13.5px;font-weight:600;color:var(--text-bright);line-height:1.3;">Advanced Dentistry</span>
-        </div>
-      </div>
+    
       
       <div class="sec-head" id="s4">
       <h2 class="sec-head__title">Certificate of Completion</h2>
