@@ -2122,3 +2122,16 @@ html, body { overflow-x: clip; }
 .hs-fab__item--call { right: 64px !important; }
 .hs-fab__item--wa { right: 126px !important; }
 .hs-fab.open .hs-fab__item { opacity: 1 !important; pointer-events: auto !important; transform: none !important; }
+
+/* programme sub-links in the drawer: read as links, not as grey labels */
+.section-drawer a.drawer-sub-link {
+  display: block; font-size: 13px; color: var(--text-bright); text-decoration: none;
+  padding: 5px 14px 5px 28px; border-left: none; border-radius: 6px; line-height: 1.4;
+}
+.section-drawer a.drawer-sub-link::before { display: none; }
+.section-drawer a.drawer-sub-link:hover,
+.section-drawer a.drawer-sub-link:focus {
+  color: var(--accent); background: rgba(56,200,200,.10); border-left: none;
+  padding-left: 28px; font-size: 13px; text-decoration: underline;
+}
+.section-drawer a.drawer-sub-link::after { content: '↗'; font-size: 11px; margin-left: 6px; opacity: .55; }
