@@ -2668,5 +2668,22 @@ renderPrompts();
 })();
 </script>
 
+<style>
+/* --- certificate section: stack the heading, link and tag on phones --- */
+@media (max-width: 700px) {
+  #s4 .sec-head { display: block !important; }
+  #s4 .sec-head__title { font-size: 26px !important; line-height: 1.22 !important; letter-spacing: -.3px !important; }
+  #s4 .sec-head__line { margin: 14px 0 12px !important; width: 56px !important; }
+  #s4 .sec-head__tag { display: inline-block !important; margin: 0 0 6px !important; position: static !important; }
+  #s4 p { margin: 10px 0 4px !important; }
+  #s4 .cert-note { font-size: 14px !important; line-height: 1.65 !important; }
+  #s4 .cert-display { padding-bottom: 8px; }
+}
+/* --- keep the floating controls from sitting on top of text --- */
+@media (max-width: 480px) {
+  .toc-fab { font-size: 11px !important; padding: 11px 16px !important; letter-spacing: .6px !important; }
+  .back-top { font-size: 12px !important; padding: 10px 14px !important; }
+}
+</style>
 </body>
 </html>
