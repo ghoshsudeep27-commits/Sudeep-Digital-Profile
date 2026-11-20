@@ -2153,3 +2153,12 @@ html, body { overflow-x: clip; }
   50%      { box-shadow: 0 0 0 3px rgba(201,162,39,.14), 0 6px 24px rgba(201,162,39,.22); }
 }
 @media (prefers-reduced-motion: reduce) { .inst-card { animation: none; } }
+
+/* copy button on the Udyam number */
+.inst-copy { display:inline-flex; align-items:center; gap:6px; padding:5px 11px; border-radius:100px;
+  border:1px solid rgba(14,115,115,.30); background:#fff; color:#0e7373; font-size:12px; font-weight:700;
+  letter-spacing:.4px; cursor:pointer; transition:background .18s ease, color .18s ease; }
+.inst-copy:hover { background:#e6f2f2; }
+.inst-copy.copied { background:#0e7373; color:#fff; border-color:#0e7373; }
+/* Hindi heading: Devanagari has no uppercase, and wide tracking breaks the matras */
+.inst-head--hi { font-size:12.5px !important; letter-spacing:.2px !important; text-transform:none !important; }
