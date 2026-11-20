@@ -2135,3 +2135,13 @@ html, body { overflow-x: clip; }
   padding-left: 28px; font-size: 13px; text-decoration: underline;
 }
 .section-drawer a.drawer-sub-link::after { content: '↗'; font-size: 11px; margin-left: 6px; opacity: .55; }
+
+/* ---- institutional bookings card: larger verification mark + gentle shimmer ---- */
+.inst-card { position: relative; overflow: hidden; }
+.inst-card::after {
+  content: ''; position: absolute; top: 0; left: -60%; width: 45%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201,162,39,.16), transparent);
+  transform: skewX(-12deg); animation: instSweep 4.6s ease-in-out infinite; pointer-events: none;
+}
+@keyframes instSweep { 0% { left: -60%; } 55% { left: 120%; } 100% { left: 120%; } }
+@media (prefers-reduced-motion: reduce) { .inst-card::after { animation: none; } }
