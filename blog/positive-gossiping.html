@@ -2072,6 +2072,53 @@ html, body { overflow-x: clip; }
   <p>Ask a room full of professionals whether they gossip at work, and most will look at their shoes. 🙈 Gossip has a reputation problem - and it is not entirely undeserved.</p>
   <p>But step back, and the definition is neutral. Gossip is simply talk about people. The question is never whether we do it - we do, constantly. The question is what it is for. 🤔</p>
   <p><strong>Positive Gossiping</strong> is a way to point that instinct somewhere useful. 🙌</p>
+
+  <div class="yt-embed" style="margin:34px 0 8px;">
+    <div style="display:flex;align-items:center;gap:10px;margin:0 0 10px;">
+      <span style="display:inline-block;width:22px;height:3px;border-radius:2px;background:#c9a227;"></span>
+      <span style="font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#7fe0e0;">Watch in Hindi</span>
+      <span style="font-size:12.5px;color:var(--text-dim);" lang="hi">सकारात्मक गपशप · 10 मिनट की टीम बॉन्डिंग रस्म</span>
+    </div>
+    <div style="display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap;">
+      <button type="button" class="yt-facade" data-vid="JbiF-mia_XA" aria-label="Play the Hindi video about positive gossiping"
+        style="position:relative;flex:0 0 auto;width:270px;max-width:100%;aspect-ratio:9/16;border:none;padding:0;
+        border-radius:14px;overflow:hidden;cursor:pointer;background:#0a0e1a;
+        border:1px solid var(--border-bright);box-shadow:0 10px 28px rgba(0,0,0,.35);">
+        <img src="../images/positive-gossiping-hindi.jpg" alt="Hindi video: सकारात्मक गपशप — a ten-minute team bonding ritual"
+          width="540" height="967" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover;">
+        <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+          <span style="width:64px;height:64px;border-radius:50%;background:rgba(10,14,26,.72);
+            border:2px solid rgba(56,200,200,.85);display:flex;align-items:center;justify-content:center;">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="#e4ecf5" style="margin-left:3px;"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </span>
+      </button>
+      <div style="flex:1 1 260px;min-width:240px;font-size:15px;line-height:1.7;color:var(--text);">
+        <p style="margin:0 0 10px;">The same idea, in Hindi &mdash; a one-minute walkthrough of the
+        ten-minute ritual, for teams who would rather watch than read.</p>
+        <p style="margin:0;font-size:13.5px;color:var(--text-dim);">Tap the play button to load the video.
+        Nothing loads from YouTube until you do.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  document.querySelectorAll('.yt-facade').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var id = btn.getAttribute('data-vid');
+      var frame = document.createElement('iframe');
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      frame.title = 'सकारात्मक गपशप — positive gossiping, in Hindi';
+      frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      frame.allowFullscreen = true;
+      frame.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;';
+      btn.innerHTML = '';
+      btn.style.cursor = 'default';
+      btn.appendChild(frame);
+    }, { once: true });
+  });
+  </script>
+
   <h2>🤔 What it actually is</h2>
   <p>Positive Gossiping is a structured, timed activity for three people. One tells a story about a person who mattered to them. One asks the questions. One watches, takes notes and protects the tone of the room. 🎭</p>
   <p>Ten minutes per round, and then everyone moves. 🔄</p>
