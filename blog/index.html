@@ -2112,6 +2112,13 @@ html, body { overflow-x: clip; }
   window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
 </script>
 <script src="../consent.js" defer></script>
+
+<style>
+/* thumbnails are clickable: give them a hover cue */
+.thumb-link img { transition: transform .35s ease, filter .35s ease; }
+.thumb-link:hover img, .thumb-link:focus-visible img { transform: scale(1.03); filter: brightness(1.08); }
+.post-card:hover .post-card__thumb img { transform: scale(1.03); }
+</style>
 </head>
 <body>
 <nav class="top-nav" id="topNav">
@@ -2148,7 +2155,7 @@ html, body { overflow-x: clip; }
     <button type="button" class="chip" data-filter="Healthcare" aria-pressed="false">Healthcare</button><button type="button" class="chip" data-filter="Human Skills" aria-pressed="false">Human Skills</button>
   </div>
   <article class="post-feature" data-category="Human Skills">
-    <div class="post-feature__art" style="position:relative;"><img src="../images/blog/positive-gossiping.jpg" alt="Positive Gossiping - the 10-minute ritual that turns small talk into big learning" width="1600" height="800" loading="eager" decoding="async"><span style="position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:100px;background:rgba(10,14,26,.82);border:1px solid rgba(56,200,200,.55);color:#7fe0e0;font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:1px;"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>हिंदी वीडियो</span></div>
+    <div class="post-feature__art" style="position:relative;"><a href="positive-gossiping.html" tabindex="-1" aria-hidden="true" class="thumb-link" style="display:block;line-height:0;"><img src="../images/blog/positive-gossiping.jpg" alt="Positive Gossiping - the 10-minute ritual that turns small talk into big learning" width="1600" height="800" loading="eager" decoding="async"></a><span style="position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:100px;background:rgba(10,14,26,.82);border:1px solid rgba(56,200,200,.55);color:#7fe0e0;font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:1px;"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>हिंदी वीडियो</span></div>
     <div class="post-feature__body">
       <div class="post-feature__tag">Featured &middot; Human Skills</div>
       <span class="badge-mustread">Must read</span>
@@ -2164,35 +2171,35 @@ html, body { overflow-x: clip; }
       
       
       <article class="post-card" data-category="Human Skills">
-        <div class="post-card__thumb"><img src="../images/blog/prabir-jha-five-questions.jpg" alt="Five questions every leader should ask themselves monthly" width="1600" height="800" loading="lazy" decoding="async"></div>
+        <div class="post-card__thumb"><a href="five-leadership-questions-every-leader-should-ask.html" tabindex="-1" aria-hidden="true" class="thumb-link" style="display:block;line-height:0;"><img src="../images/blog/prabir-jha-five-questions.jpg" alt="Five questions every leader should ask themselves monthly" width="1600" height="800" loading="lazy" decoding="async"></a></div>
         <div class="post-card__tag">Human Skills</div>
         <h3 class="post-card__title"><a href="five-leadership-questions-every-leader-should-ask.html">Five questions every leader should ask themselves monthly</a></h3>
         <p class="post-card__ex">Most leaders review the numbers every month. Almost none review themselves. Five questions that cost an hour and can save you money, talent, ideas and reputation.</p>
         <div class="post-card__meta">12 Nov 2026 &middot; 5 min read</div>
       </article>
 <article class="post-card" data-category="Human Skills">
-        <div class="post-card__thumb"><img src="../images/blog/choose-soft-skills-trainer.jpg" alt="How do I choose a soft skills trainer?" width="1600" height="800" loading="lazy" decoding="async"></div>
+        <div class="post-card__thumb"><a href="how-to-choose-a-soft-skills-trainer.html" tabindex="-1" aria-hidden="true" class="thumb-link" style="display:block;line-height:0;"><img src="../images/blog/choose-soft-skills-trainer.jpg" alt="How do I choose a soft skills trainer?" width="1600" height="800" loading="lazy" decoding="async"></a></div>
         <div class="post-card__tag">Human Skills</div>
         <h3 class="post-card__title"><a href="how-to-choose-a-soft-skills-trainer.html">How do I choose a soft skills trainer?</a></h3>
         <p class="post-card__ex">A practical guide for L&D teams, HR heads and senior management in India - what you are buying, what trainers charge, when to empanel a pool, and how to tell a facilitator from a lecturer with good slides.</p>
         <div class="post-card__meta">9 Nov 2026 &middot; 12 min read</div>
       </article>
 <article class="post-card" data-category="Human Skills">
-        <div class="post-card__thumb"><img src="../images/blog/ram-charan-first-90-days.jpg" alt="New to leadership? Five moves for your first 90 days" width="1600" height="800" loading="lazy" decoding="async"></div>
+        <div class="post-card__thumb"><a href="ram-charan-five-moves-first-90-days.html" tabindex="-1" aria-hidden="true" class="thumb-link" style="display:block;line-height:0;"><img src="../images/blog/ram-charan-first-90-days.jpg" alt="New to leadership? Five moves for your first 90 days" width="1600" height="800" loading="lazy" decoding="async"></a></div>
         <div class="post-card__tag">Human Skills</div>
         <h3 class="post-card__title"><a href="ram-charan-five-moves-first-90-days.html">New to leadership? Five moves for your first 90 days</a></h3>
         <p class="post-card__ex">You got the title before you got the manual. Five priorities Dr. Ram Charan sets out for new leaders - and why none of them can be delegated to a tool.</p>
         <div class="post-card__meta">31 Oct 2026 &middot; 5 min read</div>
       </article>
 <article class="post-card" data-category="AI Readiness">
-        <div class="post-card__thumb"><img src="../images/blog/ai-data-centres-india.jpg" alt="Global AI companies are turning to India for data centre capacity" width="1600" height="800" loading="lazy" decoding="async"></div>
+        <div class="post-card__thumb"><a href="ai-data-centres-india-skills-gap.html" tabindex="-1" aria-hidden="true" class="thumb-link" style="display:block;line-height:0;"><img src="../images/blog/ai-data-centres-india.jpg" alt="Global AI companies are turning to India for data centre capacity" width="1600" height="800" loading="lazy" decoding="async"></a></div>
         <div class="post-card__tag">AI Readiness</div>
         <h3 class="post-card__title"><a href="ai-data-centres-india-skills-gap.html">Global AI companies are turning to India for data centre capacity</a></h3>
         <p class="post-card__ex">India is no longer just an AI market - it is becoming the AI engine room. But compute scales with land and power. Judgement has to be trained.</p>
         <div class="post-card__meta">28 Oct 2026 &middot; 3 min read</div>
       </article>
 <article class="post-card" data-category="Enterprise AI">
-        <div class="post-card__thumb"><img src="../images/blog/claude-in-country-india.jpg" alt="India AI revolution - Claude and Amazon Bedrock: secure in-country inference for enterprise workloads" width="1600" height="800" loading="lazy" decoding="async"></div>
+        <div class="post-card__thumb"><a href="claude-in-country-india.html" tabindex="-1" aria-hidden="true" class="thumb-link" style="display:block;line-height:0;"><img src="../images/blog/claude-in-country-india.jpg" alt="India AI revolution - Claude and Amazon Bedrock: secure in-country inference for enterprise workloads" width="1600" height="800" loading="lazy" decoding="async"></a></div>
         <div class="post-card__tag">Enterprise AI</div>
         <h3 class="post-card__title"><a href="claude-in-country-india.html">Claude now processes in-country: what India's data-residency shift means for your team</a></h3>
         <p class="post-card__ex">In-country inference through AWS Bedrock removes the regulatory barrier that held regulated Indian sectors back from scaling generative AI. What it does not remove is the capability gap.</p>
@@ -2206,42 +2213,42 @@ html, body { overflow-x: clip; }
       
       
 <article class="post-card" data-category="Human Skills">
-        <div class="post-card__thumb"><img src="../images/blog/ai-and-soft-skills.jpg" alt="AI literacy is not enough on its own - the ten skills that decide who gets promoted next" width="1600" height="800" loading="lazy" decoding="async"></div>
+        <div class="post-card__thumb"><a href="ai-and-soft-skills.html" tabindex="-1" aria-hidden="true" class="thumb-link" style="display:block;line-height:0;"><img src="../images/blog/ai-and-soft-skills.jpg" alt="AI literacy is not enough on its own - the ten skills that decide who gets promoted next" width="1600" height="800" loading="lazy" decoding="async"></a></div>
         <div class="post-card__tag">Human Skills</div>
         <h3 class="post-card__title"><a href="ai-and-soft-skills.html">AI literacy is not enough on its own - the ten skills that decide who gets promoted next</a></h3>
         <p class="post-card__ex">The hiring bar has moved. It is no longer AI literacy or soft skills - it is the blend, and the people who have both are the ones being promoted.</p>
         <div class="post-card__meta">25 Jul 2026 &middot; 3 min read</div>
       </article>
 <article class="post-card" data-category="Healthcare">
-        <div class="post-card__thumb"><img src="../images/blog/healthcare-ai-augmentation.jpg" alt="AI is not replacing doctors - it is giving them their time back" width="1600" height="800" loading="lazy" decoding="async"></div>
+        <div class="post-card__thumb"><a href="healthcare-ai-augmentation.html" tabindex="-1" aria-hidden="true" class="thumb-link" style="display:block;line-height:0;"><img src="../images/blog/healthcare-ai-augmentation.jpg" alt="AI is not replacing doctors - it is giving them their time back" width="1600" height="800" loading="lazy" decoding="async"></a></div>
         <div class="post-card__tag">Healthcare</div>
         <h3 class="post-card__title"><a href="healthcare-ai-augmentation.html">AI is not replacing doctors - it is giving them their time back</a></h3>
         <p class="post-card__ex">India's healthcare problem is not too many workers. It is too few. That changes what AI is for - and it is not replacement.</p>
         <div class="post-card__meta">2 Jul 2026 &middot; 3 min read</div>
       </article>
 <article class="post-card" data-category="Manufacturing">
-        <div class="post-card__thumb"><img src="../images/blog/six-sigma-ai-pareto.jpg" alt="AI gives Six Sigma its velocity - the Pareto principle at machine speed" width="1600" height="800" loading="lazy" decoding="async"></div>
+        <div class="post-card__thumb"><a href="six-sigma-ai-pareto.html" tabindex="-1" aria-hidden="true" class="thumb-link" style="display:block;line-height:0;"><img src="../images/blog/six-sigma-ai-pareto.jpg" alt="AI gives Six Sigma its velocity - the Pareto principle at machine speed" width="1600" height="800" loading="lazy" decoding="async"></a></div>
         <div class="post-card__tag">Manufacturing</div>
         <h3 class="post-card__title"><a href="six-sigma-ai-pareto.html">AI gives Six Sigma its velocity - the Pareto principle at machine speed</a></h3>
         <p class="post-card__ex">Six Sigma gave us the discipline. AI gives us the velocity. What changes is not DMAIC - it is how fast each stage can run, and how much of it stops waiting on a person.</p>
         <div class="post-card__meta">17 Aug 2026 &middot; 3 min read</div>
       </article>
 <article class="post-card" data-category="Human Skills">
-        <div class="post-card__thumb"><img src="../images/blog/dashboards-over-dialogue.jpg" alt="Dashboards over dialogue - the hidden cost of busy leadership" width="1600" height="800" loading="lazy" decoding="async"></div>
+        <div class="post-card__thumb"><a href="dashboards-over-dialogue.html" tabindex="-1" aria-hidden="true" class="thumb-link" style="display:block;line-height:0;"><img src="../images/blog/dashboards-over-dialogue.jpg" alt="Dashboards over dialogue - the hidden cost of busy leadership" width="1600" height="800" loading="lazy" decoding="async"></a></div>
         <div class="post-card__tag">Human Skills</div>
         <h3 class="post-card__title"><a href="dashboards-over-dialogue.html">Dashboards over dialogue - the hidden cost of busy leadership</a></h3>
         <p class="post-card__ex">The hardest leadership problem today is not a lack of capability or strategy. It is a crisis of attention - and it is quietly turning managers into process controllers.</p>
         <div class="post-card__meta">5 Aug 2026 &middot; 3 min read</div>
       </article>
 <article class="post-card" data-category="Enterprise AI">
-        <div class="post-card__thumb"><img src="../images/blog/sarvam-ai-trillion-parameter.webp" alt="Sarvam AI is building a trillion-parameter model - and why that matters for Indian enterprise" width="1600" height="800" loading="lazy" decoding="async"></div>
+        <div class="post-card__thumb"><a href="sarvam-ai-trillion-parameter.html" tabindex="-1" aria-hidden="true" class="thumb-link" style="display:block;line-height:0;"><img src="../images/blog/sarvam-ai-trillion-parameter.webp" alt="Sarvam AI is building a trillion-parameter model - and why that matters for Indian enterprise" width="1600" height="800" loading="lazy" decoding="async"></a></div>
         <div class="post-card__tag">Enterprise AI</div>
         <h3 class="post-card__title"><a href="sarvam-ai-trillion-parameter.html">Sarvam AI is building a trillion-parameter model - and why that matters for Indian enterprise</a></h3>
         <p class="post-card__ex">India has spent a decade consuming AI built elsewhere. Sarvam AI's trillion-parameter model is the first serious attempt to manufacture it here - and the case for it is as much economic as technical.</p>
         <div class="post-card__meta">6 Aug 2026 &middot; 3 min read</div>
       </article>
 <article class="post-card" data-category="AI Readiness">
-        <div class="post-card__thumb"><img src="../images/blog/sample-header.jpg" alt="Shadow AI: the risk sitting in your team's personal accounts" width="1600" height="800" loading="lazy" decoding="async"></div>
+        <div class="post-card__thumb"><a href="shadow-ai-the-risk-sitting-in-your-teams-personal-accounts.html" tabindex="-1" aria-hidden="true" class="thumb-link" style="display:block;line-height:0;"><img src="../images/blog/sample-header.jpg" alt="Shadow AI: the risk sitting in your team's personal accounts" width="1600" height="800" loading="lazy" decoding="async"></a></div>
         <div class="post-card__tag">AI Readiness</div>
         <h3 class="post-card__title"><a href="shadow-ai-the-risk-sitting-in-your-teams-personal-accounts.html">Shadow AI: the risk sitting in your team's personal accounts</a></h3>
         <p class="post-card__ex">Most teams are already using AI at work. The problem is which accounts they are using it in, and what leaves the building with the prompt.</p>
