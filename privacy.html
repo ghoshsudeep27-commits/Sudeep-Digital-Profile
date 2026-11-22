@@ -2643,14 +2643,12 @@ html, body { overflow-x: clip; }
  ]
 }
 </script>
-<!-- Google Analytics (GA4) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3SXHN4B877"></script>
+<!-- Google Analytics (GA4) is loaded by consent.js, and only after the visitor accepts -->
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-3SXHN4B877');
+  window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
 </script>
+<script src="consent.js" defer></script>
 </head>
 <body>
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -2736,8 +2734,21 @@ html, body { overflow-x: clip; }
       We will act on your request within a reasonable time.</p>
 
       <h2 style="color:#0d1520;font-size:16px;margin:22px 0 6px;">Cookies and analytics</h2>
-      <p>Our pages may use privacy-respecting analytics to count visits and form submissions. We do not use this
-      to identify you personally.</p>
+      <p>This site uses Google Analytics 4 to understand which pages are useful. It records the pages you visit,
+      how long you stay, roughly where you are (city level, from your IP address), your device and browser type,
+      and whether you arrived from a search or a link. It does not record your name, email address, or anything
+      you type into a form.</p>
+
+      <p>Analytics cookies are only set after you accept the cookie notice. If you decline, or simply ignore it,
+      no analytics cookies are set and no analytics data is recorded. Nothing about your visit is affected either
+      way &mdash; the site works identically.</p>
+
+      <p>You can change your choice at any time using the &ldquo;Cookie settings&rdquo; link in the footer, or block
+      cookies in your browser. Google also offers an opt-out browser add-on at
+      <a href="https://tools.google.com/dlpage/gaoptout" style="color:#0e7373;">tools.google.com/dlpage/gaoptout</a>.</p>
+
+      <p>Analytics data is kept for up to 14 months and is not linked to any enquiry you send. Form submissions are
+      handled separately, as described above.</p>
 
       <h2 style="color:#0d1520;font-size:16px;margin:22px 0 6px;">Age</h2>
       <p>Our forms are intended for adults. We do not knowingly collect personal data from anyone under 18.
