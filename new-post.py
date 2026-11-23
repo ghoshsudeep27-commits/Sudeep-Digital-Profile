@@ -193,7 +193,15 @@ def build(md_path):
 <meta property="og:description" content="{html.escape(_seo_d, quote=True)}">
 <meta property="og:url" content="{SITE}/blog/{slug}.html">"""
     if image:
-        page += f'\n<meta property="og:image" content="{SITE}/{image}">'
+        page += (f'\n<meta property="og:image" content="{SITE}/{image}">'
+                 f'\n<meta property="og:image:width" content="1600">'
+                 f'\n<meta property="og:image:height" content="800">'
+                 f'\n<meta property="og:image:alt" content="{html.escape(title, quote=True)}">')
+    page += (f'\n<meta name="twitter:card" content="summary_large_image">'
+             f'\n<meta name="twitter:title" content="{html.escape(_seo_t, quote=True)}">'
+             f'\n<meta name="twitter:description" content="{html.escape(_seo_d, quote=True)}">')
+    if image:
+        page += f'\n<meta name="twitter:image" content="{SITE}/{image}">'
     page += f"""
 <style>{css}</style>
 <script type="application/ld+json">
