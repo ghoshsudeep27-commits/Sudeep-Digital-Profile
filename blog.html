@@ -1971,6 +1971,24 @@ html, body { overflow-x: clip; }
 .no-results { display: none; padding: 40px 0 70px; color: var(--text-dim); font-size: 15px; }
 .no-results.is-on { display: block; }
 
+
+/* ===== thumbnail hover motion ===== */
+.post-feature__art { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.post-feature__artlink { position: relative; display: block; width: 100%; }
+.post-feature__art img { display: block; width: 100%; height: auto; transition: transform .55s cubic-bezier(.2,.8,.3,1); }
+.post-feature:hover .post-feature__art img { transform: scale(1.045); }
+.feature-play { position: absolute; right: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: 999px; background: rgba(10,14,26,.82); border: 1px solid rgba(56,200,200,.55);
+  color: #e4ecf5; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; }
+.post-card { transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease; }
+.post-card:hover { transform: translateY(-5px); box-shadow: 0 16px 38px rgba(0,0,0,.38); border-color: var(--border-bright); }
+.post-card__thumblink { display: block; overflow: hidden; }
+.post-card__thumb img { transition: transform .55s cubic-bezier(.2,.8,.3,1); }
+.post-card:hover .post-card__thumb img { transform: scale(1.06); }
+@media (prefers-reduced-motion: reduce) {
+  .post-feature__art img, .post-card, .post-card__thumb img { transition: none; }
+  .post-feature:hover .post-feature__art img, .post-card:hover .post-card__thumb img { transform: none; }
+}
 </style>
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
@@ -2148,7 +2166,7 @@ html, body { overflow-x: clip; }
     <button type="button" class="chip" data-filter="Healthcare" aria-pressed="false">Healthcare</button><button type="button" class="chip" data-filter="Human Skills" aria-pressed="false">Human Skills</button>
   </div>
   <article class="post-feature" data-category="Human Skills">
-    <div class="post-feature__art"><img src="images/blog/positive-gossiping.jpg" alt="Positive Gossiping - the 10-minute ritual that turns small talk into big learning" width="1600" height="800" loading="eager" decoding="async"></div>
+    <div class="post-feature__art"><a href="blog/positive-gossiping.html" class="post-feature__artlink" aria-label="Read Positive Gossiping - includes a Hindi video"><img src="images/blog/positive-gossiping.jpg" alt="Positive Gossiping - the 10-minute ritual that turns small talk into big learning" width="1600" height="800" loading="eager" decoding="async"><span class="feature-play"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> Watch in Hindi</span></a></div>
     <div class="post-feature__body">
       <div class="post-feature__tag">Featured &middot; Human Skills</div>
       <span class="badge-mustread">Must read</span>

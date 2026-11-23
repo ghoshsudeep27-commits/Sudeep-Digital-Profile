@@ -274,8 +274,10 @@ def build(md_path):
             idx = listing.rfind("</section>", 0, listing.find('<footer class="site-foot"'))
             listing = listing[:idx] + grid + listing[idx:]
         listing = keep_featured_image(listing)
-        sync_blog_index(listing)
         open(os.path.join(ROOT, "blog.html"), "w", encoding="utf-8").write(listing)
+
+    # always keep blog/index.html in step with blog.html, even when the card already existed
+    sync_blog_index(listing)
 
     # ---- sitemap ----
     sm_path = os.path.join(ROOT, "sitemap.xml")
