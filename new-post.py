@@ -382,11 +382,21 @@ def post_process(html):
     #    Posts are generated, so anything the listing carries in <head> has to be
     #    copied across explicitly - otherwise new posts ship without GA.
     icons = "\n".join(re.findall(r'<link rel="(?:icon|apple-touch-icon)"[^>]*>', listing))
+    # analytics: the site now loads GA through a consent-gated loader, so carry that
+    # script tag across (raising the path one level) instead of the old inline snippet.
+    ga_bits = []
+    consent = re.search(r'<script[^>]*src="[^"]*consent\.js"[^>]*></script>', listing)
+    if consent:
+        tag = consent.group(0)
+        tag = re.sub(r'src="(?!https?:|\.\./)', 'src="../', tag)
+        ga_bits.append(tag)
     ga = re.search(r'(?:<!--\s*Google Analytics[^>]*-->\s*)?'
                    r'<script async src="https://www\.googletagmanager\.com/gtag/js\?id=[^"]+"></script>'
                    r'\s*<script>.*?</script>', listing, re.S)
     if ga:
-        icons = ga.group(0) + "\n" + icons
+        ga_bits.append(ga.group(0))
+    if ga_bits:
+        icons = "\n".join(ga_bits) + "\n" + icons
 
     # 2. the Explore-more FAB + the site's section drawer
     fab = re.search(r'<button class="toc-fab".*?</button>', listing, re.S).group(0)
