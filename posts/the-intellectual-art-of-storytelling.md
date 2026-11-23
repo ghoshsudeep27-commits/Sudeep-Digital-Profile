@@ -125,14 +125,7 @@ It also happens to be the honest ending. The hero who solves everything in the t
 
 Take *Chak De! India*. If you have seen it, check the framework against your own memory of it — that is the test of whether a structure is real or invented.
 
-- **Hero** — not one person but a group: sixteen women from different states who have never played as a team. The coach, Kabir Khan, is the second hero, and his quest is his own.
-- **Quest** — win the World Cup, and in doing so settle a debt of reputation that has followed him for seven years.
-- **Objective** — the appointment is a last chance, publicly granted and publicly doubted. There is no second attempt available.
-- **Auxiliaries** — his belief in a method, one player who converts first, and the slow, grudging bonding of the squad itself.
-- **Adversary** — three at once, which is what makes it work: the federation official who wants them to fail, the regional cliques inside the team, and the hero's own certainty that he can win alone.
-- **Initial situation** — a disgraced coach, a squad nobody rates, a system content to keep it that way.
-- **Course of action** — the selection battles, the discipline, the tactical switch to a style nobody expects, and the cost of each.
-- **Outcome** — a trophy, yes, but the learning the film actually trades on is about the team, and about a country forgiving a man it had already convicted in the press.
+![Five ingredients and three parts, mapped onto Chak De! India](images/blog/chak-de-skeleton.png)
 
 Notice what the adversary does there. Remove the internal cliques and you have a sports film about hockey. Keep them, and you have a story about belonging.
 

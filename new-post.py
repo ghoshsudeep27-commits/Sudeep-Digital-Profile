@@ -255,9 +255,10 @@ def build(md_path):
     # ---- card into blog.html ----
     thumb = ""
     if image:
-        thumb = (f'        <div class="post-card__thumb"><img src="{image}" '
+        thumb = (f'        <a href="blog/{slug}.html" class="post-card__thumblink" style="display:block">'
+                 f'<div class="post-card__thumb"><img src="{image}" '
                  f'alt="{html.escape(title, quote=True)}" width="1600" height="800" '
-                 f'loading="lazy" decoding="async"></div>\n')
+                 f'loading="lazy" decoding="async"></div></a>\n')
     card = (f'      <article class="post-card" data-category="{category}">\n'
             f'{thumb}'
             f'        <div class="post-card__tag">{category}</div>\n'
