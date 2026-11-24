@@ -125,7 +125,9 @@ It also happens to be the honest ending. The hero who solves everything in the t
 
 Take *Chak De! India*. If you have seen it, check the framework against your own memory of it — that is the test of whether a structure is real or invented.
 
-![Five ingredients and three parts, mapped onto Chak De! India](images/blog/chak-de-skeleton.png)
+![The five ingredients mapped onto Chak De! India - hero, quest, objective, auxiliaries, adversary](images/blog/chakde-structure-1-ingredients.png)
+
+![The three parts mapped onto the same story - initial situation, course of action, outcome](images/blog/chakde-structure-2-parts.png)
 
 Notice what the adversary does there. Remove the internal cliques and you have a sports film about hockey. Keep them, and you have a story about belonging.
 
