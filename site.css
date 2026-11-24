@@ -2172,3 +2172,12 @@ html, body { overflow-x: clip; }
   padding-right: 38px; cursor: pointer;
 }
 .form-field select::-ms-expand { display: none; }
+
+/* ===== Diagnose - Train - Measure row =====
+   The two track rows above are collections of topics, so each card carries its own
+   colour. This row is one process in three stages, so the accent is uniform: it reads
+   as a sequence rather than three more categories. Static only, no animation. */
+.steps-row--three.steps-row--tinted .step { border-top-width: 3px; border-top-color: var(--accent); }
+.steps-row--three.steps-row--tinted .step__n { color: var(--accent); }
+.light-zone .steps-row--three.steps-row--tinted .step { border-top-color: #0e7373; }
+.light-zone .steps-row--three.steps-row--tinted .step__n { color: #0e7373; }
