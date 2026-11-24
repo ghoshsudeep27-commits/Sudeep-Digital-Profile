@@ -2185,3 +2185,7 @@ html, body { overflow-x: clip; }
   border-top-color: #0e7373;
 }
 .light-zone .steps-row--three.steps-row--tinted .step__n { color: #0e7373; }
+
+/* The three stage names carry the method, so they get more weight than a normal card title */
+.steps-row--three .step__title { font-size: 18px; letter-spacing: -.2px; }
+@media (max-width: 560px) { .steps-row--three .step__title { font-size: 16px; } }
