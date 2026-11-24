@@ -638,6 +638,7 @@ body:has(.tools-banner.show) .back-top { bottom: 72px; }
       <a href="free-resources.html#s14" data-section="s14" data-cross-page="1"><span class="num">14</span> Prompt Library <span class="new-badge">NEW</span></a>
       <a href="portfolio.html"><span class="num">15</span> Programmes &amp; Fees</a>
       <div style="padding:2px 0 6px 26px;display:grid;gap:1px;">
+      <a href="patient-experience-training.html" class="drawer-sub-link">Patient experience for hospitals</a>
       <a href="corporate-training.html" class="drawer-sub-link">Corporate training (Delhi NCR)</a>
       <a href="soft-skills-training.html" class="drawer-sub-link">Soft skills for teams</a>
       <a href="six-sigma-ai-training.html" class="drawer-sub-link">Six Sigma + AI</a>
@@ -1412,6 +1413,38 @@ renderPrompts();
   var wa = document.getElementById('hsWa'), call = document.getElementById('hsCall');
   if (wa) wa.addEventListener('click', function(){ track('whatsapp_click'); });
   if (call) call.addEventListener('click', function(){ track('call_click'); });
+})();
+</script>
+
+
+<!-- Page analytics: which FAQ was opened, and clicks on the enquiry button -->
+<script>
+(function(){
+  function track(name, params){
+    if (typeof window.gtag === 'function') {
+      params.page_path = location.pathname;
+      window.gtag('event', name, params);
+    }
+  }
+  var items = document.querySelectorAll('.faq-item');
+  for (var i = 0; i < items.length; i++) {
+    (function(item, idx){
+      var btn = item.querySelector('.faq-q');
+      if (!btn) return;
+      btn.addEventListener('click', function(){
+        if (!item.classList.contains('open')) return;
+        var t = btn.querySelector('.faq-q__text');
+        var q = t ? t.textContent.replace(/\s+/g, ' ').trim() : '';
+        track('faq_open', { faq_number: idx + 1, faq_question: q.slice(0, 80) });
+      });
+    })(items[i], i);
+  }
+  var ctas = document.querySelectorAll('.faq-cta__b');
+  for (var j = 0; j < ctas.length; j++) {
+    ctas[j].addEventListener('click', function(){
+      track('programme_cta', { cta: 'get_in_touch' });
+    });
+  }
 })();
 </script>
 
