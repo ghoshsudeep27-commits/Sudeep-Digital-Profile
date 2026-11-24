@@ -1311,9 +1311,9 @@ body::before {
 .step{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 18px}
 .step__n{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--accent);letter-spacing:1px}
 .step__title{font-size:16px;font-weight:600;color:var(--text-bright);margin-top:8px}
-.step__text{font-size:13.5px;color:var(--text-dim);line-height:1.55;margin-top:6px}
+.step__text{font-size:13.5px;color:var(--text);line-height:1.55;margin-top:6px}
 @media (max-width:900px){.steps-row{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:560px){.steps-row{grid-template-columns:1fr 1fr;gap:10px}.step{padding:14px 13px}.step__title{font-size:14.5px}.step__text{font-size:12.5px}}
+@media (max-width:560px){.steps-row{grid-template-columns:1fr 1fr;gap:10px}.step{padding:14px 13px}.step__title{font-size:14.5px}.step__text{font-size:13px}}
 @media (max-width:760px){
 .values-row{grid-template-columns:1fr;gap:12px}
 .value-card{display:flex;align-items:center;gap:14px;padding:14px 16px}
