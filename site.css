@@ -2179,5 +2179,9 @@ html, body { overflow-x: clip; }
    as a sequence rather than three more categories. Static only, no animation. */
 .steps-row--three.steps-row--tinted .step { border-top-width: 3px; border-top-color: var(--accent); }
 .steps-row--three.steps-row--tinted .step__n { color: var(--accent); }
-.light-zone .steps-row--three.steps-row--tinted .step { border-top-color: #0e7373; }
+.light-zone .steps-row--three.steps-row--tinted .step {
+  background: rgba(14, 115, 115, .06);
+  border-color: rgba(14, 115, 115, .22);
+  border-top-color: #0e7373;
+}
 .light-zone .steps-row--three.steps-row--tinted .step__n { color: #0e7373; }
